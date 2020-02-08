@@ -13,28 +13,31 @@ struct ContentView: View {
     
     var body: some View {
         ZStack {
-            VStack() {
-                HeadView()
-                    .padding(20)
-                
-                Spacer()
-                
-                MainView()
-                
-                Spacer()
-                
-                Image(systemName: "xmark.circle")
-                    .onTapGesture {
-                        self.showGreetingCard.toggle()
+            if !showGreetingCard {
+                VStack() {
+                    HeadView()
+                        .padding(20)
+                    
+                    Spacer()
+                    
+                    MainView()
+                    
+                    Spacer()
+                    
+                    Image(systemName: "xmark.circle")
+                        .onTapGesture {
+                            self.showGreetingCard.toggle()
+                    }
+                    .padding()
+                    
                 }
-                .padding()
-                
+                .transition(AnyTransition.scale.combined(with: .opacity).animation(.spring()))
             }
             
             if showGreetingCard {
                 GreetingCardViewControllerRepresentation()
-                    .transition(AnyTransition.slide.combined(with: AnyTransition.opacity))
-                    .animation(Animation.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0).delay(0.2))
+//                    .transition(AnyTransition.scale.combined(with: .opacity).animation(.spring()))
+//                    .animation(Animation.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0).delay(0.2))
                 
             }
         }

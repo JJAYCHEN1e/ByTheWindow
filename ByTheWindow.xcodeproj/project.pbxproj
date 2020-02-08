@@ -34,7 +34,7 @@
 		6333653D23EAE06A0072E311 /* CGMathExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGMathExtensions.swift; sourceTree = "<group>"; };
 		6333654723EBD6310072E311 /* GreetingCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingCardViewController.swift; sourceTree = "<group>"; };
 		6333654923EC14870072E311 /* BOApplePencilReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOApplePencilReachability.swift; sourceTree = "<group>"; };
-		634AA68D23E9AADE00ED6AA0 /* InFrontOfWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InFrontOfWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		634AA68D23E9AADE00ED6AA0 /* 窗前.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "窗前.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		634AA69023E9AADE00ED6AA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		634AA69223E9AADE00ED6AA0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		634AA69423E9AADE00ED6AA0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -106,7 +106,7 @@
 		634AA68423E9AADE00ED6AA0 = {
 			isa = PBXGroup;
 			children = (
-				634AA68F23E9AADE00ED6AA0 /* InFrontOfWindow */,
+				634AA68F23E9AADE00ED6AA0 /* ByTheWindow */,
 				634AA68E23E9AADE00ED6AA0 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -114,12 +114,12 @@
 		634AA68E23E9AADE00ED6AA0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				634AA68D23E9AADE00ED6AA0 /* InFrontOfWindow.app */,
+				634AA68D23E9AADE00ED6AA0 /* 窗前.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
 		};
-		634AA68F23E9AADE00ED6AA0 /* InFrontOfWindow */ = {
+		634AA68F23E9AADE00ED6AA0 /* ByTheWindow */ = {
 			isa = PBXGroup;
 			children = (
 				6333654123EAE63B0072E311 /* Drawing */,
@@ -131,7 +131,7 @@
 				634AA69E23E9AAE200ED6AA0 /* Info.plist */,
 				634AA69823E9AAE200ED6AA0 /* Preview Content */,
 			);
-			path = InFrontOfWindow;
+			path = ByTheWindow;
 			sourceTree = "<group>";
 		};
 		634AA69823E9AAE200ED6AA0 /* Preview Content */ = {
@@ -145,9 +145,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		634AA68C23E9AADE00ED6AA0 /* InFrontOfWindow */ = {
+		634AA68C23E9AADE00ED6AA0 /* ByTheWindow */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 634AA6A123E9AAE200ED6AA0 /* Build configuration list for PBXNativeTarget "InFrontOfWindow" */;
+			buildConfigurationList = 634AA6A123E9AAE200ED6AA0 /* Build configuration list for PBXNativeTarget "ByTheWindow" */;
 			buildPhases = (
 				634AA68923E9AADE00ED6AA0 /* Sources */,
 				634AA68A23E9AADE00ED6AA0 /* Frameworks */,
@@ -157,9 +157,9 @@
 			);
 			dependencies = (
 			);
-			name = InFrontOfWindow;
+			name = ByTheWindow;
 			productName = InFrontOfWindow;
-			productReference = 634AA68D23E9AADE00ED6AA0 /* InFrontOfWindow.app */;
+			productReference = 634AA68D23E9AADE00ED6AA0 /* 窗前.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -177,7 +177,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 634AA68823E9AADE00ED6AA0 /* Build configuration list for PBXProject "InFrontOfWindow" */;
+			buildConfigurationList = 634AA68823E9AADE00ED6AA0 /* Build configuration list for PBXProject "ByTheWindow" */;
 			compatibilityVersion = "Xcode 9.3";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -190,7 +190,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				634AA68C23E9AADE00ED6AA0 /* InFrontOfWindow */,
+				634AA68C23E9AADE00ED6AA0 /* ByTheWindow */,
 			);
 		};
 /* End PBXProject section */
@@ -371,7 +371,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.jjaychen.ReusableKnob;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "窗前";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -392,7 +392,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.jjaychen.ReusableKnob;
-				PRODUCT_NAME = "$(TARGET_NAME)";
+				PRODUCT_NAME = "窗前";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -401,7 +401,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		634AA68823E9AADE00ED6AA0 /* Build configuration list for PBXProject "InFrontOfWindow" */ = {
+		634AA68823E9AADE00ED6AA0 /* Build configuration list for PBXProject "ByTheWindow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				634AA69F23E9AAE200ED6AA0 /* Debug */,
@@ -410,7 +410,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		634AA6A123E9AAE200ED6AA0 /* Build configuration list for PBXNativeTarget "InFrontOfWindow" */ = {
+		634AA6A123E9AAE200ED6AA0 /* Build configuration list for PBXNativeTarget "ByTheWindow" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				634AA6A223E9AAE200ED6AA0 /* Debug */,
