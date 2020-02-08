@@ -361,10 +361,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"InFrontOfWindow/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ByTheWindow/Preview Content\"";
 				DEVELOPMENT_TEAM = XKUVHTJ3W8;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = InFrontOfWindow/Info.plist;
+				INFOPLIST_FILE = ByTheWindow/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -382,10 +382,10 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_ASSET_PATHS = "\"InFrontOfWindow/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"ByTheWindow/Preview Content\"";
 				DEVELOPMENT_TEAM = XKUVHTJ3W8;
 				ENABLE_PREVIEWS = YES;
-				INFOPLIST_FILE = InFrontOfWindow/Info.plist;
+				INFOPLIST_FILE = ByTheWindow/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

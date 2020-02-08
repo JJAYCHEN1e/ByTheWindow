@@ -1,6 +1,6 @@
 //
 //  SceneDelegate.swift
-//  InFrontOfWindow
+//  ByTheWindow
 //
 //  Created by JJAYCHEN on 2020/2/4.
 //  Copyright © 2020 JJAYCHEN. All rights reserved.
