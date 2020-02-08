@@ -31,19 +31,20 @@ struct ContentView: View {
                     .padding()
                     
                 }
-                .transition(AnyTransition.scale.combined(with: .opacity).animation(.spring()))
+                .transition(.asymmetric(insertion: AnyTransition.scale(scale: 1).combined(with: .opacity).animation(.easeInOut), removal: AnyTransition.scale(scale: 1.3).combined(with: .opacity).animation(.easeInOut)))
+                
             }
             
             if showGreetingCard {
                 GreetingCardViewControllerRepresentation()
-//                    .transition(AnyTransition.scale.combined(with: .opacity).animation(.spring()))
-//                    .animation(Animation.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0).delay(0.2))
-                
+                    .transition(AnyTransition.scale.combined(with: .opacity).animation(Animation.easeInOut))
             }
+            
+
+            //        CanvasMainViewControllerRepresentation()
         }
     }
     
-    //        CanvasMainViewControllerRepresentation()
 }
 
 struct ContentView_Previews: PreviewProvider {
