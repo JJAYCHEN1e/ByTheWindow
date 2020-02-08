@@ -14,6 +14,8 @@
 		6333653A23EAE03A0072E311 /* StrokeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333653223EADFA80072E311 /* StrokeCollection.swift */; };
 		6333653E23EAE06A0072E311 /* CGMathExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333653D23EAE06A0072E311 /* CGMathExtensions.swift */; };
 		6333653F23EAE0BC0072E311 /* Canvas.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6333653123EADFA80072E311 /* Canvas.storyboard */; };
+		6333654823EBD6310072E311 /* GreetingCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333654723EBD6310072E311 /* GreetingCardViewController.swift */; };
+		6333654A23EC14870072E311 /* BOApplePencilReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333654923EC14870072E311 /* BOApplePencilReachability.swift */; };
 		634AA69123E9AADE00ED6AA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634AA69023E9AADE00ED6AA0 /* AppDelegate.swift */; };
 		634AA69323E9AADE00ED6AA0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634AA69223E9AADE00ED6AA0 /* SceneDelegate.swift */; };
 		634AA69523E9AADE00ED6AA0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634AA69423E9AADE00ED6AA0 /* ContentView.swift */; };
@@ -30,6 +32,8 @@
 		6333653223EADFA80072E311 /* StrokeCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeCollection.swift; sourceTree = "<group>"; };
 		6333653323EADFA80072E311 /* CanvasMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasMainViewController.swift; sourceTree = "<group>"; };
 		6333653D23EAE06A0072E311 /* CGMathExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGMathExtensions.swift; sourceTree = "<group>"; };
+		6333654723EBD6310072E311 /* GreetingCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingCardViewController.swift; sourceTree = "<group>"; };
+		6333654923EC14870072E311 /* BOApplePencilReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOApplePencilReachability.swift; sourceTree = "<group>"; };
 		634AA68D23E9AADE00ED6AA0 /* InFrontOfWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = InFrontOfWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		634AA69023E9AADE00ED6AA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		634AA69223E9AADE00ED6AA0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -54,12 +58,11 @@
 		6333654123EAE63B0072E311 /* Drawing */ = {
 			isa = PBXGroup;
 			children = (
-				6333653323EADFA80072E311 /* CanvasMainViewController.swift */,
-				6333652E23EADFA80072E311 /* CanvasContainerView.swift */,
-				6333654323EB02760072E311 /* Drawing Engine */,
-				6333654223EB025D0072E311 /* Stroke Model and Capture */,
 				6333653123EADFA80072E311 /* Canvas.storyboard */,
+				6333654623EBD4C40072E311 /* Couplet */,
+				6333654523EBD49E0072E311 /* Greeting Card */,
 				6333653D23EAE06A0072E311 /* CGMathExtensions.swift */,
+				6333654923EC14870072E311 /* BOApplePencilReachability.swift */,
 			);
 			path = Drawing;
 			sourceTree = "<group>";
@@ -79,6 +82,25 @@
 				6333652F23EADFA80072E311 /* CGDrawingEngine.swift */,
 			);
 			path = "Drawing Engine";
+			sourceTree = "<group>";
+		};
+		6333654523EBD49E0072E311 /* Greeting Card */ = {
+			isa = PBXGroup;
+			children = (
+				6333654723EBD6310072E311 /* GreetingCardViewController.swift */,
+			);
+			path = "Greeting Card";
+			sourceTree = "<group>";
+		};
+		6333654623EBD4C40072E311 /* Couplet */ = {
+			isa = PBXGroup;
+			children = (
+				6333653323EADFA80072E311 /* CanvasMainViewController.swift */,
+				6333652E23EADFA80072E311 /* CanvasContainerView.swift */,
+				6333654323EB02760072E311 /* Drawing Engine */,
+				6333654223EB025D0072E311 /* Stroke Model and Capture */,
+			);
+			path = Couplet;
 			sourceTree = "<group>";
 		};
 		634AA68423E9AADE00ED6AA0 = {
@@ -196,8 +218,10 @@
 				6333653A23EAE03A0072E311 /* StrokeCollection.swift in Sources */,
 				6333653823EAE03A0072E311 /* CanvasMainViewController.swift in Sources */,
 				634AA69323E9AADE00ED6AA0 /* SceneDelegate.swift in Sources */,
+				6333654A23EC14870072E311 /* BOApplePencilReachability.swift in Sources */,
 				6333653723EAE03A0072E311 /* CanvasContainerView.swift in Sources */,
 				634AA69523E9AADE00ED6AA0 /* ContentView.swift in Sources */,
+				6333654823EBD6310072E311 /* GreetingCardViewController.swift in Sources */,
 				6333653E23EAE06A0072E311 /* CGMathExtensions.swift in Sources */,
 				6333653523EAE03A0072E311 /* CGDrawingEngine.swift in Sources */,
 				6333653623EAE03A0072E311 /* StrokeGestureRecognizer.swift in Sources */,
@@ -341,6 +365,7 @@
 				DEVELOPMENT_TEAM = XKUVHTJ3W8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = InFrontOfWindow/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -361,6 +386,7 @@
 				DEVELOPMENT_TEAM = XKUVHTJ3W8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = InFrontOfWindow/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

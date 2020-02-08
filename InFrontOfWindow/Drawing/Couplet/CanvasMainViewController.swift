@@ -15,7 +15,7 @@ class CanvasMainViewController: UIViewController {
     var fingerStrokeRecognizer: StrokeGestureRecognizer!
     var pencilStrokeRecognizer: StrokeGestureRecognizer!
     
-    @IBOutlet var scrollView: UIScrollView!
+//    @IBOutlet var view: UIScrollView!
     
     var strokeCollection = StrokeCollection()
     var canvasContainerView: CanvasContainerView!
@@ -34,18 +34,18 @@ class CanvasMainViewController: UIViewController {
         let canvasContainerView = CanvasContainerView(canvasSize: cgView.frame.size)
         canvasContainerView.documentView = cgView
         self.canvasContainerView = canvasContainerView
-        scrollView.contentSize = canvasContainerView.frame.size
-        scrollView.contentOffset = CGPoint(x: (canvasContainerView.frame.width - scrollView.bounds.width) / 2.0,
-                                           y: (canvasContainerView.frame.height - scrollView.bounds.height) / 2.0)
-        scrollView.addSubview(canvasContainerView)
-        scrollView.backgroundColor = canvasContainerView.backgroundColor
-        scrollView.maximumZoomScale = 3.0
-        scrollView.minimumZoomScale = 0.5
-        scrollView.panGestureRecognizer.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
-        scrollView.pinchGestureRecognizer?.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
+//        view.contentSize = canvasContainerView.frame.size
+//        view.contentOffset = CGPoint(x: (canvasContainerView.frame.width - view.bounds.width) / 2.0,
+//                                           y: (canvasContainerView.frame.height - view.bounds.height) / 2.0)
+        view.addSubview(canvasContainerView)
+        view.backgroundColor = canvasContainerView.backgroundColor
+//        view.maximumZoomScale = 3.0
+//        view.minimumZoomScale = 0.5
+//        view.panGestureRecognizer.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
+//        view.pinchGestureRecognizer?.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
         // We put our UI elements on top of the scroll view, so we don't want any of the
         // delay or cancel machinery in place.
-        scrollView.delaysContentTouches = false
+//        view.delaysContentTouches = false
         
         self.fingerStrokeRecognizer = setupStrokeGestureRecognizer(isForPencil: false)
         self.pencilStrokeRecognizer = setupStrokeGestureRecognizer(isForPencil: true)
@@ -53,16 +53,16 @@ class CanvasMainViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        scrollView.flashScrollIndicators()
+//        view.flashScrollIndicators()
     }
     
     /// A helper method that creates stroke gesture recognizers.
     /// - Tag: setupStrokeGestureRecognizer
     func setupStrokeGestureRecognizer(isForPencil: Bool) -> StrokeGestureRecognizer {
         let recognizer = StrokeGestureRecognizer(target: self, action: #selector(strokeUpdated(_:)))
-        recognizer.delegate = self
+//        recognizer.delegate = self
         recognizer.cancelsTouchesInView = false
-        scrollView.addGestureRecognizer(recognizer)
+        view.addGestureRecognizer(recognizer)
         recognizer.coordinateSpaceView = cgView
         recognizer.isForPencil = isForPencil
         return recognizer
@@ -114,44 +114,44 @@ class CanvasMainViewController: UIViewController {
     }
 }
 
-// MARK: - UIGestureRecognizerDelegate
+//// MARK: - UIGestureRecognizerDelegate
+//
+//extension CanvasMainViewController: UIGestureRecognizerDelegate {
+//
+//    // We want the pencil to recognize simultaniously with all others.
+//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
+//                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
+//        if gestureRecognizer === pencilStrokeRecognizer {
+//            return otherGestureRecognizer !== fingerStrokeRecognizer
+//        }
+//
+//        return false
+//    }
+//
+//}
 
-extension CanvasMainViewController: UIGestureRecognizerDelegate {
-    
-    // We want the pencil to recognize simultaniously with all others.
-    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-        if gestureRecognizer === pencilStrokeRecognizer {
-            return otherGestureRecognizer !== fingerStrokeRecognizer
-        }
-        
-        return false
-    }
-    
-}
-
-// MARK: - UIScrollViewDelegate
-
-extension CanvasMainViewController: UIScrollViewDelegate {
-    
-    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-        return self.canvasContainerView
-    }
-    
-    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-        var desiredScale = self.traitCollection.displayScale
-        let existingScale = cgView.contentScaleFactor
-        
-        if scale >= 2.0 {
-            desiredScale *= 2.0
-        }
-        
-        if abs(desiredScale - existingScale) > 0.000_01 {
-            cgView.contentScaleFactor = desiredScale
-            cgView.setNeedsDisplay()
-        }
-    }
-}
+//// MARK: - UIScrollViewDelegate
+//
+//extension CanvasMainViewController: UIScrollViewDelegate {
+//
+//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
+//        return self.canvasContainerView
+//    }
+//
+//    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
+//        var desiredScale = self.traitCollection.displayScale
+//        let existingScale = cgView.contentScaleFactor
+//
+//        if scale >= 2.0 {
+//            desiredScale *= 2.0
+//        }
+//
+//        if abs(desiredScale - existingScale) > 0.000_01 {
+//            cgView.contentScaleFactor = desiredScale
+//            cgView.setNeedsDisplay()
+//        }
+//    }
+//}
 
 struct CanvasMainViewControllerRepresentation: UIViewControllerRepresentable {
     

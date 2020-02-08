@@ -9,60 +9,38 @@
 import SwiftUI
 
 struct ContentView: View {
+    @State var showGreetingCard = false
+    
     var body: some View {
-//        VStack() {
-//            HeadView()
-//            .padding(20)
-//
-//            Spacer()
-//
-//            ScrollView(.horizontal, showsIndicators: false) {
-//                HStack(spacing: 50) {
-//                    GeometryReader { geometry in
-//                        FestivalCard()
-//                            .rotation3DEffect(Angle(degrees: Double((geometry.frame(in: .global).minX) - 50) / -200), axis: (x: 0, y: 10, z: 0))
-//                            .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
-//                    }
-//                    .frame(width: 360, height: 560)
-//
-//                    GeometryReader { geometry in
-//                        FestivalCard()
-//                            .rotation3DEffect(Angle(degrees: Double((geometry.frame(in: .global).minX) - 50) / -200), axis: (x: 0, y: 10, z: 0))
-//                            .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
-//                    }
-//                    .frame(width: 360, height: 560)
-//
-//                    GeometryReader { geometry in
-//                        FestivalCard()
-//                            .rotation3DEffect(Angle(degrees: Double((geometry.frame(in: .global).minX) - 50) / -200), axis: (x: 0, y: 10, z: 0))
-//                            .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
-//                    }
-//                    .frame(width: 360, height: 560)
-//
-//                    GeometryReader { geometry in
-//                        FestivalCard()
-//                            .rotation3DEffect(Angle(degrees: Double((geometry.frame(in: .global).minX) - 50) / -200), axis: (x: 0, y: 10, z: 0))
-//                            .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
-//                    }
-//                    .frame(width: 360, height: 560)
-//
-//                    GeometryReader { geometry in
-//                        FestivalCard()
-//                            .rotation3DEffect(Angle(degrees: Double((geometry.frame(in: .global).minX) - 50) / -200), axis: (x: 0, y: 10, z: 0))
-//                            .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
-//                    }
-//                    .frame(width: 360, height: 560)
-//
-//                }
-//                .padding(.leading, 50)
-//                .padding(.trailing, 376)
-//                .padding(.vertical, 50)
-//            }
-//
-//            Spacer()
-//        }
-        CanvasMainViewControllerRepresentation()
+        ZStack {
+            VStack() {
+                HeadView()
+                    .padding(20)
+                
+                Spacer()
+                
+                MainView()
+                
+                Spacer()
+                
+                Image(systemName: "xmark.circle")
+                    .onTapGesture {
+                        self.showGreetingCard.toggle()
+                }
+                .padding()
+                
+            }
+            
+            if showGreetingCard {
+                GreetingCardViewControllerRepresentation()
+                    .transition(AnyTransition.slide.combined(with: AnyTransition.opacity))
+                    .animation(Animation.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0).delay(0.2))
+                
+            }
+        }
     }
+    
+    //        CanvasMainViewControllerRepresentation()
 }
 
 struct ContentView_Previews: PreviewProvider {
@@ -103,5 +81,25 @@ struct FestivalCard: View {
         .cornerRadius(40)
         .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 12)
         .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
+    }
+}
+
+struct MainView: View {
+    var body: some View {
+        ScrollView(.horizontal, showsIndicators: false) {
+            HStack(spacing: 50) {
+                ForEach(0 ..< 5) { item in
+                    GeometryReader { geometry in
+                        FestivalCard()
+                            .rotation3DEffect(Angle(degrees: Double((geometry.frame(in: .global).minX) - 50) / -200), axis: (x: 0, y: 10, z: 0))
+                            .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
+                    }
+                    .frame(width: 360, height: 560)
+                }
+            }
+            .padding(.leading, 50)
+            .padding(.trailing, 376)
+            .padding(.vertical, 50)
+        }
     }
 }
