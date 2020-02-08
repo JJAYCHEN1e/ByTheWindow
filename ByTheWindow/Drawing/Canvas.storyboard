@@ -10,7 +10,7 @@
         <!--Canvas Main View Controller-->
         <scene sceneID="waF-nQ-87k">
             <objects>
-                <viewController storyboardIdentifier="Canvas" id="emg-JI-ZdG" customClass="CanvasMainViewController" customModule="InFrontOfWindow" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="Canvas" id="emg-JI-ZdG" customClass="CanvasMainViewController" customModule="ByTheWindow" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="0pj-m2-hvD">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -28,7 +28,7 @@
         <!--Greeting Card View Controller-->
         <scene sceneID="PY0-hv-2Ey">
             <objects>
-                <viewController storyboardIdentifier="GreetingCardViewController" id="kPR-QK-znA" customClass="GreetingCardViewController" customModule="InFrontOfWindow" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="GreetingCardViewController" id="kPR-QK-znA" customClass="GreetingCardViewController" customModule="ByTheWindow" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="TS8-Pg-2NE">
                         <rect key="frame" x="0.0" y="0.0" width="1112" height="834"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>

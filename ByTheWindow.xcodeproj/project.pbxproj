@@ -158,7 +158,7 @@
 			dependencies = (
 			);
 			name = ByTheWindow;
-			productName = InFrontOfWindow;
+			productName = ByTheWindow;
 			productReference = 634AA68D23E9AADE00ED6AA0 /* 窗前.app */;
 			productType = "com.apple.product-type.application";
 		};
