@@ -34,7 +34,7 @@
 		6333653D23EAE06A0072E311 /* CGMathExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGMathExtensions.swift; sourceTree = "<group>"; };
 		6333654723EBD6310072E311 /* GreetingCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingCardViewController.swift; sourceTree = "<group>"; };
 		6333654923EC14870072E311 /* BOApplePencilReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOApplePencilReachability.swift; sourceTree = "<group>"; };
-		634AA68D23E9AADE00ED6AA0 /* 窗前.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "窗前.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		634AA68D23E9AADE00ED6AA0 /* ByTheWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ByTheWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		634AA69023E9AADE00ED6AA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		634AA69223E9AADE00ED6AA0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		634AA69423E9AADE00ED6AA0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -114,7 +114,7 @@
 		634AA68E23E9AADE00ED6AA0 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				634AA68D23E9AADE00ED6AA0 /* 窗前.app */,
+				634AA68D23E9AADE00ED6AA0 /* ByTheWindow.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -159,7 +159,7 @@
 			);
 			name = ByTheWindow;
 			productName = ByTheWindow;
-			productReference = 634AA68D23E9AADE00ED6AA0 /* 窗前.app */;
+			productReference = 634AA68D23E9AADE00ED6AA0 /* ByTheWindow.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -371,7 +371,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.jjaychen.ReusableKnob;
-				PRODUCT_NAME = "窗前";
+				PRODUCT_NAME = ByTheWindow;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
@@ -392,7 +392,7 @@
 					"@executable_path/Frameworks",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.jjaychen.ReusableKnob;
-				PRODUCT_NAME = "窗前";
+				PRODUCT_NAME = ByTheWindow;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
 			};
