@@ -163,8 +163,8 @@ class StrokeCGView: UIView {
 extension StrokeCGView {
 
     override func draw(_ rect: CGRect) {
-        UIColor.white.set()
-        UIRectFill(rect)
+        /// - TAG: Prevent fiiling blakck
+        backgroundColor = UIColor.clear
 
         // Optimization opportunity: Draw the existing collection in a different view,
         // and only draw each time we add a stroke.
