@@ -163,7 +163,7 @@ class StrokeCGView: UIView {
 extension StrokeCGView {
 
     override func draw(_ rect: CGRect) {
-        /// - TAG: Prevent fiiling blakck
+        /// - TAG: Prevent filling black
         backgroundColor = UIColor.clear
 
         // Optimization opportunity: Draw the existing collection in a different view,
