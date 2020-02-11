@@ -77,11 +77,18 @@ struct FestivalCard: View {
                     .frame(width: 330, height: 330)
                     .shadow(color: Color(#colorLiteral(red: 0.7607843137, green: 0.003921568627, blue: 0, alpha: 1)).opacity(0.3), radius: 10, x: 0, y: 12)
                 BarDecorationView(color: barColor, image: barImage)
-                Text(cardText)
-                    .font(.custom("MaShanZheng-Regular", size: 35))
-                    .padding(.top, 15)
-                    .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 0)
-                    
+                VStack(alignment: .center) {
+                    Text(cardText)
+                        .font(.custom("MaShanZheng-Regular", size: 35))
+                        .padding(.top, 15)
+                        .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 0)
+                    VStack(alignment: .trailing, spacing: 15) {
+                        Text("爆竹声中一岁除，春风送暖入屠苏。") .font(.custom("MaShanZheng-Regular", size: 18))
+                            .padding(.top, 20)
+                        Text("——《元旦》 王安石")
+                        .font(.custom("MaShanZheng-Regular", size: 18))
+                    }
+                }
             }
         
         // Old FestivalCard
