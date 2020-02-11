@@ -10,50 +10,87 @@ import SwiftUI
 
 class CanvasMainViewController: UIViewController {
     
-    var cgView: StrokeCGView!
+    var leftCGView: StrokeCGView!
     
     var fingerStrokeRecognizer: StrokeGestureRecognizer!
     var pencilStrokeRecognizer: StrokeGestureRecognizer!
     
-//    @IBOutlet var view: UIScrollView!
+    @IBOutlet var leftScrollView: UIScrollView!
+    @IBOutlet weak var leftCoupletImageView: UIImageView!
+    
+    @IBOutlet weak var handWrittenModeButton: UIButton!
     
     var strokeCollection = StrokeCollection()
-    var canvasContainerView: CanvasContainerView!
+    
+    /// 清空笔迹
+    @IBAction func clearButtonAction(_ sender: AnyObject) {
+        self.strokeCollection = StrokeCollection()
+        leftCGView.strokeCollection = self.strokeCollection
+    }
+    
+    /// Toggles hand-written mode for the app.
+    /// - Tag: handWrittenMode
+    var handWrittenMode = true {
+        didSet {
+            if handWrittenMode {
+                leftScrollView.panGestureRecognizer.minimumNumberOfTouches = 2
+                handWrittenModeButton.setImage(UIImage(systemName: "hand.raised"), for: .normal)
+                if fingerStrokeRecognizer.view == nil {
+                    leftScrollView.addGestureRecognizer(fingerStrokeRecognizer)
+                }
+            } else {
+                leftScrollView.panGestureRecognizer.minimumNumberOfTouches = 1
+                handWrittenModeButton.setImage(UIImage(systemName: "hand.raised.slash"), for: .normal)
+                if let view = fingerStrokeRecognizer.view {
+                    view.removeGestureRecognizer(fingerStrokeRecognizer)
+                }
+            }
+        }
+    }
+    
+    @IBAction func handWrittenButtonClicked(_ sender: AnyObject?) {
+        handWrittenMode.toggle()
+    }
+    
+    /// 用于检测是否连接到 Apple Pencil 的辅助类
+    private var pencilDetector: BOApplePencilReachability?
     
     /// Prepare the drawing canvas.
     /// - Tag: CanvasMainViewController-viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
-        let screenBounds = UIScreen.main.bounds
-        let maxScreenDimension = max(screenBounds.width, screenBounds.height)
         
-        let cgView = StrokeCGView(frame: CGRect(origin: .zero, size: CGSize(width: maxScreenDimension, height: maxScreenDimension)))
-        cgView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        self.cgView = cgView
+        /// 为左边对联设置可以绘制的 leftCGView
+        let leftCGView = StrokeCGView(frame: leftCoupletImageView.bounds)
+        leftCGView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
+        self.leftCGView = leftCGView
+        leftScrollView.addSubview(leftCGView)
         
-        let canvasContainerView = CanvasContainerView(canvasSize: cgView.frame.size)
-        canvasContainerView.documentView = cgView
-        self.canvasContainerView = canvasContainerView
+        // We put our UI elements on top of the scroll view, so we don't want any of the
+        // delay or cancel machinery in place.
+        leftScrollView.delaysContentTouches = false
+        
+//        let canvasContainerView = CanvasContainerView(canvasSize: cgView.frame.size)
+//        canvasContainerView.documentView = cgView
+//        self.canvasContainerView = canvasContainerView
 //        view.contentSize = canvasContainerView.frame.size
 //        view.contentOffset = CGPoint(x: (canvasContainerView.frame.width - view.bounds.width) / 2.0,
 //                                           y: (canvasContainerView.frame.height - view.bounds.height) / 2.0)
-        view.addSubview(canvasContainerView)
-        view.backgroundColor = canvasContainerView.backgroundColor
+//        view.addSubview(canvasContainerView)
+//        view.backgroundColor = canvasContainerView.backgroundColor
 //        view.maximumZoomScale = 3.0
 //        view.minimumZoomScale = 0.5
 //        view.panGestureRecognizer.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
 //        view.pinchGestureRecognizer?.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
-        // We put our UI elements on top of the scroll view, so we don't want any of the
-        // delay or cancel machinery in place.
-//        view.delaysContentTouches = false
         
         self.fingerStrokeRecognizer = setupStrokeGestureRecognizer(isForPencil: false)
         self.pencilStrokeRecognizer = setupStrokeGestureRecognizer(isForPencil: true)
-    }
-    
-    override func viewDidAppear(_ animated: Bool) {
-        super.viewDidAppear(animated)
-//        view.flashScrollIndicators()
+        
+        /// 默认支持手写。若检测到 Apple Pencil，则关闭手写
+        handWrittenMode = true
+        self.pencilDetector = BOApplePencilReachability.init(didChangeClosure: { isPencilReachable in
+            self.handWrittenMode = !isPencilReachable
+        })
     }
     
     /// A helper method that creates stroke gesture recognizers.
@@ -62,31 +99,21 @@ class CanvasMainViewController: UIViewController {
         let recognizer = StrokeGestureRecognizer(target: self, action: #selector(strokeUpdated(_:)))
 //        recognizer.delegate = self
         recognizer.cancelsTouchesInView = false
-        view.addGestureRecognizer(recognizer)
-        recognizer.coordinateSpaceView = cgView
+        leftScrollView.addGestureRecognizer(recognizer)
+        recognizer.coordinateSpaceView = leftCGView
         recognizer.isForPencil = isForPencil
         return recognizer
     }
     
     func receivedAllUpdatesForStroke(_ stroke: Stroke) {
-        cgView.setNeedsDisplay(for: stroke)
+        leftCGView.setNeedsDisplay(for: stroke)
         stroke.clearUpdateInfo()
-    }
-    
-    @IBAction func clearButtonAction(_ sender: AnyObject) {
-        self.strokeCollection = StrokeCollection()
-        cgView.strokeCollection = self.strokeCollection
     }
     
     /// Handles the gesture for `StrokeGestureRecognizer`.
     /// - Tag: strokeUpdate
     @objc
     func strokeUpdated(_ strokeGesture: StrokeGestureRecognizer) {
-        
-        if strokeGesture === pencilStrokeRecognizer {
-            //            lastSeenPencilInteraction = Date()
-        }
-        
         var stroke: Stroke?
         if strokeGesture.state != .cancelled {
             stroke = strokeGesture.stroke
@@ -110,48 +137,9 @@ class CanvasMainViewController: UIViewController {
             }
         }
         
-        cgView.strokeCollection = strokeCollection
+        leftCGView.strokeCollection = strokeCollection
     }
 }
-
-//// MARK: - UIGestureRecognizerDelegate
-//
-//extension CanvasMainViewController: UIGestureRecognizerDelegate {
-//
-//    // We want the pencil to recognize simultaniously with all others.
-//    func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer,
-//                           shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer) -> Bool {
-//        if gestureRecognizer === pencilStrokeRecognizer {
-//            return otherGestureRecognizer !== fingerStrokeRecognizer
-//        }
-//
-//        return false
-//    }
-//
-//}
-
-//// MARK: - UIScrollViewDelegate
-//
-//extension CanvasMainViewController: UIScrollViewDelegate {
-//
-//    func viewForZooming(in scrollView: UIScrollView) -> UIView? {
-//        return self.canvasContainerView
-//    }
-//
-//    func scrollViewDidEndZooming(_ scrollView: UIScrollView, with view: UIView?, atScale scale: CGFloat) {
-//        var desiredScale = self.traitCollection.displayScale
-//        let existingScale = cgView.contentScaleFactor
-//
-//        if scale >= 2.0 {
-//            desiredScale *= 2.0
-//        }
-//
-//        if abs(desiredScale - existingScale) > 0.000_01 {
-//            cgView.contentScaleFactor = desiredScale
-//            cgView.setNeedsDisplay()
-//        }
-//    }
-//}
 
 struct CanvasMainViewControllerRepresentation: UIViewControllerRepresentable {
     
