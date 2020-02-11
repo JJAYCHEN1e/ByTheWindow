@@ -386,7 +386,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ByTheWindow/Preview Content\"";
-				DEVELOPMENT_TEAM = XKUVHTJ3W8;
+				DEVELOPMENT_TEAM = 6Q58LP8XS2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ByTheWindow/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -394,7 +394,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.jjaychen.ReusableKnob;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bai.byTheWindow;
 				PRODUCT_NAME = ByTheWindow;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -407,7 +407,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ByTheWindow/Preview Content\"";
-				DEVELOPMENT_TEAM = XKUVHTJ3W8;
+				DEVELOPMENT_TEAM = 6Q58LP8XS2;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ByTheWindow/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -415,7 +415,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = me.jjaychen.ReusableKnob;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bai.byTheWindow;
 				PRODUCT_NAME = ByTheWindow;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
