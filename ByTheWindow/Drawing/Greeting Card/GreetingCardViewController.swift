@@ -14,7 +14,7 @@ class GreetingCardViewController: UIViewController, PKCanvasViewDelegate {
     
     @IBOutlet var canvasView: PKCanvasView!
     
-    @IBOutlet weak var handWrittenButton: UIButton!
+    @IBOutlet weak var handWrittenModeButton: UIButton!
     
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     @IBOutlet var pinchGestureRecognizer: UIPinchGestureRecognizer!
@@ -31,10 +31,10 @@ class GreetingCardViewController: UIViewController, PKCanvasViewDelegate {
         didSet {
             self.canvasView.allowsFingerDrawing = allowsFingerDrawing
             if allowsFingerDrawing {
-                handWrittenButton.setImage(UIImage(systemName: "hand.raised"), for: .normal)
+                handWrittenModeButton.setImage(UIImage(systemName: "hand.raised"), for: .normal)
                 panGestureRecognizer.minimumNumberOfTouches = 2
             } else {
-                handWrittenButton.setImage(UIImage(systemName: "hand.raised.slash"), for: .normal)
+                handWrittenModeButton.setImage(UIImage(systemName: "hand.raised.slash"), for: .normal)
                 panGestureRecognizer.minimumNumberOfTouches = 1
             }
         }

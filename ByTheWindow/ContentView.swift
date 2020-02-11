@@ -36,12 +36,12 @@ struct ContentView: View {
             }
             
             if showGreetingCard {
-                GreetingCardViewControllerRepresentation()
+//                GreetingCardViewControllerRepresentation()
+//                    .transition(AnyTransition.scale.combined(with: .opacity).animation(Animation.easeInOut))
+                
+                CanvasMainViewControllerRepresentation()
                     .transition(AnyTransition.scale.combined(with: .opacity).animation(Animation.easeInOut))
             }
-            
-
-            //        CanvasMainViewControllerRepresentation()
         }
     }
     
