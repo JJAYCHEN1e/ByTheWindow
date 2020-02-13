@@ -11,13 +11,50 @@ import UIKit
 class StrokeCollection {
     var strokes: [Stroke] = []
     var activeStroke: Stroke?
+    var redoStack = Stack<Stroke>()
+    
+    var delegate: StrokeCollectionDelegate?
+    
+    func undo() {
+        if let stroke = strokes.popLast() {
+            redoStack.push(stroke)
+            if strokes.isEmpty {
+                delegate?.undoable = false
+            }
+            delegate?.redoable = true
+        }
+    }
+    
+    func redo() {
+        if let stroke = redoStack.pop() {
+            strokes.append(stroke)
+            if redoStack.isEmpty {
+                delegate?.redoable = false
+            }
+            delegate?.undoable = true
+        }
+    }
+    
+    func clearRedoStack() {
+        redoStack = Stack<Stroke>()
+    }
     
     func takeActiveStroke() {
         if let stroke = activeStroke {
             strokes.append(stroke)
+            
+            clearRedoStack()
+            delegate?.undoable = true
+            delegate?.redoable = false
+            
             activeStroke = nil
         }
     }
+}
+
+protocol StrokeCollectionDelegate {
+    var redoable: Bool { get set }
+    var undoable: Bool { get set }
 }
 
 enum StrokePhase {
