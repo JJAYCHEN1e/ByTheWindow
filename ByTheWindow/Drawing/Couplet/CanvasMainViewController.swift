@@ -19,13 +19,42 @@ class CanvasMainViewController: UIViewController {
     @IBOutlet weak var leftCoupletImageView: UIImageView!
     
     @IBOutlet weak var handWrittenModeButton: UIButton!
+    @IBOutlet weak var clearButton: UIButton!
+    
+    @IBOutlet weak var undoButton: UIButton!
+    @IBOutlet weak var redoButton: UIButton!
     
     var strokeCollection = StrokeCollection()
     
+    var _redoable: Bool = false {
+        didSet {
+            redoButton.isEnabled = _redoable
+        }
+    }
+    
+    var _undoable: Bool = false {
+        didSet {
+            undoButton.isEnabled = _undoable
+        }
+    }
+    
     /// 清空笔迹
     @IBAction func clearButtonAction(_ sender: AnyObject) {
-        self.strokeCollection = StrokeCollection()
+        strokeCollection = StrokeCollection()
+        strokeCollection.delegate = self
         leftCGView.strokeCollection = self.strokeCollection
+        undoable = false
+        redoable = false
+    }
+    
+    @IBAction func undoButtonAction(_ sender: Any) {
+        strokeCollection.undo()
+        leftCGView.strokeCollection = strokeCollection
+    }
+    
+    @IBAction func redoButtonAction(_ sender: Any) {
+        strokeCollection.redo()
+        leftCGView.strokeCollection = strokeCollection
     }
     
     /// Toggles hand-written mode for the app.
@@ -59,6 +88,8 @@ class CanvasMainViewController: UIViewController {
     /// - Tag: CanvasMainViewController-viewDidLoad
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        strokeCollection.delegate = self
         
         /// 为左边对联设置可以绘制的 leftCGView
         let leftCGView = StrokeCGView(frame: leftCoupletImageView.bounds)
@@ -138,6 +169,26 @@ class CanvasMainViewController: UIViewController {
         }
         
         leftCGView.strokeCollection = strokeCollection
+    }
+}
+
+extension CanvasMainViewController: StrokeCollectionDelegate {
+    var redoable: Bool {
+        get {
+            return _redoable
+        }
+        set {
+            _redoable = newValue
+        }
+    }
+    
+    var undoable: Bool {
+        get {
+            return _undoable
+        }
+        set {
+            _undoable = newValue
+        }
     }
 }
 

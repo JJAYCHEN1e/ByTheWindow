@@ -52,27 +52,92 @@
                                     <action selector="handWrittenButtonClicked:" destination="emg-JI-ZdG" eventType="touchUpInside" id="Qj2-qk-Hdz"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMe-ut-Q4Z" userLabel="ClearButton">
+                                <rect key="frame" x="536" y="68" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="QqI-Fz-YCp"/>
+                                    <constraint firstAttribute="width" constant="40" id="W16-Me-qd2"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <state key="normal" image="xmark.circle" catalog="system">
+                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="34"/>
+                                    </preferredSymbolConfiguration>
+                                </state>
+                                <connections>
+                                    <action selector="clearButtonAction:" destination="emg-JI-ZdG" eventType="touchUpInside" id="f8K-Ka-Mm2"/>
+                                </connections>
+                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5Su-7d-0p3">
+                                <rect key="frame" x="512" y="116" width="88" height="40"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ba-7e-i9x" userLabel="ClearButton">
+                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="YuG-qw-qNw"/>
+                                            <constraint firstAttribute="height" constant="40" id="owK-p0-GO0"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" image="arrow.uturn.left" catalog="system">
+                                            <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="34"/>
+                                            </preferredSymbolConfiguration>
+                                        </state>
+                                        <connections>
+                                            <action selector="undoButtonAction:" destination="emg-JI-ZdG" eventType="touchUpInside" id="nj6-Nk-36U"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleAspectFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G12-pj-5yP" userLabel="ClearButton">
+                                        <rect key="frame" x="48" y="0.0" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="8lG-K2-jZs"/>
+                                            <constraint firstAttribute="width" constant="40" id="k1c-ZR-P4P"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <state key="normal" image="arrow.uturn.right" catalog="system">
+                                            <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="34"/>
+                                            </preferredSymbolConfiguration>
+                                        </state>
+                                        <connections>
+                                            <action selector="redoButtonAction:" destination="emg-JI-ZdG" eventType="touchUpInside" id="Ecc-Rd-yvH"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
+                            <constraint firstItem="cMe-ut-Q4Z" firstAttribute="width" secondItem="QUA-PH-Am3" secondAttribute="width" id="1xq-Lq-mJb"/>
                             <constraint firstItem="KJO-lY-xN9" firstAttribute="width" secondItem="0pj-m2-hvD" secondAttribute="width" multiplier="0.4" id="7Sr-9k-PJD"/>
                             <constraint firstItem="KJO-lY-xN9" firstAttribute="leading" secondItem="Wfb-Pj-7lT" secondAttribute="leading" id="DXC-e3-WmT"/>
                             <constraint firstItem="QUA-PH-Am3" firstAttribute="centerX" secondItem="Wfb-Pj-7lT" secondAttribute="centerX" id="JaM-Z1-N0B"/>
+                            <constraint firstItem="cMe-ut-Q4Z" firstAttribute="centerX" secondItem="QUA-PH-Am3" secondAttribute="centerX" id="UbA-Q1-ku1"/>
+                            <constraint firstItem="cMe-ut-Q4Z" firstAttribute="top" secondItem="QUA-PH-Am3" secondAttribute="bottom" constant="8" symbolic="YES" id="YOY-Vj-lzY"/>
                             <constraint firstItem="KJO-lY-xN9" firstAttribute="top" secondItem="Wfb-Pj-7lT" secondAttribute="top" id="cUK-rj-J2K"/>
                             <constraint firstItem="QUA-PH-Am3" firstAttribute="top" secondItem="Wfb-Pj-7lT" secondAttribute="top" constant="20" id="cXq-AX-cV7"/>
                             <constraint firstItem="KJO-lY-xN9" firstAttribute="bottom" secondItem="0pj-m2-hvD" secondAttribute="bottom" id="kT6-HJ-fze"/>
+                            <constraint firstItem="5Su-7d-0p3" firstAttribute="centerX" secondItem="cMe-ut-Q4Z" secondAttribute="centerX" id="oVe-Tf-Gxf"/>
+                            <constraint firstItem="cMe-ut-Q4Z" firstAttribute="height" secondItem="QUA-PH-Am3" secondAttribute="height" id="uTS-ZG-sQT"/>
+                            <constraint firstItem="5Su-7d-0p3" firstAttribute="top" secondItem="cMe-ut-Q4Z" secondAttribute="bottom" constant="8" id="w5P-jQ-ler"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Wfb-Pj-7lT"/>
                     </view>
                     <connections>
+                        <outlet property="clearButton" destination="cMe-ut-Q4Z" id="xcA-li-L2L"/>
                         <outlet property="handWrittenModeButton" destination="QUA-PH-Am3" id="ZNi-89-old"/>
                         <outlet property="leftCoupletImageView" destination="xca-mo-WAr" id="6CB-Ee-dmm"/>
                         <outlet property="leftScrollView" destination="KJO-lY-xN9" id="rbb-dw-agu"/>
+                        <outlet property="redoButton" destination="G12-pj-5yP" id="6WB-Xz-cza"/>
+                        <outlet property="undoButton" destination="1ba-7e-i9x" id="GvE-tr-vjD"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="eVz-UZ-NgJ" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="902.63543191800875" y="74.4140625"/>
+            <point key="canvasLocation" x="902.15827338129498" y="74.100719424460436"/>
         </scene>
         <!--Greeting Card View Controller-->
         <scene sceneID="PY0-hv-2Ey">
@@ -194,6 +259,8 @@
         </scene>
     </scenes>
     <resources>
+        <image name="arrow.uturn.left" catalog="system" width="128" height="112"/>
+        <image name="arrow.uturn.right" catalog="system" width="128" height="112"/>
         <image name="couplet-left" width="556" height="2634"/>
         <image name="hand.raised" catalog="system" width="128" height="128"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
