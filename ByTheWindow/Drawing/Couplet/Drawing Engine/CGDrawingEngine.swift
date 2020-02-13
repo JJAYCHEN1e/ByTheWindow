@@ -35,9 +35,10 @@ class StrokeCGView: UIView {
     
     var strokeCollection: StrokeCollection? {
         didSet {
-            if oldValue !== strokeCollection {
-                setNeedsDisplay()
-            }
+//            if oldValue !== strokeCollection {
+//                setNeedsDisplay()
+//            }
+            setNeedsDisplay()
             if let lastStroke = strokeCollection?.strokes.last {
                 setNeedsDisplay(for: lastStroke)
             }
