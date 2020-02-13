@@ -21,6 +21,7 @@
 		634AA69723E9AAE200ED6AA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 634AA69623E9AAE200ED6AA0 /* Assets.xcassets */; };
 		634AA69A23E9AAE200ED6AA0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 634AA69923E9AAE200ED6AA0 /* Preview Assets.xcassets */; };
 		634AA69D23E9AAE200ED6AA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 634AA69B23E9AAE200ED6AA0 /* LaunchScreen.storyboard */; };
+		638DBDCF23F51D5A009A6B11 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DBDCE23F51D5A009A6B11 /* Stack.swift */; };
 		81F4E9C423F28DAE00A8CE46 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81F4E9C223F28DAE00A8CE46 /* OFL.txt */; };
 		81F4E9C523F28DAE00A8CE46 /* MaShanZheng-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81F4E9C323F28DAE00A8CE46 /* MaShanZheng-Regular.ttf */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		634AA69923E9AAE200ED6AA0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		634AA69C23E9AAE200ED6AA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		634AA69E23E9AAE200ED6AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		638DBDCE23F51D5A009A6B11 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		81F4E9C223F28DAE00A8CE46 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		81F4E9C323F28DAE00A8CE46 /* MaShanZheng-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MaShanZheng-Regular.ttf"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -123,6 +125,7 @@
 		634AA68F23E9AADE00ED6AA0 /* ByTheWindow */ = {
 			isa = PBXGroup;
 			children = (
+				638DBDCC23F51D41009A6B11 /* Utils */,
 				81F4E9C623F28EC100A8CE46 /* Fonts */,
 				6333654123EAE63B0072E311 /* Drawing */,
 				634AA69023E9AADE00ED6AA0 /* AppDelegate.swift */,
@@ -142,6 +145,22 @@
 				634AA69923E9AAE200ED6AA0 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		638DBDCC23F51D41009A6B11 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				638DBDCD23F51D49009A6B11 /* Data Structures */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		638DBDCD23F51D49009A6B11 /* Data Structures */ = {
+			isa = PBXGroup;
+			children = (
+				638DBDCE23F51D5A009A6B11 /* Stack.swift */,
+			);
+			path = "Data Structures";
 			sourceTree = "<group>";
 		};
 		81F4E9C123F28DAE00A8CE46 /* Ma_Shan_Zheng */ = {
@@ -240,6 +259,7 @@
 				6333653823EAE03A0072E311 /* CanvasMainViewController.swift in Sources */,
 				634AA69323E9AADE00ED6AA0 /* SceneDelegate.swift in Sources */,
 				6333654A23EC14870072E311 /* BOApplePencilReachability.swift in Sources */,
+				638DBDCF23F51D5A009A6B11 /* Stack.swift in Sources */,
 				634AA69523E9AADE00ED6AA0 /* ContentView.swift in Sources */,
 				6333654823EBD6310072E311 /* GreetingCardViewController.swift in Sources */,
 				6333653E23EAE06A0072E311 /* CGMathExtensions.swift in Sources */,
@@ -382,7 +402,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ByTheWindow/Preview Content\"";
-				DEVELOPMENT_TEAM = 6Q58LP8XS2;
+				DEVELOPMENT_TEAM = XKUVHTJ3W8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ByTheWindow/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -390,7 +410,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bai.byTheWindow;
+				PRODUCT_BUNDLE_IDENTIFIER = me.jjaychen.ByTheWindow;
 				PRODUCT_NAME = ByTheWindow;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -403,7 +423,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ByTheWindow/Preview Content\"";
-				DEVELOPMENT_TEAM = 6Q58LP8XS2;
+				DEVELOPMENT_TEAM = XKUVHTJ3W8;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ByTheWindow/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 13.2;
@@ -411,7 +431,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.bai.byTheWindow;
+				PRODUCT_BUNDLE_IDENTIFIER = me.jjaychen.ByTheWindow;
 				PRODUCT_NAME = ByTheWindow;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 2;
