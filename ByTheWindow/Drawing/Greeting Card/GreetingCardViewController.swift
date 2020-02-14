@@ -15,6 +15,8 @@ class GreetingCardViewController: UIViewController, PKCanvasViewDelegate {
     @IBOutlet var canvasView: PKCanvasView!
     
     @IBOutlet weak var handWrittenModeButton: UIButton!
+    @IBOutlet weak var clearButton: UIButton!
+    @IBOutlet weak var shareButton: UIButton!
     
     @IBOutlet var panGestureRecognizer: UIPanGestureRecognizer!
     @IBOutlet var pinchGestureRecognizer: UIPinchGestureRecognizer!
@@ -50,6 +52,10 @@ class GreetingCardViewController: UIViewController, PKCanvasViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        handWrittenModeButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
+        clearButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
+        shareButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
+        
         /// 一定要设置 delegate，否则 gestureRecognizer(
         ///            _ gestureRecognizer: UIGestureRecognizer,
         ///            shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer)
@@ -78,7 +84,7 @@ class GreetingCardViewController: UIViewController, PKCanvasViewDelegate {
         }
     }
     
-    @IBAction func clearButton() {
+    @IBAction func clearButtonClicked() {
         canvasView.drawing = PKDrawing()
     }
     
