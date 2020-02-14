@@ -29,7 +29,6 @@ struct ContentView: View {
                             self.showGreetingCard.toggle()
                     }
                     .padding()
-                    
                 }
                 .transition(.asymmetric(insertion: AnyTransition.scale(scale: 1).combined(with: .opacity).animation(.easeInOut), removal: AnyTransition.scale(scale: 1.3).combined(with: .opacity).animation(.easeInOut)))
                 

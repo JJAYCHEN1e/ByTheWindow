@@ -26,103 +26,139 @@
                                     </imageView>
                                 </subviews>
                                 <constraints>
-                                    <constraint firstAttribute="bottom" secondItem="xca-mo-WAr" secondAttribute="bottom" id="0wX-yg-hS1"/>
-                                    <constraint firstItem="xca-mo-WAr" firstAttribute="top" secondItem="KJO-lY-xN9" secondAttribute="top" id="KZm-Jd-NDR"/>
-                                    <constraint firstItem="xca-mo-WAr" firstAttribute="width" secondItem="KJO-lY-xN9" secondAttribute="width" id="cCw-UA-u2O"/>
-                                    <constraint firstItem="xca-mo-WAr" firstAttribute="leading" secondItem="KJO-lY-xN9" secondAttribute="leading" id="fOn-iU-gHR"/>
-                                    <constraint firstAttribute="trailing" secondItem="xca-mo-WAr" secondAttribute="trailing" id="lIy-wQ-BKk"/>
+                                    <constraint firstItem="xca-mo-WAr" firstAttribute="leading" secondItem="KJO-lY-xN9" secondAttribute="leading" id="L8y-2t-J9Z"/>
+                                    <constraint firstItem="xca-mo-WAr" firstAttribute="width" secondItem="KJO-lY-xN9" secondAttribute="width" id="T1y-qn-biK"/>
+                                    <constraint firstAttribute="trailing" secondItem="xca-mo-WAr" secondAttribute="trailing" id="diS-sc-VcG"/>
+                                    <constraint firstItem="xca-mo-WAr" firstAttribute="top" secondItem="KJO-lY-xN9" secondAttribute="top" id="u93-vF-h5k"/>
+                                    <constraint firstAttribute="bottom" secondItem="xca-mo-WAr" secondAttribute="bottom" id="zv9-tt-xgs"/>
                                 </constraints>
                             </scrollView>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QUA-PH-Am3" userLabel="HandWrittenButton">
-                                <rect key="frame" x="536" y="20" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="DZE-iq-wZX"/>
-                                    <constraint firstAttribute="height" constant="40" id="jzC-0p-lkq"/>
-                                    <constraint firstAttribute="width" constant="40" id="p9i-Tu-tmS"/>
-                                    <constraint firstAttribute="width" constant="40" id="xWP-VL-Efm"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" image="hand.raised" catalog="system">
-                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="34"/>
-                                    </preferredSymbolConfiguration>
-                                </state>
-                                <connections>
-                                    <action selector="handWrittenButtonClicked:" destination="emg-JI-ZdG" eventType="touchUpInside" id="Qj2-qk-Hdz"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMe-ut-Q4Z" userLabel="ClearButton">
-                                <rect key="frame" x="536" y="68" width="40" height="40"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="QqI-Fz-YCp"/>
-                                    <constraint firstAttribute="width" constant="40" id="W16-Me-qd2"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" image="xmark.circle" catalog="system">
-                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="34"/>
-                                    </preferredSymbolConfiguration>
-                                </state>
-                                <connections>
-                                    <action selector="clearButtonAction:" destination="emg-JI-ZdG" eventType="touchUpInside" id="f8K-Ka-Mm2"/>
-                                </connections>
-                            </button>
-                            <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5Su-7d-0p3">
-                                <rect key="frame" x="512" y="116" width="88" height="40"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ctr-Os-R7t" userLabel="HandWrittenButtonBlurView">
+                                <rect key="frame" x="516" y="20" width="80" height="50"/>
                                 <subviews>
-                                    <button opaque="NO" contentMode="scaleAspectFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ba-7e-i9x" userLabel="ClearButton">
-                                        <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="QUA-PH-Am3" userLabel="HandWrittenButton">
+                                        <rect key="frame" x="20" y="5" width="40" height="40"/>
                                         <constraints>
-                                            <constraint firstAttribute="width" constant="40" id="YuG-qw-qNw"/>
-                                            <constraint firstAttribute="height" constant="40" id="owK-p0-GO0"/>
+                                            <constraint firstAttribute="height" constant="40" id="jzC-0p-lkq"/>
+                                            <constraint firstAttribute="width" constant="40" id="xWP-VL-Efm"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" image="arrow.uturn.left" catalog="system">
+                                        <color key="tintColor" white="1" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="hand.raised" catalog="system">
                                             <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="34"/>
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
                                             </preferredSymbolConfiguration>
                                         </state>
                                         <connections>
-                                            <action selector="undoButtonAction:" destination="emg-JI-ZdG" eventType="touchUpInside" id="nj6-Nk-36U"/>
-                                        </connections>
-                                    </button>
-                                    <button opaque="NO" contentMode="scaleAspectFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G12-pj-5yP" userLabel="ClearButton">
-                                        <rect key="frame" x="48" y="0.0" width="40" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="8lG-K2-jZs"/>
-                                            <constraint firstAttribute="width" constant="40" id="k1c-ZR-P4P"/>
-                                        </constraints>
-                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                        <state key="normal" image="arrow.uturn.right" catalog="system">
-                                            <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
-                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="34"/>
-                                            </preferredSymbolConfiguration>
-                                        </state>
-                                        <connections>
-                                            <action selector="redoButtonAction:" destination="emg-JI-ZdG" eventType="touchUpInside" id="Ecc-Rd-yvH"/>
+                                            <action selector="handWrittenButtonClicked:" destination="emg-JI-ZdG" eventType="touchUpInside" id="Qj2-qk-Hdz"/>
                                         </connections>
                                     </button>
                                 </subviews>
-                            </stackView>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="QUA-PH-Am3" firstAttribute="centerX" secondItem="ctr-Os-R7t" secondAttribute="centerX" id="9z4-2i-Nzy"/>
+                                    <constraint firstAttribute="height" constant="50" id="B1h-jY-eY7"/>
+                                    <constraint firstAttribute="width" constant="80" id="WDx-M9-GtW"/>
+                                    <constraint firstItem="QUA-PH-Am3" firstAttribute="centerY" secondItem="ctr-Os-R7t" secondAttribute="centerY" id="pue-eg-y0X"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hMt-R8-Q3Z" userLabel="ClearButtonBlurView">
+                                <rect key="frame" x="1012" y="20" width="80" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="cMe-ut-Q4Z" userLabel="ClearButton">
+                                        <rect key="frame" x="20" y="5" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="QqI-Fz-YCp"/>
+                                            <constraint firstAttribute="width" constant="40" id="W16-Me-qd2"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="tintColor" white="1" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="trash" catalog="system">
+                                            <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
+                                            </preferredSymbolConfiguration>
+                                        </state>
+                                        <connections>
+                                            <action selector="clearButtonAction:" destination="emg-JI-ZdG" eventType="touchUpInside" id="f8K-Ka-Mm2"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="cMe-ut-Q4Z" firstAttribute="centerX" secondItem="hMt-R8-Q3Z" secondAttribute="centerX" id="BPD-hw-eMQ"/>
+                                    <constraint firstItem="cMe-ut-Q4Z" firstAttribute="centerY" secondItem="hMt-R8-Q3Z" secondAttribute="centerY" id="Gzw-gV-6yw"/>
+                                    <constraint firstAttribute="width" constant="80" id="L9F-QE-VrC"/>
+                                    <constraint firstAttribute="height" constant="50" id="mxV-gD-xjW"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="sao-w7-62P" userLabel="UndoRedoButtonBlurView">
+                                <rect key="frame" x="20" y="20" width="120" height="50"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" spacing="8" translatesAutoresizingMaskIntoConstraints="NO" id="5Su-7d-0p3">
+                                        <rect key="frame" x="16" y="5" width="88" height="40"/>
+                                        <subviews>
+                                            <button opaque="NO" contentMode="scaleAspectFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1ba-7e-i9x" userLabel="UndoButton">
+                                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="width" constant="40" id="YuG-qw-qNw"/>
+                                                    <constraint firstAttribute="height" constant="40" id="owK-p0-GO0"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="tintColor" white="1" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" image="arrow.uturn.left" catalog="system">
+                                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
+                                                    </preferredSymbolConfiguration>
+                                                </state>
+                                                <connections>
+                                                    <action selector="undoButtonAction:" destination="emg-JI-ZdG" eventType="touchUpInside" id="nj6-Nk-36U"/>
+                                                </connections>
+                                            </button>
+                                            <button opaque="NO" contentMode="scaleAspectFill" enabled="NO" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="G12-pj-5yP" userLabel="RedoButton">
+                                                <rect key="frame" x="48" y="0.0" width="40" height="40"/>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="40" id="8lG-K2-jZs"/>
+                                                    <constraint firstAttribute="width" constant="40" id="k1c-ZR-P4P"/>
+                                                </constraints>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="tintColor" white="1" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                                <state key="normal" image="arrow.uturn.right" catalog="system">
+                                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
+                                                    </preferredSymbolConfiguration>
+                                                </state>
+                                                <connections>
+                                                    <action selector="redoButtonAction:" destination="emg-JI-ZdG" eventType="touchUpInside" id="Ecc-Rd-yvH"/>
+                                                </connections>
+                                            </button>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="5Su-7d-0p3" firstAttribute="centerY" secondItem="sao-w7-62P" secondAttribute="centerY" id="0A5-Ev-WbK"/>
+                                    <constraint firstAttribute="height" constant="50" id="9iK-xr-9vA"/>
+                                    <constraint firstItem="5Su-7d-0p3" firstAttribute="centerX" secondItem="sao-w7-62P" secondAttribute="centerX" id="AvH-PI-h4A"/>
+                                    <constraint firstAttribute="width" constant="120" id="P0Z-pd-d2U"/>
+                                </constraints>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="cMe-ut-Q4Z" firstAttribute="width" secondItem="QUA-PH-Am3" secondAttribute="width" id="1xq-Lq-mJb"/>
+                            <constraint firstItem="ctr-Os-R7t" firstAttribute="centerX" secondItem="0pj-m2-hvD" secondAttribute="centerX" id="1Dc-8B-otP"/>
+                            <constraint firstItem="sao-w7-62P" firstAttribute="top" secondItem="Wfb-Pj-7lT" secondAttribute="top" constant="20" id="2Um-co-CfW"/>
                             <constraint firstItem="KJO-lY-xN9" firstAttribute="width" secondItem="0pj-m2-hvD" secondAttribute="width" multiplier="0.4" id="7Sr-9k-PJD"/>
                             <constraint firstItem="KJO-lY-xN9" firstAttribute="leading" secondItem="Wfb-Pj-7lT" secondAttribute="leading" id="DXC-e3-WmT"/>
-                            <constraint firstItem="QUA-PH-Am3" firstAttribute="centerX" secondItem="Wfb-Pj-7lT" secondAttribute="centerX" id="JaM-Z1-N0B"/>
-                            <constraint firstItem="cMe-ut-Q4Z" firstAttribute="centerX" secondItem="QUA-PH-Am3" secondAttribute="centerX" id="UbA-Q1-ku1"/>
-                            <constraint firstItem="cMe-ut-Q4Z" firstAttribute="top" secondItem="QUA-PH-Am3" secondAttribute="bottom" constant="8" symbolic="YES" id="YOY-Vj-lzY"/>
+                            <constraint firstItem="sao-w7-62P" firstAttribute="leading" secondItem="Wfb-Pj-7lT" secondAttribute="leading" constant="20" id="T9h-ME-0Gd"/>
                             <constraint firstItem="KJO-lY-xN9" firstAttribute="top" secondItem="Wfb-Pj-7lT" secondAttribute="top" id="cUK-rj-J2K"/>
-                            <constraint firstItem="QUA-PH-Am3" firstAttribute="top" secondItem="Wfb-Pj-7lT" secondAttribute="top" constant="20" id="cXq-AX-cV7"/>
+                            <constraint firstItem="hMt-R8-Q3Z" firstAttribute="top" secondItem="Wfb-Pj-7lT" secondAttribute="top" constant="20" id="eoZ-TC-cEW"/>
                             <constraint firstItem="KJO-lY-xN9" firstAttribute="bottom" secondItem="0pj-m2-hvD" secondAttribute="bottom" id="kT6-HJ-fze"/>
-                            <constraint firstItem="5Su-7d-0p3" firstAttribute="centerX" secondItem="cMe-ut-Q4Z" secondAttribute="centerX" id="oVe-Tf-Gxf"/>
-                            <constraint firstItem="cMe-ut-Q4Z" firstAttribute="height" secondItem="QUA-PH-Am3" secondAttribute="height" id="uTS-ZG-sQT"/>
-                            <constraint firstItem="5Su-7d-0p3" firstAttribute="top" secondItem="cMe-ut-Q4Z" secondAttribute="bottom" constant="8" id="w5P-jQ-ler"/>
+                            <constraint firstItem="Wfb-Pj-7lT" firstAttribute="trailing" secondItem="hMt-R8-Q3Z" secondAttribute="trailing" constant="20" id="wvF-65-W10"/>
+                            <constraint firstItem="ctr-Os-R7t" firstAttribute="top" secondItem="Wfb-Pj-7lT" secondAttribute="top" constant="20" id="zc4-7H-Up7"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="Wfb-Pj-7lT"/>
                     </view>
@@ -168,74 +204,113 @@
                                     <outletCollection property="gestureRecognizers" destination="RFj-B0-EPl" appends="YES" id="50E-Uc-S3v"/>
                                 </connections>
                             </view>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bNu-nm-vuR" userLabel="ClearButton">
-                                <rect key="frame" x="1052" y="20" width="40" height="40"/>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="vLI-eN-VHY" userLabel="ShareButtonBlurView">
+                                <rect key="frame" x="20" y="20" width="80" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pC4-uG-eLe" userLabel="ShareButton">
+                                        <rect key="frame" x="20" y="5" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="891-bv-xhp"/>
+                                            <constraint firstAttribute="height" constant="40" id="qy4-Np-X1Q"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="tintColor" white="1" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="square.and.arrow.up" catalog="system">
+                                            <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
+                                            </preferredSymbolConfiguration>
+                                        </state>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="40" id="PTY-fG-MHA"/>
-                                    <constraint firstAttribute="width" constant="40" id="xhu-FM-wMz"/>
+                                    <constraint firstItem="pC4-uG-eLe" firstAttribute="centerX" secondItem="vLI-eN-VHY" secondAttribute="centerX" id="1xj-Ry-y9Q"/>
+                                    <constraint firstAttribute="width" constant="80" id="R4Q-8P-pPv"/>
+                                    <constraint firstItem="pC4-uG-eLe" firstAttribute="centerY" secondItem="vLI-eN-VHY" secondAttribute="centerY" id="RjC-jg-AW4"/>
+                                    <constraint firstAttribute="height" constant="50" id="akl-TE-iqf"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" image="xmark.circle" catalog="system">
-                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="34"/>
-                                    </preferredSymbolConfiguration>
-                                </state>
-                                <connections>
-                                    <action selector="clearButton" destination="kPR-QK-znA" eventType="touchUpInside" id="tg9-kc-EHJ"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pC4-uG-eLe" userLabel="ShareButton">
-                                <rect key="frame" x="20" y="20" width="40" height="40"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Rmf-g6-Xra" userLabel="HandWrittenButtonBlurView">
+                                <rect key="frame" x="516" y="20" width="80" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2QF-CH-jGR" userLabel="HandWrittenButton">
+                                        <rect key="frame" x="20" y="5" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="40" id="exD-Md-AVg"/>
+                                            <constraint firstAttribute="height" constant="40" id="zHS-5C-QJf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="tintColor" white="1" alpha="0.90000000000000002" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="hand.raised" catalog="system">
+                                            <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
+                                            </preferredSymbolConfiguration>
+                                        </state>
+                                        <connections>
+                                            <action selector="handWrittenButtonClicked" destination="kPR-QK-znA" eventType="touchUpInside" id="jKm-PH-aRu"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="40" id="891-bv-xhp"/>
-                                    <constraint firstAttribute="height" constant="40" id="qy4-Np-X1Q"/>
+                                    <constraint firstItem="2QF-CH-jGR" firstAttribute="centerY" secondItem="Rmf-g6-Xra" secondAttribute="centerY" id="6Dr-fz-tSF"/>
+                                    <constraint firstAttribute="width" constant="80" id="Bm6-Io-w1z"/>
+                                    <constraint firstItem="2QF-CH-jGR" firstAttribute="centerX" secondItem="Rmf-g6-Xra" secondAttribute="centerX" id="dNc-fO-Ji5"/>
+                                    <constraint firstAttribute="height" constant="50" id="hlw-zB-aeb"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" image="square.and.arrow.up" catalog="system">
-                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="34"/>
-                                    </preferredSymbolConfiguration>
-                                </state>
-                            </button>
-                            <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2QF-CH-jGR" userLabel="HandWrittenButton">
-                                <rect key="frame" x="536" y="20" width="40" height="40"/>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Al9-XI-cHK" userLabel="ClearButtonBlurView">
+                                <rect key="frame" x="1012" y="20" width="80" height="50"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleAspectFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="bNu-nm-vuR" userLabel="ClearButton">
+                                        <rect key="frame" x="20" y="5" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="PTY-fG-MHA"/>
+                                            <constraint firstAttribute="width" constant="40" id="xhu-FM-wMz"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <color key="tintColor" white="1" alpha="0.89646832191780823" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <state key="normal" image="trash" catalog="system">
+                                            <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                            <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
+                                                <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="28"/>
+                                            </preferredSymbolConfiguration>
+                                        </state>
+                                        <connections>
+                                            <action selector="clearButtonClicked" destination="kPR-QK-znA" eventType="touchUpInside" id="f2o-Tg-O3D"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="40" id="1Gx-U8-rPP"/>
-                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="40" id="4yp-xz-QVf"/>
-                                    <constraint firstAttribute="width" constant="40" id="exD-Md-AVg"/>
-                                    <constraint firstAttribute="height" constant="40" id="zHS-5C-QJf"/>
+                                    <constraint firstItem="bNu-nm-vuR" firstAttribute="centerY" secondItem="Al9-XI-cHK" secondAttribute="centerY" id="EoA-2D-kZ1"/>
+                                    <constraint firstItem="bNu-nm-vuR" firstAttribute="centerX" secondItem="Al9-XI-cHK" secondAttribute="centerX" id="agd-YV-v4e"/>
+                                    <constraint firstAttribute="width" constant="80" id="e8s-4t-Hfx"/>
+                                    <constraint firstAttribute="height" constant="50" id="xFQ-D0-ZDS"/>
                                 </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <state key="normal" image="hand.raised" catalog="system">
-                                    <color key="titleColor" systemColor="linkColor" red="0.0" green="0.47843137250000001" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="font">
-                                        <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="34"/>
-                                    </preferredSymbolConfiguration>
-                                </state>
-                                <connections>
-                                    <action selector="handWrittenButtonClicked" destination="kPR-QK-znA" eventType="touchUpInside" id="jKm-PH-aRu"/>
-                                </connections>
-                            </button>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
-                            <constraint firstItem="RaI-Eu-MEP" firstAttribute="trailing" secondItem="bNu-nm-vuR" secondAttribute="trailing" constant="20" id="0Yx-Cd-pl3"/>
-                            <constraint firstItem="bNu-nm-vuR" firstAttribute="top" secondItem="RaI-Eu-MEP" secondAttribute="top" constant="20" id="DeF-iY-T3Y"/>
-                            <constraint firstItem="2QF-CH-jGR" firstAttribute="top" secondItem="RaI-Eu-MEP" secondAttribute="top" constant="20" id="KBJ-v4-BeX"/>
-                            <constraint firstItem="2QF-CH-jGR" firstAttribute="centerX" secondItem="RaI-Eu-MEP" secondAttribute="centerX" id="Xib-KW-a0O"/>
-                            <constraint firstItem="pC4-uG-eLe" firstAttribute="leading" secondItem="RaI-Eu-MEP" secondAttribute="leading" constant="20" id="YWG-9a-89L"/>
-                            <constraint firstItem="pC4-uG-eLe" firstAttribute="top" secondItem="RaI-Eu-MEP" secondAttribute="top" constant="20" id="jyW-Vl-cFp"/>
+                            <constraint firstItem="Rmf-g6-Xra" firstAttribute="top" secondItem="RaI-Eu-MEP" secondAttribute="top" constant="20" id="1xW-Pi-kwj"/>
+                            <constraint firstItem="vLI-eN-VHY" firstAttribute="top" secondItem="RaI-Eu-MEP" secondAttribute="top" constant="20" id="7KI-0U-Zyx"/>
+                            <constraint firstItem="Al9-XI-cHK" firstAttribute="top" secondItem="RaI-Eu-MEP" secondAttribute="top" constant="20" id="N7G-fI-4B3"/>
+                            <constraint firstItem="Rmf-g6-Xra" firstAttribute="centerX" secondItem="TS8-Pg-2NE" secondAttribute="centerX" id="Vcj-Vb-3W6"/>
+                            <constraint firstItem="vLI-eN-VHY" firstAttribute="leading" secondItem="RaI-Eu-MEP" secondAttribute="leading" constant="20" id="Y4x-LG-RId"/>
+                            <constraint firstItem="RaI-Eu-MEP" firstAttribute="trailing" secondItem="Al9-XI-cHK" secondAttribute="trailing" constant="20" id="t8m-JJ-Bh3"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="RaI-Eu-MEP"/>
                     </view>
                     <connections>
                         <outlet property="canvasView" destination="FB2-45-UmC" id="qCV-ke-MZ3"/>
+                        <outlet property="clearButton" destination="bNu-nm-vuR" id="mMJ-uW-TFp"/>
                         <outlet property="handWrittenModeButton" destination="2QF-CH-jGR" id="NCf-zg-DNe"/>
                         <outlet property="panGestureRecognizer" destination="hB6-bO-87w" id="ysd-O7-4I5"/>
                         <outlet property="pinchGestureRecognizer" destination="XPT-rb-seg" id="SRW-pR-I4w"/>
                         <outlet property="rotationGestureRecognizer" destination="RFj-B0-EPl" id="z1y-ED-ViQ"/>
+                        <outlet property="shareButton" destination="pC4-uG-eLe" id="Jwp-qT-393"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="hMb-aP-v1b" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -264,6 +339,6 @@
         <image name="couplet-left" width="556" height="2634"/>
         <image name="hand.raised" catalog="system" width="128" height="128"/>
         <image name="square.and.arrow.up" catalog="system" width="115" height="128"/>
-        <image name="xmark.circle" catalog="system" width="128" height="121"/>
+        <image name="trash" catalog="system" width="121" height="128"/>
     </resources>
 </document>

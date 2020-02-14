@@ -57,6 +57,10 @@ class CanvasMainViewController: UIViewController {
         leftCGView.strokeCollection = strokeCollection
     }
     
+    @IBAction func handWrittenButtonClicked(_ sender: AnyObject?) {
+        handWrittenMode.toggle()
+    }
+    
     /// Toggles hand-written mode for the app.
     /// - Tag: handWrittenMode
     var handWrittenMode = true {
@@ -76,10 +80,7 @@ class CanvasMainViewController: UIViewController {
             }
         }
     }
-    
-    @IBAction func handWrittenButtonClicked(_ sender: AnyObject?) {
-        handWrittenMode.toggle()
-    }
+
     
     /// 用于检测是否连接到 Apple Pencil 的辅助类
     private var pencilDetector: BOApplePencilReachability?
@@ -91,28 +92,29 @@ class CanvasMainViewController: UIViewController {
         
         strokeCollection.delegate = self
         
+        clearButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
+        handWrittenModeButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
+        redoButton.superview?.superview?.addBlurInSubviewWith(cornerRadius: 15)
+        
         /// 为左边对联设置可以绘制的 leftCGView
         let leftCGView = StrokeCGView(frame: leftCoupletImageView.bounds)
         leftCGView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
         self.leftCGView = leftCGView
-        leftScrollView.addSubview(leftCGView)
-        
-        // We put our UI elements on top of the scroll view, so we don't want any of the
-        // delay or cancel machinery in place.
+        leftCoupletImageView.addSubview(leftCGView)
         leftScrollView.delaysContentTouches = false
         
-//        let canvasContainerView = CanvasContainerView(canvasSize: cgView.frame.size)
-//        canvasContainerView.documentView = cgView
-//        self.canvasContainerView = canvasContainerView
-//        view.contentSize = canvasContainerView.frame.size
-//        view.contentOffset = CGPoint(x: (canvasContainerView.frame.width - view.bounds.width) / 2.0,
-//                                           y: (canvasContainerView.frame.height - view.bounds.height) / 2.0)
-//        view.addSubview(canvasContainerView)
-//        view.backgroundColor = canvasContainerView.backgroundColor
-//        view.maximumZoomScale = 3.0
-//        view.minimumZoomScale = 0.5
-//        view.panGestureRecognizer.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
-//        view.pinchGestureRecognizer?.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
+        //        let canvasContainerView = CanvasContainerView(canvasSize: cgView.frame.size)
+        //        canvasContainerView.documentView = cgView
+        //        self.canvasContainerView = canvasContainerView
+        //        view.contentSize = canvasContainerView.frame.size
+        //        view.contentOffset = CGPoint(x: (canvasContainerView.frame.width - view.bounds.width) / 2.0,
+        //                                           y: (canvasContainerView.frame.height - view.bounds.height) / 2.0)
+        //        view.addSubview(canvasContainerView)
+        //        view.backgroundColor = canvasContainerView.backgroundColor
+        //        view.maximumZoomScale = 3.0
+        //        view.minimumZoomScale = 0.5
+        //        view.panGestureRecognizer.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
+        //        view.pinchGestureRecognizer?.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
         
         self.fingerStrokeRecognizer = setupStrokeGestureRecognizer(isForPencil: false)
         self.pencilStrokeRecognizer = setupStrokeGestureRecognizer(isForPencil: true)
@@ -123,12 +125,15 @@ class CanvasMainViewController: UIViewController {
             self.handWrittenMode = !isPencilReachable
         })
     }
-    
+}
+
+// MARK: Stroke things
+extension CanvasMainViewController {
     /// A helper method that creates stroke gesture recognizers.
     /// - Tag: setupStrokeGestureRecognizer
     func setupStrokeGestureRecognizer(isForPencil: Bool) -> StrokeGestureRecognizer {
         let recognizer = StrokeGestureRecognizer(target: self, action: #selector(strokeUpdated(_:)))
-//        recognizer.delegate = self
+        //        recognizer.delegate = self
         recognizer.cancelsTouchesInView = false
         leftScrollView.addGestureRecognizer(recognizer)
         recognizer.coordinateSpaceView = leftCGView
@@ -172,6 +177,7 @@ class CanvasMainViewController: UIViewController {
     }
 }
 
+// MARK: StrokeCollectionDelegate
 extension CanvasMainViewController: StrokeCollectionDelegate {
     var redoable: Bool {
         get {
@@ -192,6 +198,7 @@ extension CanvasMainViewController: StrokeCollectionDelegate {
     }
 }
 
+// MARK: SwiftUI things
 struct CanvasMainViewControllerRepresentation: UIViewControllerRepresentable {
     
     func makeUIViewController(
