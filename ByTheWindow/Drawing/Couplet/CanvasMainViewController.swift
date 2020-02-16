@@ -214,5 +214,12 @@ struct CanvasMainViewControllerRepresentation: UIViewControllerRepresentable {
         <CanvasMainViewControllerRepresentation>) {
         
     }
-    
 }
+
+#if DEBUG
+struct CanvasMainViewControllerPreviews: PreviewProvider {
+  static var previews: some View {
+    CanvasMainViewControllerRepresentation()
+  }
+}
+#endif
