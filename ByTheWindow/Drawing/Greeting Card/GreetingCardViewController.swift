@@ -73,7 +73,7 @@ class GreetingCardViewController: UIViewController, PKCanvasViewDelegate {
             self.allowsFingerDrawing = !isPencilReachable
         })
         
-        /// 设置 PencilKil
+        /// 设置 PencilKit
         if let window = UIApplication.shared.windows.first, let toolPicker = PKToolPicker.shared(for: window) {
             canvasView.delegate = self
             toolPicker.setVisible(true, forFirstResponder: canvasView)
@@ -155,5 +155,67 @@ struct GreetingCardViewControllerRepresentation: UIViewControllerRepresentable {
                                 context: UIViewControllerRepresentableContext
         <GreetingCardViewControllerRepresentation>) {
         
+    }
+}
+
+
+struct PencilKitView: UIViewRepresentable {
+    @Binding var allowsFingerDrawing: Bool
+    @Binding var clearAction: () -> ()
+    @Binding var handWrittenToggleAction: () -> ()
+    
+    func makeCoordinator() -> Coordinator {
+        let coordinator = Coordinator(self)
+        coordinator.beginPencilDetect()
+        return Coordinator(self)
+    }
+    
+    func makeUIView(context: Context) -> PKCanvasView {
+        let canvasView = PKCanvasView()
+        canvasView.backgroundColor = .clear
+        canvasView.isOpaque = false
+        
+        if let window = UIApplication.shared.windows.first, let toolPicker = PKToolPicker.shared(for: window) {
+            canvasView.delegate = context.coordinator
+            toolPicker.setVisible(true, forFirstResponder: canvasView)
+            toolPicker.addObserver(canvasView)
+            
+            toolPicker.selectedTool = PKInkingTool(.pen, color: .black, width: 30)
+            canvasView.becomeFirstResponder()
+        }
+        
+        DispatchQueue.main.async {
+            self.clearAction = {
+                canvasView.drawing = PKDrawing()
+            }
+            
+            self.handWrittenToggleAction = {
+                self.allowsFingerDrawing.toggle()
+            }
+        }
+        
+        return canvasView
+    }
+    
+    func updateUIView(_ uiView: PKCanvasView, context: Context) {
+        uiView.allowsFingerDrawing = allowsFingerDrawing
+    }
+    
+    class Coordinator: NSObject, PKCanvasViewDelegate {
+        var pencilKitView : PencilKitView
+        
+        /// 用于检测是否连接到 Apple Pencil 的辅助类
+        private var pencilDetector: BOApplePencilReachability?
+        
+        init(_ pencilKitView: PencilKitView) {
+            self.pencilKitView = pencilKitView
+        }
+        
+        /// 开始检测 Apple Pencil. 若检测到 Apple Pencil，则关闭手写
+        func beginPencilDetect() {
+            self.pencilDetector = BOApplePencilReachability.init(didChangeClosure: { isPencilReachable in
+                self.pencilKitView.allowsFingerDrawing = !isPencilReachable
+            })
+        }
     }
 }

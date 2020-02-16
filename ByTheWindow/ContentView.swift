@@ -38,8 +38,9 @@ struct ContentView: View {
 //                GreetingCardViewControllerRepresentation()
 //                    .transition(AnyTransition.scale.combined(with: .opacity).animation(Animation.easeInOut))
                 
-                CanvasMainViewControllerRepresentation()
-                    .transition(AnyTransition.scale.combined(with: .opacity).animation(Animation.easeInOut))
+//                CanvasMainViewControllerRepresentation()
+//                    .transition(AnyTransition.scale.combined(with: .opacity).animation(Animation.easeInOut))
+                GreetingCardView()
             }
         }
     }

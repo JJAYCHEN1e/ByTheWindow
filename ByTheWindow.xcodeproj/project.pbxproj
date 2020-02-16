@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6302788523F92669009C8FF2 /* 叶根友福荣银钩.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */; };
 		6333653523EAE03A0072E311 /* CGDrawingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333652F23EADFA80072E311 /* CGDrawingEngine.swift */; };
 		6333653623EAE03A0072E311 /* StrokeGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333653023EADFA80072E311 /* StrokeGestureRecognizer.swift */; };
 		6333653823EAE03A0072E311 /* CanvasMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333653323EADFA80072E311 /* CanvasMainViewController.swift */; };
@@ -15,6 +16,7 @@
 		6333653F23EAE0BC0072E311 /* Canvas.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6333653123EADFA80072E311 /* Canvas.storyboard */; };
 		6333654823EBD6310072E311 /* GreetingCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333654723EBD6310072E311 /* GreetingCardViewController.swift */; };
 		6333654A23EC14870072E311 /* BOApplePencilReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333654923EC14870072E311 /* BOApplePencilReachability.swift */; };
+		6337045123F8F614004BBE0A /* GreetingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6337045023F8F614004BBE0A /* GreetingCardView.swift */; };
 		634AA69123E9AADE00ED6AA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634AA69023E9AADE00ED6AA0 /* AppDelegate.swift */; };
 		634AA69323E9AADE00ED6AA0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634AA69223E9AADE00ED6AA0 /* SceneDelegate.swift */; };
 		634AA69523E9AADE00ED6AA0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634AA69423E9AADE00ED6AA0 /* ContentView.swift */; };
@@ -29,6 +31,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "叶根友福荣银钩.ttf"; sourceTree = "<group>"; };
 		6333652F23EADFA80072E311 /* CGDrawingEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGDrawingEngine.swift; sourceTree = "<group>"; };
 		6333653023EADFA80072E311 /* StrokeGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeGestureRecognizer.swift; sourceTree = "<group>"; };
 		6333653123EADFA80072E311 /* Canvas.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Canvas.storyboard; sourceTree = "<group>"; };
@@ -37,6 +40,7 @@
 		6333653D23EAE06A0072E311 /* CGMathExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGMathExtensions.swift; sourceTree = "<group>"; };
 		6333654723EBD6310072E311 /* GreetingCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingCardViewController.swift; sourceTree = "<group>"; };
 		6333654923EC14870072E311 /* BOApplePencilReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOApplePencilReachability.swift; sourceTree = "<group>"; };
+		6337045023F8F614004BBE0A /* GreetingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingCardView.swift; sourceTree = "<group>"; };
 		634AA68D23E9AADE00ED6AA0 /* ByTheWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ByTheWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		634AA69023E9AADE00ED6AA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		634AA69223E9AADE00ED6AA0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -136,6 +140,7 @@
 				634AA69023E9AADE00ED6AA0 /* AppDelegate.swift */,
 				634AA69223E9AADE00ED6AA0 /* SceneDelegate.swift */,
 				634AA69423E9AADE00ED6AA0 /* ContentView.swift */,
+				6337045023F8F614004BBE0A /* GreetingCardView.swift */,
 				8199A22123F697870098F149 /* MatchCoupletView.swift */,
 				634AA69623E9AAE200ED6AA0 /* Assets.xcassets */,
 				634AA69B23E9AAE200ED6AA0 /* LaunchScreen.storyboard */,
@@ -189,6 +194,7 @@
 		81F4E9C623F28EC100A8CE46 /* Fonts */ = {
 			isa = PBXGroup;
 			children = (
+				6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */,
 				81F4E9C123F28DAE00A8CE46 /* Ma_Shan_Zheng */,
 			);
 			path = Fonts;
@@ -255,6 +261,7 @@
 				81F4E9C523F28DAE00A8CE46 /* MaShanZheng-Regular.ttf in Resources */,
 				81F4E9C423F28DAE00A8CE46 /* OFL.txt in Resources */,
 				634AA69D23E9AAE200ED6AA0 /* LaunchScreen.storyboard in Resources */,
+				6302788523F92669009C8FF2 /* 叶根友福荣银钩.ttf in Resources */,
 				634AA69A23E9AAE200ED6AA0 /* Preview Assets.xcassets in Resources */,
 				634AA69723E9AAE200ED6AA0 /* Assets.xcassets in Resources */,
 				6333653F23EAE0BC0072E311 /* Canvas.storyboard in Resources */,
@@ -269,6 +276,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				634AA69123E9AADE00ED6AA0 /* AppDelegate.swift in Sources */,
+				6337045123F8F614004BBE0A /* GreetingCardView.swift in Sources */,
 				6333653A23EAE03A0072E311 /* StrokeCollection.swift in Sources */,
 				6333653823EAE03A0072E311 /* CanvasMainViewController.swift in Sources */,
 				634AA69323E9AADE00ED6AA0 /* SceneDelegate.swift in Sources */,
