@@ -139,26 +139,6 @@ extension PKCanvasView: UIGestureRecognizerDelegate {
     }
 }
 
-
-// MARK: Hosting UIKit for SwiftUI
-struct GreetingCardViewControllerRepresentation: UIViewControllerRepresentable {
-    
-    func makeUIViewController(
-        context: UIViewControllerRepresentableContext
-        <GreetingCardViewControllerRepresentation>) -> GreetingCardViewController {
-        UIStoryboard(name: "Canvas", bundle: nil)
-            .instantiateViewController(withIdentifier: "GreetingCardViewController")
-            as! GreetingCardViewController
-    }
-    
-    func updateUIViewController(_ uiViewController: GreetingCardViewController,
-                                context: UIViewControllerRepresentableContext
-        <GreetingCardViewControllerRepresentation>) {
-        
-    }
-}
-
-
 struct PencilKitView: UIViewRepresentable {
     @Binding var allowsFingerDrawing: Bool
     @Binding var clearAction: () -> ()

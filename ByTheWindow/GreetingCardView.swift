@@ -14,6 +14,14 @@ struct GreetingCardView: View {
     @State var clearAction: () -> () = {}
     @State var handWrittenToggleAction: () -> () = {}
     
+    @State var content = """
+    今年过节送你福，福来运来幸福来，
+    人旺运旺财运旺，大吉大利好预兆，
+    顺心顺利更如意，幸福快乐更逍遥，
+    恭贺新春快乐，吉祥好运，
+    健康平安，心想事成！
+    """
+    
     
     var body: some View {
         ZStack {
@@ -21,19 +29,9 @@ struct GreetingCardView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             
-            
-            Text(
-                """
-                今年过节送你福，福来运来幸福来，
-                人旺运旺财运旺，大吉大利好预兆，
-                顺心顺利更如意，幸福快乐更逍遥，
-                恭贺新春快乐，吉祥好运，
-                健康平安，心想事成！
-                """
-            )
-                .font(.custom("MaShanZheng-Regular", size: 40))
-                .foregroundColor(Color(#colorLiteral(red: 0.9803134799, green: 0.9679825902, blue: 0.6949725151, alpha: 1)))
-                .offset(x: -120, y: 0)
+            GreetingCardContentTextView(text: $content)
+                .frame(width: 600, height: 300)
+                .offset(x: -120, y: 20)
             
             PencilKitView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, handWrittenToggleAction: $handWrittenToggleAction)
             
@@ -41,7 +39,6 @@ struct GreetingCardView: View {
                 HStack {
                     ButtonWithBlurBackground(
                         action: {
-                            //  self.allowsFingerDrawing.toggle()
                             self.handWrittenToggleAction()
                     },
                         imageName: "hand.draw",
@@ -69,5 +66,24 @@ struct GreetingCardView_Previews: PreviewProvider {
         }, handWrittenToggleAction: {
             
         }).previewLayout(.fixed(width: 1112, height: 834))
+    }
+}
+
+struct GreetingCardContentTextView: UIViewRepresentable {
+    @Binding var text: String
+
+    func makeUIView(context: Context) -> UITextView {
+        let view = UITextView()
+        view.font = UIFont(name: "MaShanZheng-Regular", size: 40)
+        view.textColor = #colorLiteral(red: 0.9763947129, green: 0.964057982, blue: 0.6910167336, alpha: 1)
+        view.backgroundColor = .clear
+        view.isScrollEnabled = false
+        view.isEditable = true
+        view.isUserInteractionEnabled = true
+        return view
+    }
+
+    func updateUIView(_ uiView: UITextView, context: Context) {
+        uiView.text = text
     }
 }
