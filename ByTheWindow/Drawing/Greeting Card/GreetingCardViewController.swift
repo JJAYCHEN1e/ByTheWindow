@@ -140,9 +140,9 @@ extension PKCanvasView: UIGestureRecognizerDelegate {
 }
 
 struct PencilKitView: UIViewRepresentable {
+    @Binding var allowsDrawing: Bool
     @Binding var allowsFingerDrawing: Bool
     @Binding var clearAction: () -> ()
-    @Binding var handWrittenToggleAction: () -> ()
     
     func makeCoordinator() -> Coordinator {
         let coordinator = Coordinator(self)
@@ -168,10 +168,7 @@ struct PencilKitView: UIViewRepresentable {
             self.clearAction = {
                 canvasView.drawing = PKDrawing()
             }
-            
-            self.handWrittenToggleAction = {
-                self.allowsFingerDrawing.toggle()
-            }
+            self.allowsDrawing.toggle()
         }
         
         return canvasView
@@ -179,6 +176,7 @@ struct PencilKitView: UIViewRepresentable {
     
     func updateUIView(_ uiView: PKCanvasView, context: Context) {
         uiView.allowsFingerDrawing = allowsFingerDrawing
+        uiView.isUserInteractionEnabled = allowsDrawing
     }
     
     class Coordinator: NSObject, PKCanvasViewDelegate {

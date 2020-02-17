@@ -34,31 +34,34 @@ struct VisualEffect: UIViewRepresentable {
 
 /// 封装 VisualEffect 与 Button
 struct ButtonWithBlurBackground: View {
-    var action: () -> Void
-    var imageName: String
+    var actions: [() -> Void]
+    var imageName: [String]
     
     var effect: UIVisualEffect = UIBlurEffect(style: .dark)
     var frameWidth: CGFloat = 80
     var frameHeight: CGFloat = 50
     var cornerRadius: CGFloat = 15
-    var color: Color = Color(.white).opacity(0.9)
+    var colors: [Color] = [Color(.white).opacity(0.9)]
     var size: CGFloat = 28
+    var spacing: CGFloat = 10
     
     var body: some View {
         ZStack {
             VisualEffect(effect: effect)
                 .frame(width: frameWidth, height: frameHeight)
                 .cornerRadius(cornerRadius)
-            Button(action: action){
-                HStack {
-                    Image(systemName: imageName)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .foregroundColor(color)
-    //                    .background(Color.white)
-                        .frame(width: size, height: size)
+            
+            HStack(spacing: spacing) {
+                ForEach(0..<imageName.count) { index in
+                    Button(action: self.actions[index]){
+                        Image(systemName: self.imageName[index])
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .foregroundColor(self.colors[index])
+                            .frame(width: self.size, height: self.size)
+                    }
                 }
-                .frame(width: frameWidth, height: frameHeight)
+//                .frame(width: frameWidth, height: frameHeight)
             }
         }
     }
@@ -66,7 +69,7 @@ struct ButtonWithBlurBackground: View {
 
 struct Blur_Previews: PreviewProvider {
     static var previews: some View {
-        ButtonWithBlurBackground(action: {
-        }, imageName: "hand.draw")
+        ButtonWithBlurBackground(actions: [{
+            }], imageName: ["hand.draw"])
     }
 }

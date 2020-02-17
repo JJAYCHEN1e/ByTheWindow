@@ -10,9 +10,10 @@ import SwiftUI
 import PencilKit
 
 struct GreetingCardView: View {
+    @State var allowsDrawing = true
     @State var allowsFingerDrawing = true
     @State var clearAction: () -> () = {}
-    @State var handWrittenToggleAction: () -> () = {}
+    @State var contentEditingAction: () -> () = {}
     
     @State var content = """
     今年过节送你福，福来运来幸福来，
@@ -29,28 +30,44 @@ struct GreetingCardView: View {
                 .resizable()
                 .aspectRatio(contentMode: .fit)
             
-            GreetingCardContentTextView(text: $content)
+            
+            if allowsDrawing {
+                GreetingCardContentTextView(text: $content, contentEditingAction: $contentEditingAction)
                 .frame(width: 600, height: 300)
                 .offset(x: -120, y: 20)
+            }
             
-            PencilKitView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, handWrittenToggleAction: $handWrittenToggleAction)
+            PencilKitView(allowsDrawing: $allowsDrawing, allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction)
+            
+            if !allowsDrawing {
+                GreetingCardContentTextView(text: $content, contentEditingAction: $contentEditingAction)
+                .frame(width: 600, height: 300)
+                .offset(x: -120, y: 20)
+                
+            }
             
             VStack {
                 HStack {
                     ButtonWithBlurBackground(
-                        action: {
-                            self.handWrittenToggleAction()
-                    },
-                        imageName: "hand.draw",
-                        color: allowsFingerDrawing ? Color.blue : Color.white.opacity(0.9),
+                        actions: [
+                            {
+                                self.allowsDrawing.toggle()
+                            },
+                            {
+                                self.allowsFingerDrawing.toggle()
+                            }
+                        ],
+                        imageName: [ "pencil.and.outline", "hand.draw",],
+                        frameWidth: 120,
+                        colors: [allowsDrawing ? Color.blue : Color.white.opacity(0.9), allowsDrawing ? (allowsFingerDrawing ? Color.blue : Color.white.opacity(0.9)) : Color.white.opacity(0.3)],
                         size: 34
                     )
                     
                     Spacer()
                     
-                    ButtonWithBlurBackground(action: {
+                    ButtonWithBlurBackground(actions: [{
                         self.clearAction()
-                    }, imageName: "trash")
+                        }], imageName: ["trash"])
                 }
                 .padding()
                 Spacer()
@@ -63,15 +80,19 @@ struct GreetingCardView_Previews: PreviewProvider {
     static var previews: some View {
         GreetingCardView(clearAction: {
             
-        }, handWrittenToggleAction: {
-            
-        }).previewLayout(.fixed(width: 1112, height: 834))
+        })
+            .previewLayout(.fixed(width: 1112, height: 834)) // iPad Air 10.5
+        //        .previewLayout(.fixed(width: 1080, height: 810)) // iPad 7th
+        //        .previewLayout(.fixed(width: 1194, height: 834)) // iPad Pro 11"
+        //        .previewLayout(.fixed(width: 1366, height: 1024)) // iPad Pro 12.9"
+        //        .previewLayout(.fixed(width: 1024, height: 768)) // iPad mini
     }
 }
 
 struct GreetingCardContentTextView: UIViewRepresentable {
     @Binding var text: String
-
+    @Binding var contentEditingAction: () -> ()
+    
     func makeUIView(context: Context) -> UITextView {
         let view = UITextView()
         view.font = UIFont(name: "MaShanZheng-Regular", size: 40)
@@ -80,9 +101,15 @@ struct GreetingCardContentTextView: UIViewRepresentable {
         view.isScrollEnabled = false
         view.isEditable = true
         view.isUserInteractionEnabled = true
+        
+        DispatchQueue.main.async {
+            self.contentEditingAction = {
+                view.becomeFirstResponder()
+            }
+        }
         return view
     }
-
+    
     func updateUIView(_ uiView: UITextView, context: Context) {
         uiView.text = text
     }
