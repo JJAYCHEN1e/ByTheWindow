@@ -92,9 +92,9 @@ class CanvasMainViewController: UIViewController {
         
         strokeCollection.delegate = self
         
-        clearButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
-        handWrittenModeButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
-        redoButton.superview?.superview?.addBlurInSubviewWith(cornerRadius: 15)
+//        clearButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
+//        handWrittenModeButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
+//        redoButton.superview?.superview?.addBlurInSubviewWith(cornerRadius: 15)
         
         /// 为左边对联设置可以绘制的 leftCGView
         let leftCGView = StrokeCGView(frame: leftCoupletImageView.bounds)
