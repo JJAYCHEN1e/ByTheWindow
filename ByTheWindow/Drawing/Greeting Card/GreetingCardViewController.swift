@@ -52,18 +52,10 @@ class GreetingCardViewController: UIViewController, PKCanvasViewDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        handWrittenModeButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
-        clearButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
-        shareButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
+//        handWrittenModeButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
+//        clearButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
+//        shareButton.superview?.addBlurInSubviewWith(cornerRadius: 15)
         
-        /// 一定要设置 delegate，否则 gestureRecognizer(
-        ///            _ gestureRecognizer: UIGestureRecognizer,
-        ///            shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer)
-        /// 不生效。或者也可以在 StoryBoard 中设置。
-        panGestureRecognizer.delegate = canvasView
-        pinchGestureRecognizer.delegate = canvasView
-        rotationGestureRecognizer.delegate = canvasView
-
         /// 默认是允许手写的，所以 Pan 手势应该是两根手指. 并且限制触控类行为手指
         panGestureRecognizer.minimumNumberOfTouches = 2
         panGestureRecognizer.allowedTouchTypes = [UITouch.TouchType.direct.rawValue as NSNumber]
@@ -102,15 +94,7 @@ class GreetingCardViewController: UIViewController, PKCanvasViewDelegate {
     
     @IBAction func handlePan(_ gesture: UIPanGestureRecognizer) {
         let translation = gesture.translation(in: canvasView)
-        
-//        // 由于存在缩放，在 Pan 手势处理时应该 * currentScale
-//        canvasView.center = CGPoint(
-//            x: canvasView.center.x + translation.x * currentScale,
-//            y: canvasView.center.y + translation.y * currentScale
-//        )
-        
-        // 上面的代码会和 Rotation 有冲突，改用 translatedBy 函数。
-        // 且不用考虑缩放尺寸。
+
         canvasView.transform = canvasView.transform.translatedBy(
             x: translation.x,
             y: translation.y
@@ -125,17 +109,6 @@ class GreetingCardViewController: UIViewController, PKCanvasViewDelegate {
         )
         
         gesture.rotation = 0
-    }
-}
-
-// MARK: Gesture Delegate
-extension PKCanvasView: UIGestureRecognizerDelegate {
-    /// 允许各个 GestureRecognizer 共同工作。
-    public func gestureRecognizer(
-        _ gestureRecognizer: UIGestureRecognizer,
-        shouldRecognizeSimultaneouslyWith otherGestureRecognizer: UIGestureRecognizer
-    ) -> Bool {
-        return true
     }
 }
 

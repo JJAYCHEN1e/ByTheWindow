@@ -33,16 +33,16 @@ struct GreetingCardView: View {
             
             if allowsDrawing {
                 GreetingCardContentTextView(text: $content, contentEditingAction: $contentEditingAction)
-                .frame(width: 600, height: 300)
-                .offset(x: -120, y: 20)
+                    .frame(width: 600, height: 300)
+                    .offset(x: -120, y: 20)
             }
             
             PencilKitView(allowsDrawing: $allowsDrawing, allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction)
             
             if !allowsDrawing {
                 GreetingCardContentTextView(text: $content, contentEditingAction: $contentEditingAction)
-                .frame(width: 600, height: 300)
-                .offset(x: -120, y: 20)
+                    .frame(width: 600, height: 300)
+                    .offset(x: -120, y: 20)
                 
             }
             

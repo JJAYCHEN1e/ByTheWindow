@@ -9,15 +9,15 @@
 import UIKit
 import SwiftUI
 
-extension UIView {
-    func addBlurInSubviewWith(cornerRadius: CGFloat = 15) {
-        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
-        blurView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
-        blurView.layer.cornerRadius = cornerRadius
-        blurView.clipsToBounds = true
-        insertSubview(blurView, at: 0)
-    }
-}
+//extension UIView {
+//    func addBlurInSubviewWith(cornerRadius: CGFloat = 15) {
+//        let blurView = UIVisualEffectView(effect: UIBlurEffect(style: .dark))
+//        blurView.frame = CGRect(x: 0, y: 0, width: frame.width, height: frame.height)
+//        blurView.layer.cornerRadius = cornerRadius
+//        blurView.clipsToBounds = true
+//        insertSubview(blurView, at: 0)
+//    }
+//}
 
 /// 封装 UIVisualEffectView 的 SwiftUI 结构体
 struct VisualEffect: UIViewRepresentable {
