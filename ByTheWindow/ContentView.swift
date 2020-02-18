@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import UIKit
 
 struct ContentView: View {
     @State var showGreetingCard = false
@@ -51,10 +52,10 @@ struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
             .previewLayout(.fixed(width: 1112, height: 834)) // iPad Air 10.5
-        //                .previewLayout(.fixed(width: 1080, height: 810)) // iPad 7th
-        //                .previewLayout(.fixed(width: 1194, height: 834)) // iPad Pro 11"
-        //                .previewLayout(.fixed(width: 1366, height: 1024)) // iPad Pro 12.9"
-        //                .previewLayout(.fixed(width: 1024, height: 768)) // iPad mini
+//            .previewLayout(.fixed(width: 1080, height: 810)) // iPad 7th
+//            .previewLayout(.fixed(width: 1194, height: 834)) // iPad Pro 11"
+//            .previewLayout(.fixed(width: 1366, height: 1024)) // iPad Pro 12.9"
+//            .previewLayout(.fixed(width: 1024, height: 768)) // iPad mini5, iPad Pro 9.7"
     }
 }
 
