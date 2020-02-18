@@ -67,7 +67,6 @@ struct GreetingCardView: View {
                         }], imageName: ["trash"])
                 }
                 .padding()
-                Text(content)
                 Spacer()
             }
         }
