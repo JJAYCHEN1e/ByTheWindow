@@ -17,6 +17,7 @@
 		6333654823EBD6310072E311 /* GreetingCardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333654723EBD6310072E311 /* GreetingCardViewController.swift */; };
 		6333654A23EC14870072E311 /* BOApplePencilReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333654923EC14870072E311 /* BOApplePencilReachability.swift */; };
 		6337045123F8F614004BBE0A /* GreetingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6337045023F8F614004BBE0A /* GreetingCardView.swift */; };
+		6345324923FBAFF400875F17 /* Helper Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6345324823FBAFF400875F17 /* Helper Views.swift */; };
 		634AA69123E9AADE00ED6AA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634AA69023E9AADE00ED6AA0 /* AppDelegate.swift */; };
 		634AA69323E9AADE00ED6AA0 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634AA69223E9AADE00ED6AA0 /* SceneDelegate.swift */; };
 		634AA69523E9AADE00ED6AA0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 634AA69423E9AADE00ED6AA0 /* ContentView.swift */; };
@@ -41,6 +42,7 @@
 		6333654723EBD6310072E311 /* GreetingCardViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingCardViewController.swift; sourceTree = "<group>"; };
 		6333654923EC14870072E311 /* BOApplePencilReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOApplePencilReachability.swift; sourceTree = "<group>"; };
 		6337045023F8F614004BBE0A /* GreetingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingCardView.swift; sourceTree = "<group>"; };
+		6345324823FBAFF400875F17 /* Helper Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Helper Views.swift"; sourceTree = "<group>"; };
 		634AA68D23E9AADE00ED6AA0 /* ByTheWindow.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ByTheWindow.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		634AA69023E9AADE00ED6AA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		634AA69223E9AADE00ED6AA0 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -178,6 +180,7 @@
 			isa = PBXGroup;
 			children = (
 				63674D2123F6673400B4C216 /* Blur.swift */,
+				6345324823FBAFF400875F17 /* Helper Views.swift */,
 			);
 			path = "Custom Views";
 			sourceTree = "<group>";
@@ -288,6 +291,7 @@
 				6333653E23EAE06A0072E311 /* CGMathExtensions.swift in Sources */,
 				8199A22223F697870098F149 /* MatchCoupletView.swift in Sources */,
 				6333653523EAE03A0072E311 /* CGDrawingEngine.swift in Sources */,
+				6345324923FBAFF400875F17 /* Helper Views.swift in Sources */,
 				6333653623EAE03A0072E311 /* StrokeGestureRecognizer.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

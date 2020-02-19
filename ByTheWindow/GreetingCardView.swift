@@ -8,12 +8,14 @@
 
 import SwiftUI
 import PencilKit
+import Combine
 
 struct GreetingCardView: View {
     @State var allowsDrawing = true
     @State var allowsFingerDrawing = true
     @State var clearAction: () -> () = {}
     @State var contentEditingAction: () -> () = {}
+    @State var showNotificationInterface: (_ text: String) -> () = {_ in }
     
     @State var content = """
     今年过节送你福，福来运来幸福来，
@@ -28,52 +30,29 @@ struct GreetingCardView: View {
         ZStack {
             Image("GreetingCard00")
                 .resizable()
-                .aspectRatio(contentMode: .fit)
+                .aspectRatio(contentMode: .fill)
+                .frame(height: screen.height)
             
             
             if allowsDrawing {
                 GreetingCardContentTextView(text: $content, contentEditingAction: $contentEditingAction)
-                    .offset(x: 100, y: 300)
+                    .offset(x: screen.width * 1.3 / 11, y: screen.height * 3 / 8)
             }
             
-            PencilKitView(allowsDrawing: $allowsDrawing, allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction)
+            PencilKitView(allowsDrawing: $allowsDrawing, allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNotification: $showNotificationInterface)
             
             if !allowsDrawing {
                 GreetingCardContentTextView(text: $content, contentEditingAction: $contentEditingAction)
-                    .offset(x: 100, y: 300)
+                    .offset(x: screen.width * 1.3 / 11, y: screen.height * 3 / 8)
             }
             
-            VStack {
-                HStack {
-                    ButtonWithBlurBackground(
-                        actions: [
-                            {
-                                self.allowsDrawing.toggle()
-                            },
-                            {
-                                self.allowsFingerDrawing.toggle()
-                            }
-                        ],
-                        imageName: [ "pencil.and.outline", "hand.draw",],
-                        frameWidth: 120,
-                        colors: [allowsDrawing ? Color.blue : Color.white.opacity(0.9), allowsDrawing ? (allowsFingerDrawing ? Color.blue : Color.white.opacity(0.9)) : Color.white.opacity(0.3)],
-                        size: 34
-                    )
-                    
-                    Spacer()
-                    
-                    ButtonWithBlurBackground(actions: [{
-                        self.clearAction()
-                        }], imageName: ["trash"])
-                }
-                .padding()
-                Spacer()
-            }
+            GreetingCardButtonView(allowsDrawing: $allowsDrawing, allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNoticationInterface: $showNotificationInterface)
         }
+        .edgesIgnoringSafeArea(.all)
     }
 }
 
-// MARK: 文本框
+/// GreetingCardContentTextView
 struct GreetingCardContentTextView: UIViewRepresentable {
     @Binding var text: String
     @Binding var contentEditingAction: () -> ()
@@ -84,7 +63,10 @@ struct GreetingCardContentTextView: UIViewRepresentable {
     
     func makeUIView(context: Context) -> UITextView {
         let view = UITextView()
-        view.font = UIFont(name: "?| ", size: 40)
+        //        view.font = UIFont(name: "?| ", size: 40)
+//        view.font = UIFont(name: "MaShanZheng-Regular", size: 40)
+        let customFont = UIFont(name: "MaShanZheng-Regular", size: 40)
+        view.font = UIFontMetrics.default.scaledFont(for: customFont!)
         view.textColor = #colorLiteral(red: 0.9763947129, green: 0.964057982, blue: 0.6910167336, alpha: 1)
         view.backgroundColor = .clear
         view.isScrollEnabled = false
@@ -126,15 +108,148 @@ struct GreetingCardContentTextView: UIViewRepresentable {
     }
 }
 
+/// GreetingCardButtonView
+struct GreetingCardButtonView: View {
+    @Binding var allowsDrawing: Bool
+    @Binding var allowsFingerDrawing: Bool
+    @Binding var clearAction: () -> ()
+    @Binding var showNoticationInterface: (_ text:String) -> ()
+    @State var text = ""
+    @State var notificationOffset: CGFloat = 0
+    @State var timer: Cancellable?
+    
+    func showNotification(_ text: String) {
+        self.text = text
+        timer?.cancel()
+        notificationOffset = 0
+        timer = DispatchQueue.main.schedule(
+            after: DispatchQueue.main.now.advanced(by: .seconds(3)),
+            interval: .seconds(2)
+        ) {
+            self.notificationOffset = -100
+            self.timer?.cancel()
+        }
+    }
+    
+    var body: some View {
+        VStack {
+            HStack(alignment: .top) {
+                ButtonWithBlurBackground(
+                    actions: [
+                        {
+                            self.allowsDrawing.toggle()
+                            self.showNotification(self.allowsDrawing ? "开启书写功能" : "关闭书写功能")
+                        },
+                        {
+                            if self.allowsDrawing {
+                                self.allowsFingerDrawing.toggle()
+                                self.showNotification(self.allowsFingerDrawing ? "允许触控书写" : "关闭触控书写")
+                            }
+                        }
+                    ],
+                    imageName: [ "pencil.and.outline", "hand.draw",],
+                    frameWidth: 120,
+                    colors: [allowsDrawing ? Color.blue : Color.white.opacity(0.9), allowsDrawing ? (allowsFingerDrawing ? Color.blue : Color.white.opacity(0.9)) : Color.white.opacity(0.3)],
+                    size: 34
+                )
+                
+                Spacer()
+                
+                TextWithBlurBackground(text: $text)
+                    .offset(y: notificationOffset)
+                    .animation(.spring())
+                    .onAppear() {
+                        self.showNotification("左侧可开启书写功能")
+                        self.showNoticationInterface = self.showNotification
+                }
+                
+                Spacer()
+                
+                ButtonWithBlurBackground(actions: [{
+                    self.showNotification("书写内容已清空")
+                    self.clearAction()
+                    }], imageName: ["trash"])
+            }
+            .padding()
+            Spacer()
+        }
+    }
+}
+
+/// PencilKitView
+struct PencilKitView: UIViewRepresentable {
+    @Binding var allowsDrawing: Bool
+    @Binding var allowsFingerDrawing: Bool
+    @Binding var clearAction: () -> ()
+    @Binding var showNotification: (_ text: String) -> ()
+    
+    func makeCoordinator() -> Coordinator {
+        let coordinator = Coordinator(self)
+        coordinator.beginPencilDetect()
+        return Coordinator(self)
+    }
+    
+    func makeUIView(context: Context) -> PKCanvasView {
+        let canvasView = PKCanvasView()
+        canvasView.backgroundColor = .clear
+        canvasView.isOpaque = false
+        
+        if let window = UIApplication.shared.windows.first, let toolPicker = PKToolPicker.shared(for: window) {
+            canvasView.delegate = context.coordinator
+            toolPicker.setVisible(true, forFirstResponder: canvasView)
+            toolPicker.addObserver(canvasView)
+            
+            toolPicker.selectedTool = PKInkingTool(.pen, color: .black, width: 30)
+            canvasView.becomeFirstResponder()
+        }
+        
+        DispatchQueue.main.async {
+            self.clearAction = {
+                canvasView.drawing = PKDrawing()
+            }
+            self.allowsDrawing.toggle()
+        }
+        
+        return canvasView
+    }
+    
+    func updateUIView(_ uiView: PKCanvasView, context: Context) {
+        uiView.allowsFingerDrawing = allowsFingerDrawing
+        uiView.isUserInteractionEnabled = allowsDrawing
+    }
+    
+    class Coordinator: NSObject, PKCanvasViewDelegate {
+        var pencilKitView : PencilKitView
+        
+        /// 用于检测是否连接到 Apple Pencil 的辅助类
+        private var pencilDetector: BOApplePencilReachability?
+        
+        init(_ pencilKitView: PencilKitView) {
+            self.pencilKitView = pencilKitView
+        }
+        
+        /// 开始检测 Apple Pencil. 若检测到 Apple Pencil，则关闭手写
+        func beginPencilDetect() {
+            self.pencilDetector = BOApplePencilReachability.init(didChangeClosure: { isPencilReachable in
+                self.pencilKitView.allowsFingerDrawing = !isPencilReachable
+                if isPencilReachable {
+                    self.pencilKitView.showNotification("检测到 Apple Pencil")
+                }
+            })
+        }
+    }
+}
+
+
 struct GreetingCardView_Previews: PreviewProvider {
     static var previews: some View {
         GreetingCardView(clearAction: {
             
         })
-            .previewLayout(.fixed(width: 1112, height: 834)) // iPad Air 10.5
-        //        .previewLayout(.fixed(width: 1080, height: 810)) // iPad 7th
-        //        .previewLayout(.fixed(width: 1194, height: 834)) // iPad Pro 11"
-        //        .previewLayout(.fixed(width: 1366, height: 1024)) // iPad Pro 12.9"
-        //        .previewLayout(.fixed(width: 1024, height: 768)) // iPad mini5, iPad Pro 9.7"
+//            .previewLayout(.fixed(width: 1112, height: 834)) // iPad Air 10.5
+//                .previewLayout(.fixed(width: 1080, height: 810)) // iPad 7th
+                .previewLayout(.fixed(width: 1194, height: 834)) // iPad Pro 11"
+//                .previewLayout(.fixed(width: 1366, height: 1024)) // iPad Pro 12.9"
+//                .previewLayout(.fixed(width: 1024, height: 768)) // iPad mini5, iPad Pro 9.7"
     }
 }
