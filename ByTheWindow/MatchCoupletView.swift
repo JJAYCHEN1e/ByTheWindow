@@ -14,60 +14,44 @@ struct MatchCoupletView: View {
     @State var tempInput = ""
     @State var tempOutput = ""
     
-    // TODO: 2. 重构代码，划分子组件
+    
     var body: some View {
-        VStack(spacing: 30) {
-            Text("智能对对联")
-            .font(.custom("MaShanZheng-Regular", size: 50))
-                .padding(.bottom, 30)
-            
-            HStack(spacing: 20) {
-                TextField("请输入上联", text: $tempInput)
-                    .padding(10) .overlay(RoundedRectangle(cornerRadius: 20).stroke( Color.gray.opacity(0.7)))
-                    .frame(width: 400, height: 50)
+        ZStack {
+            Image("match-couplet-background")
+                .resizable()
+                .scaledToFill()
+                .edgesIgnoringSafeArea(.all)
+            VStack(spacing: 30) {
+                MatchCoupletTitleView()
                 
-                // TODO: 3. 添加点击事件
+                CoupletInputView(tempInput: $tempInput, input: $input, output: $output)
+                
+                
+                CoupletTextView(title: "上联：", text: $input )
+                CoupletTextView(title: "下联：", text: $output)
+                
                 Button(action: {
-                    withAnimation(.linear){
-                        self.input = self.tempInput
-                        self.output = ""
+                    withAnimation(.easeInOut){
+                        self.output = "加载中..."
+                        self.loadData()
                     }
                 }) {
-                    Text("确定")
+                    Text("对下联")
                         .font(.custom("MaShanZheng-Regular", size: 20))
                         .foregroundColor(.white)
-                    .frame(width: 70, height: 45)
-                        .background(Color(#colorLiteral(red: 0.7607843137, green: 0.003921568627, blue: 0, alpha: 1)).opacity(0.8))
-                    .cornerRadius(20)
+                        .rotationEffect(.degrees(-45))
+                    .frame(width: 80, height: 80)
+                    .background(Color(#colorLiteral(red: 0.7607843137, green: 0.003921568627, blue: 0, alpha: 1)).opacity(0.8))
+                        .rotationEffect(.degrees(45))
                     .shadow(color: Color(#colorLiteral(red: 0.7607843137, green: 0.003921568627, blue: 0, alpha: 1)), radius: 10, x: 0, y: 2)
-                }
+                        .overlay(Rectangle().stroke(Color.white).frame(width: 60, height: 60)
+                            .rotationEffect(.degrees(45)))
+                }.padding(.top, 40)
+                Spacer()
             }
-            
-            // TODO: 1. 将input和output绑定在CoupletTextView上
-            CoupletTextView(title: "上联：", text: $input )
-            CoupletTextView(title: "下联：", text: $output)
-            
-            Button(action: {
-                withAnimation(.easeInOut){
-                    self.output = "加载中..."
-                    self.loadData()
-                }
-            }) {
-                Text("对下联")
-                    .font(.custom("MaShanZheng-Regular", size: 20))
-                    .foregroundColor(.white)
-                    .rotationEffect(.degrees(-45))
-                .frame(width: 80, height: 80)
-                .background(Color(#colorLiteral(red: 0.7607843137, green: 0.003921568627, blue: 0, alpha: 1)).opacity(0.8))
-                    .rotationEffect(.degrees(45))
-                .shadow(color: Color(#colorLiteral(red: 0.7607843137, green: 0.003921568627, blue: 0, alpha: 1)), radius: 10, x: 0, y: 2)
-                    .overlay(Rectangle().stroke(Color.white).frame(width: 60, height: 60)
-                        .rotationEffect(.degrees(45)))
-            }.padding(.top, 40)
-            Spacer()
+            .frame(minWidth: 0,  maxWidth: .infinity)
+            .padding(.top, 120)
         }
-        .frame(minWidth: 0,  maxWidth: .infinity)
-        .padding(.top, 120)
         
     }
     
@@ -125,3 +109,58 @@ struct Couplet: Codable {
     var output: String
 }
 
+
+struct CoupletInputView: View {
+    @Binding var tempInput:String
+    @Binding var input:String
+    @Binding var output:String
+    var body: some View {
+        HStack(spacing: 20) {
+            TextField("请输入上联", text: $tempInput)
+                .padding(10) .overlay(RoundedRectangle(cornerRadius: 20).stroke(Color.gray.opacity(0.7)))
+                .frame(width: 400, height: 50)
+            
+            
+            Button(action: {
+                withAnimation(.linear){
+                    self.input = self.tempInput
+                    self.output = ""
+                }
+            }) {
+                Text("确定")
+                    .font(.custom("MaShanZheng-Regular", size: 20))
+                    .foregroundColor(.white)
+                    .frame(width: 70, height: 45)
+                    .background(Color(#colorLiteral(red: 0.7607843137, green: 0.003921568627, blue: 0, alpha: 1)).opacity(0.8))
+                    .cornerRadius(20)
+                    .shadow(color: Color(#colorLiteral(red: 0.7607843137, green: 0.003921568627, blue: 0, alpha: 1)), radius: 10, x: 0, y: 2)
+            }
+        }.padding(.top)
+    }
+}
+
+struct MatchCoupletTitleView: View {
+    var body: some View {
+        HStack {
+            SingleWordView(text: "智")
+            SingleWordView(text: "能")
+            SingleWordView(text: "对")
+            SingleWordView(text: "对")
+            SingleWordView(text: "联")
+        }
+        
+    }
+}
+
+struct SingleWordView: View {
+    var text = "智"
+    var body: some View {
+        ZStack {
+            Image("title-background")
+                .resizable()
+                .frame(width: 60, height: 60)
+            Text(text)
+                .font(.custom("MaShanZheng-Regular", size: 60))
+        }
+    }
+}
