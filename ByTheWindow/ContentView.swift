@@ -9,8 +9,6 @@
 import SwiftUI
 import UIKit
 
-let screen = UIScreen.main.bounds
-
 struct ContentView: View {
     @State var showGreetingCard = false
     
