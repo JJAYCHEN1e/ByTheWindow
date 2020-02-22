@@ -56,7 +56,7 @@ struct MatchCoupletView: View {
     }
     
     func loadData(){
-        let urlString = "https://ai-backend.binwang.me/chat/couplet/\(self.input)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
+        let urlString = "http://175.24.30.178:5000/chat/couplet/\(self.input)".addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed)!
         guard let url = URL(string: urlString) else {
             print("invalid url, \(urlString)")
             return

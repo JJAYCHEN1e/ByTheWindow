@@ -61,32 +61,7 @@ struct ButtonWithBlurBackground: View {
                             .frame(width: self.size, height: self.size)
                     }
                 }
-                //                .frame(width: frameWidth, height: frameHeight)
-            }
-        }
-    }
-}
-
-/// 封装 VisualEffect 与 Text
-struct TextWithBlurBackground: View {
-    @Binding var text: String
-    @State var textSize: CGRect = .zero
-    
-    var maxWidth: CGFloat? = nil
-    
-    var effect: UIVisualEffect = UIBlurEffect(style: .dark)
-    
-    var body: some View {
-        VStack {
-            ZStack {
-                VisualEffect(effect: effect)
-                    .frame(width: textSize.width + 40, height: textSize.height + 40)
-                    .cornerRadius(20)
-                Text(text)
-                    .frame(maxWidth: maxWidth)
-                    .foregroundColor(Color(.white).opacity(0.8))
-                    .multilineTextAlignment(.center)
-                    .background(GeometryGetter(rect: $textSize))
+//                .frame(width: frameWidth, height: frameHeight)
             }
         }
     }
@@ -94,8 +69,7 @@ struct TextWithBlurBackground: View {
 
 struct Blur_Previews: PreviewProvider {
     static var previews: some View {
-        //        ButtonWithBlurBackground(actions: [{
-        //            }], imageName: ["hand.draw"])
-        TextWithBlurBackground(text: .constant("这是一段提示"))
+        ButtonWithBlurBackground(actions: [{
+            }], imageName: ["hand.draw"])
     }
 }
