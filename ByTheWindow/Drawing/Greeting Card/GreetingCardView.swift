@@ -25,26 +25,43 @@ struct GreetingCardView: View {
     健康平安，心想事成！
     """
     
+    @State private var keyboardHeight: CGFloat = 0
+    private var keyboardHeightPublisher: AnyPublisher<CGFloat, Never> {
+        Publishers.Merge(
+            NotificationCenter.default
+                .publisher(for: UIResponder.keyboardWillShowNotification)
+                .compactMap { $0.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? CGRect }
+                .map { $0.height },
+            NotificationCenter.default
+                .publisher(for: UIResponder.keyboardWillHideNotification)
+                .map { _ in CGFloat(0) }
+        ).eraseToAnyPublisher()
+    }
     
     var body: some View {
         ZStack {
-            Image("GreetingCard00")
-                .resizable()
-                .aspectRatio(contentMode: .fill)
-                .frame(height: screen.height)
-            
-            
-            if allowsDrawing {
-                GreetingCardContentTextView(text: $content, contentEditingAction: $contentEditingAction)
-                    .offset(x: screen.width * 1.3 / 11, y: screen.height * 3 / 8)
+            ZStack {
+                Image("GreetingCard00")
+                    .resizable()
+                    .aspectRatio(contentMode: .fill)
+                    .frame(height: screen.height)
+                
+                
+                if allowsDrawing {
+                    GreetingCardContentTextView(text: $content, contentEditingAction: $contentEditingAction)
+                        .offset(x: screen.width * 1.3 / 11, y: screen.height * 3 / 8)
+                }
+                
+                PencilKitView(allowsDrawing: $allowsDrawing, allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNotification: $showNotificationInterface)
+                
+                if !allowsDrawing {
+                    GreetingCardContentTextView(text: $content, contentEditingAction: $contentEditingAction)
+                        .offset(x: screen.width * 1.3 / 11, y: screen.height * 3 / 8)
+                }
             }
-            
-            PencilKitView(allowsDrawing: $allowsDrawing, allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNotification: $showNotificationInterface)
-            
-            if !allowsDrawing {
-                GreetingCardContentTextView(text: $content, contentEditingAction: $contentEditingAction)
-                    .offset(x: screen.width * 1.3 / 11, y: screen.height * 3 / 8)
-            }
+            .animation(.easeInOut)
+            .offset(y: -keyboardHeight/3)
+            .onReceive(keyboardHeightPublisher) { self.keyboardHeight = $0 }
             
             GreetingCardButtonView(allowsDrawing: $allowsDrawing, allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNoticationInterface: $showNotificationInterface)
         }
@@ -64,7 +81,7 @@ struct GreetingCardContentTextView: UIViewRepresentable {
     func makeUIView(context: Context) -> UITextView {
         let view = UITextView()
         //        view.font = UIFont(name: "?| ", size: 40)
-//        view.font = UIFont(name: "MaShanZheng-Regular", size: 40)
+        //        view.font = UIFont(name: "MaShanZheng-Regular", size: 40)
         let customFont = UIFont(name: "MaShanZheng-Regular", size: 40)
         view.font = UIFontMetrics.default.scaledFont(for: customFont!)
         view.textColor = #colorLiteral(red: 0.9763947129, green: 0.964057982, blue: 0.6910167336, alpha: 1)
@@ -246,10 +263,10 @@ struct GreetingCardView_Previews: PreviewProvider {
         GreetingCardView(clearAction: {
             
         })
-//            .previewLayout(.fixed(width: 1112, height: 834)) // iPad Air 10.5
-//                .previewLayout(.fixed(width: 1080, height: 810)) // iPad 7th
-                .previewLayout(.fixed(width: 1194, height: 834)) // iPad Pro 11"
-//                .previewLayout(.fixed(width: 1366, height: 1024)) // iPad Pro 12.9"
-//                .previewLayout(.fixed(width: 1024, height: 768)) // iPad mini5, iPad Pro 9.7"
+            .previewLayout(.fixed(width: 1112, height: 834)) // iPad Air 10.5
+        //                .previewLayout(.fixed(width: 1080, height: 810)) // iPad 7th
+        //            .previewLayout(.fixed(width: 1194, height: 834)) // iPad Pro 11"
+        //                .previewLayout(.fixed(width: 1366, height: 1024)) // iPad Pro 12.9"
+        //                .previewLayout(.fixed(width: 1024, height: 768)) // iPad mini5, iPad Pro 9.7"
     }
 }

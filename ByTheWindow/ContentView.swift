@@ -43,7 +43,8 @@ struct ContentView: View {
                 
                 //                CanvasMainViewControllerRepresentation()
                 //                    .transition(AnyTransition.scale.combined(with: .opacity).animation(Animation.easeInOut))
-                GreetingCardView()
+//                GreetingCardView()
+                CoupletView()
             }
         }
     }
@@ -98,28 +99,6 @@ struct FestivalCard: View {
                 }
             }
         }
-        
-        // Old FestivalCard
-        //        VStack {
-        //            HStack {
-        //                VStack(alignment: .leading) {
-        //                    Text("春节")
-        //                        .font(.title)
-        //                        .bold()
-        //
-        //                    Text("一年之岁首")
-        //                        .font(.headline)
-        //                }
-        //                Spacer()
-        //            }
-        //            .padding(30)
-        //            Spacer()
-        //        }
-        //        .frame(width: 360, height: 560)
-        //        .background(Color.gray.opacity(1))
-        //        .cornerRadius(40)
-        //        .shadow(color: Color.black.opacity(0.2), radius: 10, x: 0, y: 12)
-        //        .shadow(color: Color.black.opacity(0.1), radius: 5, x: 0, y: 5)
     }
 }
 

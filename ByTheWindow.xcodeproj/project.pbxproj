@@ -25,6 +25,7 @@
 		634AA69D23E9AAE200ED6AA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 634AA69B23E9AAE200ED6AA0 /* LaunchScreen.storyboard */; };
 		63674D2223F6673400B4C216 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63674D2123F6673400B4C216 /* Blur.swift */; };
 		638DBDCF23F51D5A009A6B11 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DBDCE23F51D5A009A6B11 /* Stack.swift */; };
+		63A5FA6323FD36B40011F43C /* CoupletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A5FA6223FD36B40011F43C /* CoupletView.swift */; };
 		8199A22223F697870098F149 /* MatchCoupletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8199A22123F697870098F149 /* MatchCoupletView.swift */; };
 		81F4E9C423F28DAE00A8CE46 /* OFL.txt in Resources */ = {isa = PBXBuildFile; fileRef = 81F4E9C223F28DAE00A8CE46 /* OFL.txt */; };
 		81F4E9C523F28DAE00A8CE46 /* MaShanZheng-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 81F4E9C323F28DAE00A8CE46 /* MaShanZheng-Regular.ttf */; };
@@ -51,6 +52,7 @@
 		634AA69E23E9AAE200ED6AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		63674D2123F6673400B4C216 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		638DBDCE23F51D5A009A6B11 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
+		63A5FA6223FD36B40011F43C /* CoupletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupletView.swift; sourceTree = "<group>"; };
 		8199A22123F697870098F149 /* MatchCoupletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCoupletView.swift; sourceTree = "<group>"; };
 		81F4E9C223F28DAE00A8CE46 /* OFL.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = OFL.txt; sourceTree = "<group>"; };
 		81F4E9C323F28DAE00A8CE46 /* MaShanZheng-Regular.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "MaShanZheng-Regular.ttf"; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				6333653123EADFA80072E311 /* Canvas.storyboard */,
+				637EA4A623FD2C1A00E28A4E /* Greeting Card */,
 				6333654623EBD4C40072E311 /* Couplet */,
 				6333653D23EAE06A0072E311 /* CGMathExtensions.swift */,
 				6333654923EC14870072E311 /* BOApplePencilReachability.swift */,
@@ -98,7 +101,7 @@
 		6333654623EBD4C40072E311 /* Couplet */ = {
 			isa = PBXGroup;
 			children = (
-				637EA4A623FD2C1A00E28A4E /* Greeting Card */,
+				63A5FA6223FD36B40011F43C /* CoupletView.swift */,
 				6333653323EADFA80072E311 /* CanvasMainViewController.swift */,
 				6333654323EB02760072E311 /* Drawing Engine */,
 				6333654223EB025D0072E311 /* Stroke Model and Capture */,
@@ -283,6 +286,7 @@
 				6333654A23EC14870072E311 /* BOApplePencilReachability.swift in Sources */,
 				638DBDCF23F51D5A009A6B11 /* Stack.swift in Sources */,
 				63674D2223F6673400B4C216 /* Blur.swift in Sources */,
+				63A5FA6323FD36B40011F43C /* CoupletView.swift in Sources */,
 				634AA69523E9AADE00ED6AA0 /* ContentView.swift in Sources */,
 				6333653E23EAE06A0072E311 /* CGMathExtensions.swift in Sources */,
 				8199A22223F697870098F149 /* MatchCoupletView.swift in Sources */,
