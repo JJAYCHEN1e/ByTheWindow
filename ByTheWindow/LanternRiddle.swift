@@ -36,7 +36,7 @@ func generateIndex(toGenerate index: Int)-> Int{
 
 struct LanternRiddle: View {
     
- 
+    
     @State var index :Int = 0
     @State var index2 :Int = 1
     @State var index3 :Int = 2
@@ -68,33 +68,35 @@ struct LanternRiddle: View {
                     self.showResultRight = false
                     self.showResultMiddle = false
                     
-//                    self.timer = Timer.scheduledTimer(
-//                        withTimeInterval: 0.3,
-//                        repeats: false,
-//                        block:
-//                        { timer in
-//                            self.update.toggle()
-//
-//                    }
-//                    )
+                    
+                    
                     self.timer = Timer.scheduledTimer(
-                        withTimeInterval: 0.6,
+                        withTimeInterval: ((self.showResultMiddle || self.showResultRight || self.showResultLeft) ? 0.7 : 0.4 ),
                         repeats: false,
                         block:
                         { timer in
                             self.index = generateIndex(toGenerate: self.index + 3)
                             self.index2 = generateIndex(toGenerate: self.index2 + 3)
                             self.index3 = generateIndex(toGenerate: self.index3 + 3)
-                            self.updateOpacity.toggle()
-
+                            
                     }
                     )
                     
-//                    self.timer.invalidate()
+                    self.timer = Timer.scheduledTimer(
+                        withTimeInterval: ((self.showResultMiddle || self.showResultRight || self.showResultLeft) ? 0.9 : 0.6 ),
+                        repeats: false,
+                        block:
+                        { timer in
+                            self.updateOpacity.toggle()
+                            
+                    }
+                    )
+                    
+                    //                    self.timer.invalidate()
                     
                 }) {
                     ZStack {
-                       
+                        
                         
                         Text(update ? "true" : "false")
                             .font(.custom("?| ", size: 40))
@@ -180,14 +182,19 @@ struct RiddleView: View {
                 Text(toVertical(toChange: Riddles[generateIndex(toGenerate: index)].riddleAnswer))
                     .font(.custom("?| ", size: 50))
                     .lineSpacing(20)
+                    .animation(.easeInOut(duration: 0.1))
+
+                    .opacity(updateOpacity ? 1 : 0)
+                    .animation(.easeInOut(duration: 0.4))
+                    
                     //                .opacity(showResult ? 1 : 0)
                     .rotation3DEffect(
                         showResult ? Angle.degrees(0) : Angle.degrees(-90),
                         axis: (x: 0 , y: 1, z: 0))
-                    .opacity(updateOpacity ? 1 : 0)
                     .animation(Animation.easeInOut(duration: 0.3)
                         .delay(showResult ? 0.3 : 0)
                 )
+                    
                     .offset(y: -30)
                 
                 
@@ -196,8 +203,7 @@ struct RiddleView: View {
                         .font(.custom("MaShanZheng-Regular", size: 25))
                         //                .lineSpacing()
                         .offset(x: -52 ,y: 190)
-                        .opacity(updateOpacity ? 1 : 0)
-
+                    
                     HStack {
                         
                         Text(toVertical(toChange: Riddles[generateIndex(toGenerate: index)].secondContent ?? ""))
@@ -206,11 +212,15 @@ struct RiddleView: View {
                         Text(toVertical(toChange: Riddles[generateIndex(toGenerate: index)].riddleContent))
                             .font(.custom("?| ", size: 36))
                     }
-                    .opacity(updateOpacity ? 1 : 0)
                     .offset(x: 4, y: -50)
                     //            .opacity(showResult ? 0 : 1)
                     
                 }
+                    .animation(.easeInOut(duration: 0.1))
+
+                .opacity(updateOpacity ? 1 : 0)
+                .animation(.easeInOut(duration: 0.4))
+                    
                 .rotation3DEffect(
                     showResult ?  Angle.degrees(90) :Angle.degrees(0),
                     axis: (x: 0 , y: 1, z: 0))
