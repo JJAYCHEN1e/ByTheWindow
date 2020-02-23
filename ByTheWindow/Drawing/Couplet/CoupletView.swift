@@ -7,8 +7,13 @@
 //
 
 import SwiftUI
+import Combine
 
 struct CoupletView: View {
+    @State var allowsFingerDrawing = true
+    @State var clearAction: () -> () = {}
+    @State var showNotificationInterface: (_ text: String) -> () = {_ in }
+    
     var body: some View {
         HStack(spacing: 0) {
             VStack {
@@ -22,42 +27,9 @@ struct CoupletView: View {
                 
                 VStack {
                     ZStack {
-                        SideCoupletDrawingView()
+                        SideCoupletDrawingView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNotification: $showNotificationInterface)
                         
-                        VStack {
-                            HStack {
-                                ButtonWithBlurBackground(
-                                    actions: [
-                                        {
-                                            //                                        self.allowsDrawing.toggle()
-                                            //                                        self.showNotification(self.allowsDrawing ? "开启书写功能" : "关闭书写功能")
-                                        },
-                                        {
-                                            //                                        if self.allowsDrawing {
-                                            //                                            self.allowsFingerDrawing.toggle()
-                                            //                                            self.showNotification(self.allowsFingerDrawing ? "允许触控书写" : "关闭触控书写")
-                                            //                                        }
-                                        }
-                                    ],
-                                    imageName: [ "pencil.and.outline", "hand.draw",],
-                                    frameWidth: 120,
-                                    colors: [Color.blue, Color.blue],
-                                    //                                colors: [allowsDrawing ? Color.blue : Color.white.opacity(0.9), allowsDrawing ? (allowsFingerDrawing ? Color.blue : Color.white.opacity(0.9)) : Color.white.opacity(0.3)],
-                                    size: 34
-                                )
-                                
-                                Spacer()
-                                
-                                ButtonWithBlurBackground(actions: [{
-                                    //                        self.showNotification("书写内容已清空")
-                                    //                        self.clearAction()
-                                    }], imageName: ["trash"])
-                                
-                            }
-                            .padding()
-                            
-                            Spacer()
-                        }
+                        CoupletButtonView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNoticationInterface: $showNotificationInterface)
                     }
                 }
             }
@@ -74,12 +46,23 @@ let squareScale: CGFloat = 0.6313
 let topOffset: CGFloat = 340 / 834 * screen.height
 
 struct SideCoupletDrawingView: UIViewRepresentable {
+    @Binding var allowsFingerDrawing: Bool
+    @Binding var clearAction: () -> ()
+    @Binding var showNotification: (_ text: String) -> ()
     
     func makeCoordinator() -> Coordinator {
-        return Coordinator()
+        let coordinator = Coordinator(self)
+        coordinator.beginPencilDetect()
+        return coordinator
     }
     
     class Coordinator: NSObject, UIGestureRecognizerDelegate {
+        var sideCoupletDrawingView: SideCoupletDrawingView!
+        
+        init(_ sideCoupletDrawingView: SideCoupletDrawingView) {
+            self.sideCoupletDrawingView = sideCoupletDrawingView
+        }
+        
         var squareUnit: CGFloat {
             get {
                 squareScale * containerView.frame.width
@@ -98,12 +81,46 @@ struct SideCoupletDrawingView: UIViewRepresentable {
         var strokeCollection = StrokeCollection()
         var fingerStrokeRecognizer: StrokeGestureRecognizer!
         var pencilStrokeRecognizer: StrokeGestureRecognizer!
+        var panGestureRecognizer: UIPanGestureRecognizer!
+        
+        /// Toggles hand-written mode for the app.
+        /// - Tag: handWrittenMode
+        var allowsFingerDrawing = true {
+            didSet {
+                if allowsFingerDrawing {
+                    self.panGestureRecognizer.minimumNumberOfTouches = 2
+                    if self.fingerStrokeRecognizer.view == nil {
+                        coupletImageView.addGestureRecognizer(fingerStrokeRecognizer)
+                    }
+                } else {
+                    self.panGestureRecognizer.minimumNumberOfTouches = 1
+                    if let view = fingerStrokeRecognizer.view {
+                        view.removeGestureRecognizer(fingerStrokeRecognizer)
+                    }
+                }
+            }
+        }
+        
+        /// 用于检测是否连接到 Apple Pencil 的辅助类
+        private var pencilDetector: BOApplePencilReachability?
+        
+        /// 开始检测 Apple Pencil. 若检测到 Apple Pencil，则关闭手写
+        func beginPencilDetect() {
+            self.pencilDetector = BOApplePencilReachability.init(didChangeClosure: { isPencilReachable in
+                self.allowsFingerDrawing = !isPencilReachable
+                if isPencilReachable {
+                    self.sideCoupletDrawingView.showNotification("检测到 Apple Pencil")
+                }
+            })
+        }
         
         func getPanGesture() -> UIPanGestureRecognizer {
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
             panGesture.delegate = self
             panGesture.minimumNumberOfTouches = 1
             panGesture.maximumNumberOfTouches = 2
+            
+            self.panGestureRecognizer = panGesture
             
             return panGesture
         }
@@ -264,19 +281,81 @@ struct SideCoupletDrawingView: UIViewRepresentable {
         
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now().advanced(by: DispatchTimeInterval.milliseconds(100)), execute: {
             coordinator.setCoupletViewInitPosition()
+            self.clearAction = {
+                coordinator.strokeCollection = StrokeCollection()
+                coordinator.cgView.strokeCollection = coordinator.strokeCollection
+            }
         })
         
-//        coordinator.fingerStrokeRecognizer = coordinator.setupStrokeGestureRecognizer(isForPencil: false)
-//        coordinator.pencilStrokeRecognizer = coordinator.setupStrokeGestureRecognizer(isForPencil: true)
+        coordinator.fingerStrokeRecognizer = coordinator.setupStrokeGestureRecognizer(isForPencil: false)
+        coordinator.pencilStrokeRecognizer = coordinator.setupStrokeGestureRecognizer(isForPencil: true)
         
         return containerView
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
-        
+        context.coordinator.allowsFingerDrawing = allowsFingerDrawing
     }
 }
 
+struct CoupletButtonView: View {
+    @Binding var allowsFingerDrawing: Bool
+    @Binding var clearAction: () -> ()
+    @Binding var showNoticationInterface: (_ text:String) -> ()
+    
+    @State var text = ""
+    @State var notificationOffset: CGFloat = 0
+    @State var timer: Cancellable?
+    
+    func showNotification(_ text: String) {
+        self.text = text
+        timer?.cancel()
+        notificationOffset = 0
+        timer = DispatchQueue.main.schedule(
+            after: DispatchQueue.main.now.advanced(by: .seconds(3)),
+            interval: .seconds(2)
+        ) {
+            self.notificationOffset = -100
+            self.timer?.cancel()
+        }
+    }
+    
+    var body: some View {
+        VStack {
+            HStack {
+                ButtonWithBlurBackground(
+                    actions: [{
+                        self.allowsFingerDrawing.toggle()
+                        self.showNotification(self.allowsFingerDrawing ? "允许触控书写" : "关闭触控书写")
+                    }],
+                    imageName: ["hand.draw"],
+                    colors: [allowsFingerDrawing ? Color.blue : Color.white.opacity(0.9)]
+                )
+                
+                Spacer()
+                
+                TextWithBlurBackground(text: $text)
+                    .offset(y: notificationOffset)
+                    .animation(.spring())
+                    .onAppear() {
+                        self.showNotification("单击左侧缩略图可切换对联")
+                        self.showNoticationInterface = self.showNotification
+                }
+                
+                Spacer()
+                
+                ButtonWithBlurBackground(actions: [{
+                    self.showNotification("书写内容已清空")
+                    self.clearAction()
+                    }], imageName: ["trash"])
+                
+            }
+            .padding()
+            
+            Spacer()
+        }
+    }
+}
 
 struct CoupletView_Previews: PreviewProvider {
     static var previews: some View {
@@ -288,3 +367,4 @@ struct CoupletView_Previews: PreviewProvider {
         //            .previewLayout(.fixed(width: 1024, height: 768)) // iPad mini5, iPad Pro 9.7"
     }
 }
+
