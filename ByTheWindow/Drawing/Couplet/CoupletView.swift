@@ -13,11 +13,34 @@ struct CoupletView: View {
     @State var allowsFingerDrawing = true
     @State var clearAction: () -> () = {}
     @State var showNotificationInterface: (_ text: String) -> () = {_ in }
+    @State var leftCouletImage: UIImage?
     
     var body: some View {
         HStack(spacing: 0) {
             VStack {
-                Text("")
+                VStack {
+                    Image(uiImage: (UIImage(named: "couplet-center"))!)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 250)
+                        .padding(.bottom)
+                    
+                    HStack{
+                        Image(uiImage: ((leftCouletImage != nil) ? leftCouletImage! : UIImage(named: "couplet"))!)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 100)
+                            .padding(.leading)
+                        
+                        Spacer()
+                        
+                        Image(uiImage: ((leftCouletImage != nil) ? leftCouletImage! : UIImage(named: "couplet"))!)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 100)
+                            .padding(.trailing)
+                    }
+                }
             }
             .frame(width: screen.width / 3)
             
@@ -27,7 +50,7 @@ struct CoupletView: View {
                 
                 VStack {
                     ZStack {
-                        SideCoupletDrawingView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNotification: $showNotificationInterface)
+                        SideCoupletDrawingView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNotification: $showNotificationInterface, leftCouletImage: $leftCouletImage)
                         
                         CoupletButtonView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNoticationInterface: $showNotificationInterface)
                     }
@@ -49,6 +72,7 @@ struct SideCoupletDrawingView: UIViewRepresentable {
     @Binding var allowsFingerDrawing: Bool
     @Binding var clearAction: () -> ()
     @Binding var showNotification: (_ text: String) -> ()
+    @Binding var leftCouletImage: UIImage?
     
     func makeCoordinator() -> Coordinator {
         let coordinator = Coordinator(self)
@@ -132,6 +156,10 @@ struct SideCoupletDrawingView: UIViewRepresentable {
             
         }
         
+        func getCoupletViewThumbnailImage() -> UIImage? {
+            return getThumbnailImage(with: coupletImageView)
+        }
+        
         @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
             let translation = gesture.translation(in: coupletImageView)
             
@@ -173,7 +201,7 @@ struct SideCoupletDrawingView: UIViewRepresentable {
             //            })
             //            print(coupletImageView.center.y)
             //            print("应该在: \(coupletImageView.center.y - squareUnit*0.5) 到 \(coupletImageView.center.y + squareUnit*0.5) 之间")
-            
+            //
             //            let unit = squareUnit
             //            print("containerView.width: \(containerView.frame.width), containerView.height: \(containerView.frame.height)")
             //            print("coupletImageView.width: \(coupletImageView.frame.width), coupletImageView.height: \(coupletImageView.frame.height)")
@@ -224,6 +252,8 @@ struct SideCoupletDrawingView: UIViewRepresentable {
                         }
                     }
                     strokeCollection.takeActiveStroke()
+
+                    sideCoupletDrawingView.leftCouletImage = getCoupletViewThumbnailImage()
                 }
             }
             
@@ -285,6 +315,7 @@ struct SideCoupletDrawingView: UIViewRepresentable {
                 coordinator.strokeCollection = StrokeCollection()
                 coordinator.cgView.strokeCollection = coordinator.strokeCollection
             }
+            self.leftCouletImage = coordinator.getCoupletViewThumbnailImage()
         })
         
         coordinator.fingerStrokeRecognizer = coordinator.setupStrokeGestureRecognizer(isForPencil: false)

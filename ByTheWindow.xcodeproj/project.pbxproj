@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		4E81888F23FE2A3F00739BE0 /* LanternRiddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */; };
 		6302788523F92669009C8FF2 /* 叶根友福荣银钩.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */; };
+		630F783D2402441C00FEFAC5 /* HelpetFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630F783C2402441C00FEFAC5 /* HelpetFunctions.swift */; };
 		6333653523EAE03A0072E311 /* CGDrawingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333652F23EADFA80072E311 /* CGDrawingEngine.swift */; };
 		6333653623EAE03A0072E311 /* StrokeGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333653023EADFA80072E311 /* StrokeGestureRecognizer.swift */; };
 		6333653823EAE03A0072E311 /* CanvasMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333653323EADFA80072E311 /* CanvasMainViewController.swift */; };
@@ -35,6 +36,7 @@
 /* Begin PBXFileReference section */
 		4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanternRiddle.swift; sourceTree = "<group>"; };
 		6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "叶根友福荣银钩.ttf"; sourceTree = "<group>"; };
+		630F783C2402441C00FEFAC5 /* HelpetFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpetFunctions.swift; sourceTree = "<group>"; };
 		6333652F23EADFA80072E311 /* CGDrawingEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGDrawingEngine.swift; sourceTree = "<group>"; };
 		6333653023EADFA80072E311 /* StrokeGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeGestureRecognizer.swift; sourceTree = "<group>"; };
 		6333653123EADFA80072E311 /* Canvas.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Canvas.storyboard; sourceTree = "<group>"; };
@@ -167,6 +169,7 @@
 			isa = PBXGroup;
 			children = (
 				638DBDCD23F51D49009A6B11 /* Data Structures */,
+				630F783C2402441C00FEFAC5 /* HelpetFunctions.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -283,6 +286,7 @@
 			files = (
 				634AA69123E9AADE00ED6AA0 /* AppDelegate.swift in Sources */,
 				6337045123F8F614004BBE0A /* GreetingCardView.swift in Sources */,
+				630F783D2402441C00FEFAC5 /* HelpetFunctions.swift in Sources */,
 				6333653A23EAE03A0072E311 /* StrokeCollection.swift in Sources */,
 				6333653823EAE03A0072E311 /* CanvasMainViewController.swift in Sources */,
 				4E81888F23FE2A3F00739BE0 /* LanternRiddle.swift in Sources */,
