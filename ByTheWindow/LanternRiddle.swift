@@ -23,22 +23,29 @@ func toVertical(toChange aString  :String) -> String {
     return target
 }
 
+
+
 func generateIndex(toGenerate index: Int)-> Int{
     var result: Int
     result = index
-    if result > Riddles.count
+    if result >= Riddles.count
     {return result-Riddles.count }else
     {return result}
     
 }
 
 struct LanternRiddle: View {
+    
+ 
     @State var index :Int = 0
     @State var index2 :Int = 1
     @State var index3 :Int = 2
     @State var showResultLeft: Bool = false
     @State var showResultMiddle: Bool = false
     @State var showResultRight: Bool = false
+    @State var update = false
+    @State var timer: Timer!
+    @State var updateOpacity: Bool = true
     var body: some View {
         
         
@@ -47,24 +54,49 @@ struct LanternRiddle: View {
             Image("RiddleBackground")
             
             HStack(spacing: 30) {
-                RiddleView(showResult: $showResultLeft, index:  $index)
-                RiddleView(showResult: $showResultMiddle, index: $index2)
-                RiddleView(showResult: $showResultRight, index: $index3)
+                RiddleView(showResult: $showResultLeft, update: $update, index:  $index, updateOpacity: $updateOpacity)
+                RiddleView(showResult: $showResultMiddle, update: $update, index: $index2, updateOpacity: $updateOpacity)
+                RiddleView(showResult: $showResultRight, update: $update, index: $index3, updateOpacity: $updateOpacity)
                 
             }
             .offset(x: -20)
             
             ZStack {
                 Button(action: {
-                    self.index = generateIndex(toGenerate: self.index + 3)
-                    self.index2 = generateIndex(toGenerate: self.index2 + 3)
-                    self.index3 = generateIndex(toGenerate: self.index3 + 3)
+                    self.updateOpacity.toggle()
+                    self.showResultLeft = false
+                    self.showResultRight = false
+                    self.showResultMiddle = false
+                    
+//                    self.timer = Timer.scheduledTimer(
+//                        withTimeInterval: 0.3,
+//                        repeats: false,
+//                        block:
+//                        { timer in
+//                            self.update.toggle()
+//
+//                    }
+//                    )
+                    self.timer = Timer.scheduledTimer(
+                        withTimeInterval: 0.6,
+                        repeats: false,
+                        block:
+                        { timer in
+                            self.index = generateIndex(toGenerate: self.index + 3)
+                            self.index2 = generateIndex(toGenerate: self.index2 + 3)
+                            self.index3 = generateIndex(toGenerate: self.index3 + 3)
+                            self.updateOpacity.toggle()
+
+                    }
+                    )
+                    
+//                    self.timer.invalidate()
                     
                 }) {
                     ZStack {
                        
                         
-                        Text("刷新")
+                        Text(update ? "true" : "false")
                             .font(.custom("?| ", size: 40))
                             .foregroundColor(Color.white)
                             .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 12)
@@ -114,9 +146,9 @@ let Riddles = [
 
 struct RiddleView: View {
     @Binding var showResult: Bool
-    
+    @Binding var update: Bool
     @Binding var index: Int
-    //    var riddle = Riddles[0]
+    @Binding var updateOpacity: Bool
     
     
     var body: some View {
@@ -137,6 +169,7 @@ struct RiddleView: View {
                     .rotation3DEffect(
                         showResult ? Angle.degrees(180) : Angle.degrees(0),
                         axis: (x: 0 , y: 1, z: 0))
+                    
                     .animation(.easeInOut(duration: 0.6))
                     .onTapGesture {
                         self.showResult.toggle()
@@ -151,7 +184,7 @@ struct RiddleView: View {
                     .rotation3DEffect(
                         showResult ? Angle.degrees(0) : Angle.degrees(-90),
                         axis: (x: 0 , y: 1, z: 0))
-                    
+                    .opacity(updateOpacity ? 1 : 0)
                     .animation(Animation.easeInOut(duration: 0.3)
                         .delay(showResult ? 0.3 : 0)
                 )
@@ -163,7 +196,8 @@ struct RiddleView: View {
                         .font(.custom("MaShanZheng-Regular", size: 25))
                         //                .lineSpacing()
                         .offset(x: -52 ,y: 190)
-                    
+                        .opacity(updateOpacity ? 1 : 0)
+
                     HStack {
                         
                         Text(toVertical(toChange: Riddles[generateIndex(toGenerate: index)].secondContent ?? ""))
@@ -172,6 +206,7 @@ struct RiddleView: View {
                         Text(toVertical(toChange: Riddles[generateIndex(toGenerate: index)].riddleContent))
                             .font(.custom("?| ", size: 36))
                     }
+                    .opacity(updateOpacity ? 1 : 0)
                     .offset(x: 4, y: -50)
                     //            .opacity(showResult ? 0 : 1)
                     
@@ -190,6 +225,7 @@ struct RiddleView: View {
                 
                 
             }
+            
         }
     }
 }
