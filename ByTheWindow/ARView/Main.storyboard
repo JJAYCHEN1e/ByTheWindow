@@ -31,20 +31,26 @@
                                     <outletCollection property="gestureRecognizers" destination="9bu-Zw-3dA" appends="YES" id="9bR-Wx-ih3"/>
                                 </connections>
                             </imageView>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mY3-Vz-WT9">
-                                <rect key="frame" x="256" y="560" width="45" height="30"/>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JuO-nk-zwX">
+                                <rect key="frame" x="964" y="362" width="46" height="45"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="cancel"/>
-                                <connections>
-                                    <action selector="cancelImage:" destination="BV1-FR-VrT" eventType="touchUpInside" id="KDj-8O-BoY"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="JuO-nk-zwX">
-                                <rect key="frame" x="910" y="315" width="76" height="63"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="cut"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="camera.circle.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30" scale="large" weight="heavy"/>
+                                </state>
                                 <connections>
                                     <action selector="takeShot:" destination="BV1-FR-VrT" eventType="touchUpInside" id="OKS-uA-8MC"/>
+                                </connections>
+                            </button>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mY3-Vz-WT9">
+                                <rect key="frame" x="284" y="550" width="46" height="45"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="trash.circle.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="30" scale="large" weight="heavy"/>
+                                </state>
+                                <connections>
+                                    <action selector="cancelImage:" destination="BV1-FR-VrT" eventType="touchUpInside" id="KDj-8O-BoY"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -83,4 +89,8 @@
             <point key="canvasLocation" x="-71.484375" y="163.28125"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="camera.circle.fill" catalog="system" width="64" height="60"/>
+        <image name="trash.circle.fill" catalog="system" width="64" height="60"/>
+    </resources>
 </document>

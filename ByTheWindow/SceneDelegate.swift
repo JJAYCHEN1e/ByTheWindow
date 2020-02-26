@@ -23,7 +23,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let contentView = ContentView()
 //        调试对对联界面
         
-        let contentView = LanternRiddle()
+//        let contentView = LanternRiddle()
+        let contentView = ARCoupletView()
 //        let contentView = MatchCoupletView()
 
         // Use a UIHostingController as window root view controller.
