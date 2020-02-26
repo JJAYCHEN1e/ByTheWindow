@@ -10,7 +10,7 @@ import SwiftUI
 
 struct ARCoupletView: View {
     var body: some View {
-        ARCoupletView()
+        ARCoupletController()
     }
 }
 
