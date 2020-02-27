@@ -432,7 +432,7 @@ struct coupletDrawingView: UIViewRepresentable {
             sideCoupletImageView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
             sideCoupletImageView.widthAnchor.constraint(equalTo: sideCoupletImageView.heightAnchor, multiplier: 278/1317),
             sideCoupletImageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            sideCoupletImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            sideCoupletImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: screen.width * 0.055)
         ])
         
         // 配置田字格居中
@@ -450,8 +450,7 @@ struct coupletDrawingView: UIViewRepresentable {
         coordinator.centerCoupletCGView = centerCoupletCGView
         coordinator.containerView = containerView
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now().advanced(by: DispatchTimeInterval.milliseconds(100)), execute: {
-            coordinator.setCoupletViewInitPosition()
+        DispatchQueue.main.async{
             self.clearAction = {
                 coordinator.strokeCollection[self.currentIndex] = StrokeCollection()
                 coordinator.currentCGView.strokeCollection = coordinator.strokeCollection[self.currentIndex]
@@ -509,14 +508,14 @@ struct coupletDrawingView: UIViewRepresentable {
                         NSLayoutConstraint.activate([
                             sideCoupletImageView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
                             sideCoupletImageView.widthAnchor.constraint(equalTo: sideCoupletImageView.heightAnchor, multiplier: 278/1317),
+                            sideCoupletImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: screen.width * 0.055),
                             sideCoupletImageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-                            sideCoupletImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
                         ])
                     }
                 }
             }
 //            self.leftCouletImage = coordinator.getCoupletViewThumbnailImage()
-        })
+        }
         
         coordinator.fingerStrokeRecognizer = coordinator.setupStrokeGestureRecognizer(isForPencil: false)
         coordinator.pencilStrokeRecognizer = coordinator.setupStrokeGestureRecognizer(isForPencil: true)
