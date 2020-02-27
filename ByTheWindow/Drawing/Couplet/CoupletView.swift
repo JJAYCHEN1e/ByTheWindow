@@ -69,7 +69,8 @@ struct CoupletView: View {
                 
                 VStack {
                     ZStack {
-                        SideCoupletDrawingView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNotification: $showNotificationInterface, coupletImageThumbnail: $coupletImageThumbnail, prevIndex: $prevIndex, currentIndex: $currentIndex, changeSelectedCouplet: $changeSelectedCouplet)
+                        coupletDrawingView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNotification: $showNotificationInterface, coupletImageThumbnail: $coupletImageThumbnail, prevIndex: $prevIndex, currentIndex: $currentIndex, changeSelectedCouplet: $changeSelectedCouplet)
+                            .clipShape(Rectangle())
                         
                         CoupletButtonView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNoticationInterface: $showNotificationInterface)
                     }
@@ -87,7 +88,7 @@ struct CoupletView: View {
 let squareScale: CGFloat = 0.6313
 let topOffset: CGFloat = 340 / 834 * screen.height
 
-struct SideCoupletDrawingView: UIViewRepresentable {
+struct coupletDrawingView: UIViewRepresentable {
     @Binding var allowsFingerDrawing: Bool
     @Binding var clearAction: () -> ()
     @Binding var showNotification: (_ text: String) -> ()
@@ -103,10 +104,10 @@ struct SideCoupletDrawingView: UIViewRepresentable {
     }
     
     class Coordinator: NSObject, UIGestureRecognizerDelegate {
-        var sideCoupletDrawingView: SideCoupletDrawingView!
+        var coupletDrawingView: coupletDrawingView!
         
-        init(_ sideCoupletDrawingView: SideCoupletDrawingView) {
-            self.sideCoupletDrawingView = sideCoupletDrawingView
+        init(_ sideCoupletDrawingView: coupletDrawingView) {
+            self.coupletDrawingView = sideCoupletDrawingView
         }
         
         var squareUnit: CGFloat {
@@ -133,11 +134,11 @@ struct SideCoupletDrawingView: UIViewRepresentable {
         var readyToGetThumbnail = false
         
         var currentIndex: Int {
-            self.sideCoupletDrawingView.currentIndex
+            self.coupletDrawingView.currentIndex
         }
         
         var prevIndex: Int {
-            self.sideCoupletDrawingView.prevIndex
+            self.coupletDrawingView.prevIndex
         }
     
         func getCoupletImageView(at index: Int) -> UIImageView {
@@ -183,13 +184,13 @@ struct SideCoupletDrawingView: UIViewRepresentable {
         var allowsFingerDrawing = true {
             didSet {
                 DispatchQueue.main.async {
-                    self.sideCoupletDrawingView.allowsFingerDrawing = self.allowsFingerDrawing
+                    self.coupletDrawingView.allowsFingerDrawing = self.allowsFingerDrawing
                 }
                 
                 if allowsFingerDrawing {
                     self.panGestureRecognizer.minimumNumberOfTouches = 2
                     if self.fingerStrokeRecognizer.view == nil {
-                        sideCoupletImageView.addGestureRecognizer(fingerStrokeRecognizer)
+                        currentCoupletImageView.addGestureRecognizer(fingerStrokeRecognizer)
                     }
                 } else {
                     self.panGestureRecognizer.minimumNumberOfTouches = 1
@@ -209,7 +210,7 @@ struct SideCoupletDrawingView: UIViewRepresentable {
             self.pencilDetector = BOApplePencilReachability.init(didChangeClosure: { isPencilReachable in
                 self.allowsFingerDrawing = !isPencilReachable
                 if isPencilReachable {
-                    self.sideCoupletDrawingView.showNotification("检测到 Apple Pencil")
+                    self.coupletDrawingView.showNotification("检测到 Apple Pencil")
                 }
             })
         }
@@ -237,33 +238,67 @@ struct SideCoupletDrawingView: UIViewRepresentable {
         }
         
         @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
-            let translation = gesture.translation(in: sideCoupletImageView)
+            let translation = gesture.translation(in: currentCoupletImageView)
             
-            sideCoupletImageView.center = CGPoint(
-                x: sideCoupletImageView.center.x,
-                y: sideCoupletImageView.center.y + translation.y
-            )
-            //            print(coupletImageView.center.y)
-            gesture.setTranslation(.zero, in: sideCoupletImageView)
-            
-            guard gesture.state == .ended else {
-                return
+            if currentIndex > 0 {
+                sideCoupletImageView.center = CGPoint(
+                    x: sideCoupletImageView.center.x,
+                    y: sideCoupletImageView.center.y + translation.y
+                )
+                //            print(coupletImageView.center.y)
+                gesture.setTranslation(.zero, in: sideCoupletImageView)
+                
+                guard gesture.state == .ended else {
+                    return
+                }
+                
+                var index = max(-2, floor((sideCoupletImageView.center.y + squareUnit*0.5 + 30*coupletScale) / squareUnit))
+                
+                index = min(4, index)
+                
+                let destinationY = index * squareUnit - 30*coupletScale
+                
+                //            print("个数\(index)")
+                
+                UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                    self.sideCoupletImageView.center = CGPoint(
+                        x: self.sideCoupletImageView.center.x,
+                        y: destinationY
+                    )
+                })
+            } else {
+                centerCouletImageView.center = CGPoint(
+                    x: centerCouletImageView.center.x + translation.x,
+                    y: centerCouletImageView.center.y
+                )
+                
+                
+                gesture.setTranslation(.zero, in: centerCouletImageView)
+                
+//                print(self.centerCouletImageView.center.x)
+                
+                guard gesture.state == .ended else {
+                    return
+                }
+                
+                // -317 141 600 1058
+                // 1011-553= 458
+//                print(coupletScale)
+                let squareUnit = self.squareUnit * 0.9786324
+                var index = max(-1, floor((centerCouletImageView.center.x + squareUnit*0.5 - 77.3931*coupletScale) / squareUnit))
+                
+                index = min(2, index)
+//                print(index)
+                let destinationX = index * squareUnit + 77.3931*coupletScale
+                
+                UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                    self.centerCouletImageView.center = CGPoint(
+                        x: destinationX,
+                        y: self.centerCouletImageView.center.y
+                    )
+                })
             }
             
-            var index = max(-2, floor((sideCoupletImageView.center.y + squareUnit*0.5 + 30*coupletScale) / squareUnit))
-            
-            index = min(4, index)
-            
-            let destinationY = index * squareUnit - 30*coupletScale
-            
-            //            print("个数\(index)")
-            
-            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-                self.sideCoupletImageView.center = CGPoint(
-                    x: self.sideCoupletImageView.center.x,
-                    y: destinationY
-                )
-            })
             
             //            UIView.animate(
             //                withDuration: 0.5,
