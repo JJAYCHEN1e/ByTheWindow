@@ -13,32 +13,51 @@ struct CoupletView: View {
     @State var allowsFingerDrawing = true
     @State var clearAction: () -> () = {}
     @State var showNotificationInterface: (_ text: String) -> () = {_ in }
-    @State var leftCouletImage: UIImage?
+//    @State var leftCouletImage: UIImage?
+    @State var coupletImageThumbnail: [UIImage] = [UIImage(named: "couplet-center")!, UIImage(named: "couplet")!, UIImage(named: "couplet")!]
+    @State var prevIndex: Int = 1
+    @State var currentIndex: Int = 1
+    @State var changeSelectedCouplet: (_ : Int, _ : Int) -> () = {_,_ in }
     
     var body: some View {
         HStack(spacing: 0) {
             VStack {
                 VStack {
-                    Image(uiImage: (UIImage(named: "couplet-center"))!)
+                    Image(uiImage: coupletImageThumbnail[0])
                         .resizable()
                         .aspectRatio(contentMode: .fit)
                         .frame(width: 250)
                         .padding(.bottom)
+                        .onTapGesture {
+                            self.prevIndex = self.currentIndex
+                            self.currentIndex = 0
+                            self.changeSelectedCouplet(self.prevIndex, 0)
+                    }
                     
                     HStack{
-                        Image(uiImage: ((leftCouletImage != nil) ? leftCouletImage! : UIImage(named: "couplet"))!)
+                        Image(uiImage: coupletImageThumbnail[1])
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 100)
                             .padding(.leading)
+                            .onTapGesture {
+                                self.prevIndex = self.currentIndex
+                                self.currentIndex = 1
+                                self.changeSelectedCouplet(self.prevIndex, 1)
+                        }
                         
                         Spacer()
                         
-                        Image(uiImage: ((leftCouletImage != nil) ? leftCouletImage! : UIImage(named: "couplet"))!)
+                        Image(uiImage: coupletImageThumbnail[2])
                             .resizable()
                             .aspectRatio(contentMode: .fit)
                             .frame(width: 100)
                             .padding(.trailing)
+                            .onTapGesture {
+                                self.prevIndex = self.currentIndex
+                                self.currentIndex = 2
+                                self.changeSelectedCouplet(self.prevIndex, 2)
+                        }
                     }
                 }
             }
@@ -50,7 +69,8 @@ struct CoupletView: View {
                 
                 VStack {
                     ZStack {
-                        SideCoupletDrawingView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNotification: $showNotificationInterface, leftCouletImage: $leftCouletImage)
+                        coupletDrawingView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNotification: $showNotificationInterface, coupletImageThumbnail: $coupletImageThumbnail, prevIndex: $prevIndex, currentIndex: $currentIndex, changeSelectedCouplet: $changeSelectedCouplet)
+                            .clipShape(Rectangle())
                         
                         CoupletButtonView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, showNoticationInterface: $showNotificationInterface)
                     }
@@ -68,11 +88,14 @@ struct CoupletView: View {
 let squareScale: CGFloat = 0.6313
 let topOffset: CGFloat = 340 / 834 * screen.height
 
-struct SideCoupletDrawingView: UIViewRepresentable {
+struct coupletDrawingView: UIViewRepresentable {
     @Binding var allowsFingerDrawing: Bool
     @Binding var clearAction: () -> ()
     @Binding var showNotification: (_ text: String) -> ()
-    @Binding var leftCouletImage: UIImage?
+    @Binding var coupletImageThumbnail: [UIImage]
+    @Binding var prevIndex: Int
+    @Binding var currentIndex: Int
+    @Binding var changeSelectedCouplet: (_ : Int, _ : Int) -> ()
     
     func makeCoordinator() -> Coordinator {
         let coordinator = Coordinator(self)
@@ -81,10 +104,10 @@ struct SideCoupletDrawingView: UIViewRepresentable {
     }
     
     class Coordinator: NSObject, UIGestureRecognizerDelegate {
-        var sideCoupletDrawingView: SideCoupletDrawingView!
+        var coupletDrawingView: coupletDrawingView!
         
-        init(_ sideCoupletDrawingView: SideCoupletDrawingView) {
-            self.sideCoupletDrawingView = sideCoupletDrawingView
+        init(_ sideCoupletDrawingView: coupletDrawingView) {
+            self.coupletDrawingView = sideCoupletDrawingView
         }
         
         var squareUnit: CGFloat {
@@ -99,22 +122,75 @@ struct SideCoupletDrawingView: UIViewRepresentable {
             }
         }
         
-        var coupletImageView: UIImageView!
-        var cgView: StrokeCGView!
+        var sideCoupletImageView: UIImageView!
+        var centerCouletImageView: UIImageView!
+        var sideCoupletCGView: StrokeCGView!
+        var centerCoupletCGView: StrokeCGView!
         var containerView: UIView!
-        var strokeCollection = StrokeCollection()
+        var strokeCollection = [StrokeCollection(), StrokeCollection(), StrokeCollection()]
         var fingerStrokeRecognizer: StrokeGestureRecognizer!
         var pencilStrokeRecognizer: StrokeGestureRecognizer!
         var panGestureRecognizer: UIPanGestureRecognizer!
+        var readyToGetThumbnail = false
+        
+        var currentIndex: Int {
+            self.coupletDrawingView.currentIndex
+        }
+        
+        var prevIndex: Int {
+            self.coupletDrawingView.prevIndex
+        }
+    
+        func getCoupletImageView(at index: Int) -> UIImageView {
+            switch currentIndex {
+            case 0:
+                return self.centerCouletImageView
+            case 1,2:
+                return self.sideCoupletImageView
+            default:
+                return self.sideCoupletImageView
+            }
+        }
+        
+        func getCoupletCGView(at index: Int) -> StrokeCGView {
+            switch currentIndex {
+            case 0:
+                return self.centerCoupletCGView
+            case 1,2:
+                return self.sideCoupletCGView
+            default:
+                return self.sideCoupletCGView
+            }
+        }
+        
+        var currentCoupletImageView: UIImageView {
+            getCoupletImageView(at: currentIndex)
+        }
+        
+        var currentCGView: StrokeCGView{
+            getCoupletCGView(at: currentIndex)
+        }
+        
+        var prevCoupletImageView: UIImageView {
+            getCoupletImageView(at: prevIndex)
+        }
+        
+        var prevCGView: StrokeCGView{
+            getCoupletCGView(at: prevIndex)
+        }
         
         /// Toggles hand-written mode for the app.
         /// - Tag: handWrittenMode
         var allowsFingerDrawing = true {
             didSet {
+                DispatchQueue.main.async {
+                    self.coupletDrawingView.allowsFingerDrawing = self.allowsFingerDrawing
+                }
+                
                 if allowsFingerDrawing {
                     self.panGestureRecognizer.minimumNumberOfTouches = 2
                     if self.fingerStrokeRecognizer.view == nil {
-                        coupletImageView.addGestureRecognizer(fingerStrokeRecognizer)
+                        currentCoupletImageView.addGestureRecognizer(fingerStrokeRecognizer)
                     }
                 } else {
                     self.panGestureRecognizer.minimumNumberOfTouches = 1
@@ -125,6 +201,7 @@ struct SideCoupletDrawingView: UIViewRepresentable {
             }
         }
         
+        
         /// 用于检测是否连接到 Apple Pencil 的辅助类
         private var pencilDetector: BOApplePencilReachability?
         
@@ -133,7 +210,7 @@ struct SideCoupletDrawingView: UIViewRepresentable {
             self.pencilDetector = BOApplePencilReachability.init(didChangeClosure: { isPencilReachable in
                 self.allowsFingerDrawing = !isPencilReachable
                 if isPencilReachable {
-                    self.sideCoupletDrawingView.showNotification("检测到 Apple Pencil")
+                    self.coupletDrawingView.showNotification("检测到 Apple Pencil")
                 }
             })
         }
@@ -141,7 +218,7 @@ struct SideCoupletDrawingView: UIViewRepresentable {
         func getPanGesture() -> UIPanGestureRecognizer {
             let panGesture = UIPanGestureRecognizer(target: self, action: #selector(handlePan))
             panGesture.delegate = self
-            panGesture.minimumNumberOfTouches = 1
+            panGesture.minimumNumberOfTouches = 2
             panGesture.maximumNumberOfTouches = 2
             
             self.panGestureRecognizer = panGesture
@@ -151,43 +228,77 @@ struct SideCoupletDrawingView: UIViewRepresentable {
         
         func setCoupletViewInitPosition() {
             UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-                self.coupletImageView.center = CGPoint(x: self.coupletImageView.center.x, y: 4 * self.squareUnit - 30*self.coupletScale)
+                self.sideCoupletImageView.center = CGPoint(x: self.sideCoupletImageView.center.x, y: 4 * self.squareUnit - 30*self.coupletScale)
             })
             
         }
         
         func getCoupletViewThumbnailImage() -> UIImage? {
-            return getThumbnailImage(with: coupletImageView)
+            return getThumbnailImage(with: sideCoupletImageView)
         }
         
         @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
-            let translation = gesture.translation(in: coupletImageView)
+            let translation = gesture.translation(in: currentCoupletImageView)
             
-            coupletImageView.center = CGPoint(
-                x: coupletImageView.center.x,
-                y: coupletImageView.center.y + translation.y
-            )
-            //            print(coupletImageView.center.y)
-            gesture.setTranslation(.zero, in: coupletImageView)
-            
-            guard gesture.state == .ended else {
-                return
+            if currentIndex > 0 {
+                sideCoupletImageView.center = CGPoint(
+                    x: sideCoupletImageView.center.x,
+                    y: sideCoupletImageView.center.y + translation.y
+                )
+                //            print(coupletImageView.center.y)
+                gesture.setTranslation(.zero, in: sideCoupletImageView)
+                
+                guard gesture.state == .ended else {
+                    return
+                }
+                
+                var index = max(-2, floor((sideCoupletImageView.center.y + squareUnit*0.5 + 30*coupletScale) / squareUnit))
+                
+                index = min(4, index)
+                
+                let destinationY = index * squareUnit - 30*coupletScale
+                
+                //            print("个数\(index)")
+                
+                UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                    self.sideCoupletImageView.center = CGPoint(
+                        x: self.sideCoupletImageView.center.x,
+                        y: destinationY
+                    )
+                })
+            } else {
+                centerCouletImageView.center = CGPoint(
+                    x: centerCouletImageView.center.x + translation.x,
+                    y: centerCouletImageView.center.y
+                )
+                
+                
+                gesture.setTranslation(.zero, in: centerCouletImageView)
+                
+//                print(self.centerCouletImageView.center.x)
+                
+                guard gesture.state == .ended else {
+                    return
+                }
+                
+                // -317 141 600 1058
+                // 1011-553= 458
+//                print(coupletScale)
+                let squareUnit = self.squareUnit * 0.9786324
+                var index = max(-1, floor((centerCouletImageView.center.x + squareUnit*0.5 - 77.3931*coupletScale) / squareUnit))
+                
+                index = min(2, index)
+//                print(index)
+                let destinationX = index * squareUnit + 77.3931*coupletScale
+                
+                UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
+                    self.centerCouletImageView.center = CGPoint(
+                        x: destinationX,
+                        y: self.centerCouletImageView.center.y
+                    )
+                })
             }
             
-            var index = max(-2, floor((coupletImageView.center.y + squareUnit*0.5 + 30*coupletScale) / squareUnit))
-            
-            index = min(4, index)
-            
-            let destinationY = index * squareUnit - 30*coupletScale
-            
-            //            print("个数\(index)")
-            
-            UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-                self.coupletImageView.center = CGPoint(
-                    x: self.coupletImageView.center.x,
-                    y: destinationY
-                )
-            })
             
             //            UIView.animate(
             //                withDuration: 0.5,
@@ -217,14 +328,14 @@ struct SideCoupletDrawingView: UIViewRepresentable {
         func setupStrokeGestureRecognizer(isForPencil: Bool) -> StrokeGestureRecognizer {
             let recognizer = StrokeGestureRecognizer(target: self, action: #selector(strokeUpdated(_:)))
             recognizer.cancelsTouchesInView = false
-            coupletImageView.addGestureRecognizer(recognizer)
-            recognizer.coordinateSpaceView = cgView
+            sideCoupletImageView.addGestureRecognizer(recognizer)
+            recognizer.coordinateSpaceView = sideCoupletCGView
             recognizer.isForPencil = isForPencil
             return recognizer
         }
         
         func receivedAllUpdatesForStroke(_ stroke: Stroke) {
-            cgView.setNeedsDisplay(for: stroke)
+            sideCoupletCGView.setNeedsDisplay(for: stroke)
             stroke.clearUpdateInfo()
         }
         
@@ -232,15 +343,16 @@ struct SideCoupletDrawingView: UIViewRepresentable {
         /// - Tag: strokeUpdate
         @objc
         func strokeUpdated(_ strokeGesture: StrokeGestureRecognizer) {
+            readyToGetThumbnail = false
             var stroke: Stroke?
             if strokeGesture.state != .cancelled {
                 stroke = strokeGesture.stroke
                 if strokeGesture.state == .began ||
-                    (strokeGesture.state == .ended && strokeCollection.activeStroke == nil) {
-                    strokeCollection.activeStroke = stroke
+                    (strokeGesture.state == .ended && strokeCollection[currentIndex].activeStroke == nil) {
+                    strokeCollection[currentIndex].activeStroke = stroke
                 }
             } else {
-                strokeCollection.activeStroke = nil
+                strokeCollection[currentIndex].activeStroke = nil
             }
             
             if let stroke = stroke {
@@ -251,49 +363,76 @@ struct SideCoupletDrawingView: UIViewRepresentable {
                             self?.receivedAllUpdatesForStroke(stroke)
                         }
                     }
-                    strokeCollection.takeActiveStroke()
-
-                    sideCoupletDrawingView.leftCouletImage = getCoupletViewThumbnailImage()
+                    strokeCollection[currentIndex].takeActiveStroke()
+                    
+//                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now().advanced(by: DispatchTimeInterval.seconds(3)), execute: {
+//                        self.readyToGetThumbnail = true
+//                        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now().advanced(by: DispatchTimeInterval.seconds(3)), execute: {
+//                            if self.readyToGetThumbnail {
+//                                self.sideCoupletDrawingView.leftCouletImage = self.getCoupletViewThumbnailImage()
+//                            }
+//                        })
+//                    })
                 }
             }
             
-            cgView.strokeCollection = strokeCollection
+            currentCGView.strokeCollection = strokeCollection[currentIndex]
         }
     }
     
     func makeUIView(context: Context) -> UIView {
         let coordinator = context.coordinator
         
-        let coupletImage = UIImage(named: "couplet")
+        let sideCoupletImage = UIImage(named: "couplet")
+        let centerCoupletImage = UIImage(named: "couplet-center")
         let squareImage = UIImage(named: "田字格")
         
-        let coupletImageView = UIImageView(image: coupletImage)
+        let sideCoupletImageView = UIImageView(image: sideCoupletImage)
+        let centerCoupletImageView = UIImageView(image: centerCoupletImage)
         let squareImageView = UIImageView(image: squareImage)
-        let containerView = UIView(frame: coupletImageView.bounds)
-        let cgView = StrokeCGView(frame: coupletImageView.bounds)
+        let containerView = UIView(frame: sideCoupletImageView.bounds)
+        let sideCoupletCGView = StrokeCGView(frame: sideCoupletImageView.bounds)
+        let centerCoupletCGView = StrokeCGView(frame: centerCoupletImageView.bounds)
         
 //        coupletImageView.contentMode = .scaleAspectFill
         
-        coupletImageView.addSubview(cgView)
-        coupletImageView.isUserInteractionEnabled = true
-        coupletImageView.addGestureRecognizer(coordinator.getPanGesture())
+        sideCoupletImageView.addSubview(sideCoupletCGView)
+        sideCoupletImageView.isUserInteractionEnabled = true
+        sideCoupletImageView.addGestureRecognizer(coordinator.getPanGesture())
         
-        containerView.addSubview(coupletImageView)
+        centerCoupletImageView.addSubview(centerCoupletCGView)
+        centerCoupletImageView.isUserInteractionEnabled = true
+//        centerCoupletImageView.addGestureRecognizer(coordinator.getPanGesture())
+        
+        containerView.addSubview(sideCoupletImageView)
         containerView.addSubview(squareImageView)
         
-        coupletImageView.translatesAutoresizingMaskIntoConstraints = false
-        cgView.translatesAutoresizingMaskIntoConstraints = false
+        sideCoupletImageView.translatesAutoresizingMaskIntoConstraints = false
+        sideCoupletCGView.translatesAutoresizingMaskIntoConstraints = false
+        centerCoupletImageView.translatesAutoresizingMaskIntoConstraints = false
+        centerCoupletCGView.translatesAutoresizingMaskIntoConstraints = false
         
-        // 配置 coupletImageView 和 cgView 的大小
+        // 配置 sideCoupletImageView 和 sideCoupletImageView 的大小
+        // 配置 centerCoupletImageView 和 centerCoupletImageView 的大小
         NSLayoutConstraint.activate([
-            cgView.centerXAnchor.constraint(equalTo: coupletImageView.centerXAnchor),
-            cgView.centerYAnchor.constraint(equalTo: coupletImageView.centerYAnchor),
-            cgView.widthAnchor.constraint(equalTo: coupletImageView.widthAnchor),
-            cgView.heightAnchor.constraint(equalTo: coupletImageView.heightAnchor),
-            coupletImageView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
-            coupletImageView.widthAnchor.constraint(equalTo: coupletImageView.heightAnchor, multiplier: 278/1317),
-            coupletImageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
-            coupletImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+            sideCoupletCGView.centerXAnchor.constraint(equalTo: sideCoupletImageView.centerXAnchor),
+            sideCoupletCGView.centerYAnchor.constraint(equalTo: sideCoupletImageView.centerYAnchor),
+            sideCoupletCGView.widthAnchor.constraint(equalTo: sideCoupletImageView.widthAnchor),
+            sideCoupletCGView.heightAnchor.constraint(equalTo: sideCoupletImageView.heightAnchor),
+            centerCoupletCGView.centerXAnchor.constraint(equalTo: centerCoupletImageView.centerXAnchor),
+            centerCoupletCGView.centerYAnchor.constraint(equalTo: centerCoupletImageView.centerYAnchor),
+            centerCoupletCGView.widthAnchor.constraint(equalTo: centerCoupletImageView.widthAnchor),
+            centerCoupletCGView.heightAnchor.constraint(equalTo: centerCoupletImageView.heightAnchor),
+            
+        ])
+        
+        
+        // 配置 sideCoupletImageView 和 containerView 的大小
+        NSLayoutConstraint.activate([
+            sideCoupletImageView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
+            sideCoupletImageView.widthAnchor.constraint(equalTo: sideCoupletImageView.heightAnchor, multiplier: 278/1317),
+            sideCoupletImageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            sideCoupletImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: screen.width * 0.055)
         ])
         
         // 配置田字格居中
@@ -305,18 +444,78 @@ struct SideCoupletDrawingView: UIViewRepresentable {
             squareImageView.widthAnchor.constraint(equalTo: containerView.widthAnchor, multiplier: squareScale)
         ])
         
-        coordinator.coupletImageView = coupletImageView
-        coordinator.cgView = cgView
+        coordinator.sideCoupletImageView = sideCoupletImageView
+        coordinator.centerCouletImageView = centerCoupletImageView
+        coordinator.sideCoupletCGView = sideCoupletCGView
+        coordinator.centerCoupletCGView = centerCoupletCGView
         coordinator.containerView = containerView
         
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now().advanced(by: DispatchTimeInterval.milliseconds(100)), execute: {
-            coordinator.setCoupletViewInitPosition()
+        DispatchQueue.main.async{
             self.clearAction = {
-                coordinator.strokeCollection = StrokeCollection()
-                coordinator.cgView.strokeCollection = coordinator.strokeCollection
+                coordinator.strokeCollection[self.currentIndex] = StrokeCollection()
+                coordinator.currentCGView.strokeCollection = coordinator.strokeCollection[self.currentIndex]
             }
-            self.leftCouletImage = coordinator.getCoupletViewThumbnailImage()
-        })
+            
+            self.changeSelectedCouplet = { from, to in
+                if from != to {
+                    if from + to == 3 {
+                        // 都是侧联，只需要更换 Stroke.
+                        coordinator.sideCoupletCGView.strokeCollection = coordinator.strokeCollection[to]
+                    } else if to == 0 {
+                        sideCoupletImageView.removeFromSuperview()
+                        containerView.insertSubview(centerCoupletImageView, belowSubview: squareImageView)
+                        centerCoupletCGView.strokeCollection = coordinator.strokeCollection[to]
+                        centerCoupletImageView.addGestureRecognizer(coordinator.panGestureRecognizer)
+                        
+                        coordinator.fingerStrokeRecognizer.coordinateSpaceView = centerCoupletCGView
+                        coordinator.pencilStrokeRecognizer.coordinateSpaceView = centerCoupletCGView
+                        if let view = coordinator.fingerStrokeRecognizer.view {
+                            view.removeGestureRecognizer(coordinator.fingerStrokeRecognizer)
+                            centerCoupletImageView.addGestureRecognizer(coordinator.fingerStrokeRecognizer)
+                        }
+                        
+                        if let view = coordinator.pencilStrokeRecognizer.view {
+                            view.removeGestureRecognizer(coordinator.pencilStrokeRecognizer)
+                            centerCoupletImageView.addGestureRecognizer(coordinator.pencilStrokeRecognizer)
+                        }
+                        
+                        // 配置 centerCoupletImageView 和 containerView 的大小
+                        NSLayoutConstraint.activate([
+                            centerCoupletImageView.heightAnchor.constraint(equalTo: containerView.widthAnchor),
+                            centerCoupletImageView.widthAnchor.constraint(equalTo: centerCoupletImageView.heightAnchor, multiplier: 1080/403),
+                            centerCoupletImageView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor, constant: screen.width * 0.055),
+                            centerCoupletImageView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+                        ])
+                    } else {
+                        centerCoupletImageView.removeFromSuperview()
+                        containerView.insertSubview(sideCoupletImageView, belowSubview: squareImageView)
+                        sideCoupletCGView.strokeCollection = coordinator.strokeCollection[to]
+                        sideCoupletImageView.addGestureRecognizer(coordinator.panGestureRecognizer)
+                        
+                        coordinator.fingerStrokeRecognizer.coordinateSpaceView = sideCoupletCGView
+                        coordinator.pencilStrokeRecognizer.coordinateSpaceView = sideCoupletCGView
+                        if let view = coordinator.fingerStrokeRecognizer.view {
+                            view.removeGestureRecognizer(coordinator.fingerStrokeRecognizer)
+                            sideCoupletImageView.addGestureRecognizer(coordinator.fingerStrokeRecognizer)
+                        }
+                        
+                        if let view = coordinator.pencilStrokeRecognizer.view {
+                            view.removeGestureRecognizer(coordinator.pencilStrokeRecognizer)
+                            sideCoupletImageView.addGestureRecognizer(coordinator.pencilStrokeRecognizer)
+                        }
+                        
+                        // 配置 sideCoupletImageView 和 containerView 的大小
+                        NSLayoutConstraint.activate([
+                            sideCoupletImageView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
+                            sideCoupletImageView.widthAnchor.constraint(equalTo: sideCoupletImageView.heightAnchor, multiplier: 278/1317),
+                            sideCoupletImageView.topAnchor.constraint(equalTo: containerView.topAnchor, constant: screen.width * 0.055),
+                            sideCoupletImageView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+                        ])
+                    }
+                }
+            }
+//            self.leftCouletImage = coordinator.getCoupletViewThumbnailImage()
+        }
         
         coordinator.fingerStrokeRecognizer = coordinator.setupStrokeGestureRecognizer(isForPencil: false)
         coordinator.pencilStrokeRecognizer = coordinator.setupStrokeGestureRecognizer(isForPencil: true)
