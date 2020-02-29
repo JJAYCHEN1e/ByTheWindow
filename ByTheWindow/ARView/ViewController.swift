@@ -65,18 +65,21 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let touch = sender.location(in: recognizerView)
         
         if sender.state == .began {
-            let hitTestResult = self.sceneView.hitTest(touch, options: [SCNHitTestOption.categoryBitMask: 2])
-            guard let hitNode = hitTestResult.first?.node else { return }
-            self.selectedNode = hitNode
+//            let hitTestResult = self.sceneView.hitTest(touch, options: [SCNHitTestOption.categoryBitMask: 2])
+//            guard let hitNode = hitTestResult.first?.node else {
+//                return
+//            }
+            self.selectedNode = paintingNode
+            
         } else if sender.state == .changed {
         // make sure a node has been selected from .began
         guard let hitNode = self.selectedNode else { return }
 
         // perform a hitTest to obtain the plane
-        let hitTestPlane = self.sceneView.hitTest(touch, types: .existingPlane)
+            let hitTestPlane = self.sceneView.hitTest(touch, types: .existingPlaneUsingExtent)
         guard let hitPlane = hitTestPlane.first else { return }
         hitNode.position = SCNVector3(hitPlane.worldTransform.columns.3.x,
-                                       hitNode.position.y,
+                                       hitPlane.worldTransform.columns.3.y,
                                        hitPlane.worldTransform.columns.3.z)
         } else if sender.state == .ended || sender.state == .cancelled || sender.state == .failed{
 
@@ -89,29 +92,33 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     
     @IBAction func changeScale(_ sender: UIPinchGestureRecognizer) {
-        guard let recognizerView = sender.view as? ARSCNView else {
-            return
-        }
-        let touch = sender.location(in: recognizerView)
-        
-        if sender.state == .began {
-            let hitTestResult = self.sceneView.hitTest(touch, options: [SCNHitTestOption.categoryBitMask: 2])
-            guard let hitNode = hitTestResult.first?.node else { return }
-            self.selectedNode = hitNode
-        } else if sender.state == .changed {
-        // make sure a node has been selected from .began
-            guard let hitNode = self.selectedNode else { return }
-            let scale = sender.scale
-            let o = hitNode.scale
-            hitNode.scale = SCNVector3(o.x * (1 + Float(scale)), o.y * (1 + Float(scale)), o.z * (1 + Float(scale)))
-            
-        } else if sender.state == .ended || sender.state == .cancelled || sender.state == .failed{
-
-            guard self.selectedNode != nil else { return }
-
-            // Undo selection
-            self.selectedNode = nil
-        }
+        print("PinchGesture")
+//        guard let recognizerView = sender.view as? ARSCNView else {
+//            return
+//        }
+//        let touch = sender.location(in: recognizerView)
+//
+//        if sender.state == .began {
+//            let hitTestResult = self.sceneView.hitTest(touch, options: [SCNHitTestOption.categoryBitMask: 2])
+//            guard let hitNode = hitTestResult.first?.node else { return }
+//            self.selectedNode = hitNode
+//        } else if sender.state == .changed {
+//        // make sure a node has been selected from .began
+//            guard let hitNode = self.selectedNode else { return }
+//            let scale = sender.scale
+//            let o = hitNode.scale
+//            hitNode.scale = SCNVector3(o.x * (1 + Float(scale)), o.y * (1 + Float(scale)), o.z * (1 + Float(scale)))
+//
+//        } else if sender.state == .ended || sender.state == .cancelled || sender.state == .failed{
+//
+//            guard self.selectedNode != nil else { return }
+//
+//            // Undo selection
+//            self.selectedNode = nil
+//        }
+        let v = sender.velocity * 0.01
+        let o = self.paintingNode?.scale
+        self.paintingNode?.scale = SCNVector3(o!.x * (1 + Float(v)), o!.y * (1 + Float(v)), o!.z * (1 + Float(v)))
         
     }
     
@@ -157,9 +164,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         let showShareTap = UITapGestureRecognizer(target: self, action: #selector(showShare(_:)))
         imageView.isUserInteractionEnabled = true
-        
+
         let longPress = UILongPressGestureRecognizer(target: self, action: #selector(changePositon(_:)))
-        
+
         let pinch = UIPinchGestureRecognizer(target: self, action: #selector(changeScale(_:)))
         
         sceneView.addGestureRecognizer(gestureRecognizer)
@@ -236,6 +243,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @objc func tapped(gesture: UITapGestureRecognizer) {
         // Get 2D position of touch event on screen
         let touchPosition = gesture.location(in: sceneView)
+        
 
         // Translate those 2D points to 3D points using hitTest (existing plane)
         let hitTestResults = sceneView.hitTest(touchPosition, types: .existingPlaneUsingExtent)
@@ -244,7 +252,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         guard let hitTest = hitTestResults.first, let anchor = hitTest.anchor as? ARPlaneAnchor, let gridIndex = grids.firstIndex(where: { $0.anchor == anchor }) else {
             return
         }
-        if paintingNode == nil {
+        if paintingNode != nil {
             return
         }
         addPainting(hitTest, grids[gridIndex])
@@ -260,7 +268,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
             material.diffuse.contents = coupletImage
         }
         planeGeometry.materials = [material]
-
+        
         
         paintingNode = SCNNode(geometry: planeGeometry)
         paintingNode!.transform = SCNMatrix4(hitResult.anchor!.transform)
