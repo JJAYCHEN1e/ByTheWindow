@@ -22,9 +22,11 @@ enum StrokeViewDisplayOptions: CaseIterable, CustomStringConvertible {
 }
 
 class StrokeCGView: UIView {
+    var characterIndex: Int = 0
+    
     var displayOptions = StrokeViewDisplayOptions.calligraphy {
         didSet {
-            if strokeCollection != nil {
+            if strokeCollections != nil {
                 setNeedsDisplay()
             }
             for view in dirtyRectViews {
@@ -33,16 +35,19 @@ class StrokeCGView: UIView {
         }
     }
     
-    var strokeCollection: StrokeCollection? {
+    var strokeCollections: [StrokeCollection] =
+        [StrokeCollection(), StrokeCollection(), StrokeCollection(),
+         StrokeCollection(), StrokeCollection(), StrokeCollection(),
+         StrokeCollection()] {
         didSet {
 //            if oldValue !== strokeCollection {
 //                setNeedsDisplay()
 //            }
             setNeedsDisplay()
-            if let lastStroke = strokeCollection?.strokes.last {
+            if let lastStroke = strokeCollections[characterIndex].strokes.last {
                 setNeedsDisplay(for: lastStroke)
             }
-            strokeToDraw = strokeCollection?.activeStroke
+            strokeToDraw = strokeCollections[characterIndex].activeStroke
         }
     }
     
@@ -169,7 +174,7 @@ extension StrokeCGView {
 
         // Optimization opportunity: Draw the existing collection in a different view,
         // and only draw each time we add a stroke.
-        if let strokeCollection = strokeCollection {
+        for strokeCollection in strokeCollections {
             for stroke in strokeCollection.strokes {
                 draw(stroke: stroke, in: rect)
             }

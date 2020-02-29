@@ -40,21 +40,21 @@ class CanvasMainViewController: UIViewController {
     
     /// 清空笔迹
     @IBAction func clearButtonAction(_ sender: AnyObject) {
-        strokeCollection = StrokeCollection()
-        strokeCollection.delegate = self
-        leftCGView.strokeCollection = self.strokeCollection
-        undoable = false
-        redoable = false
+//        strokeCollection = StrokeCollection()
+//        strokeCollection.delegate = self
+//        leftCGView.strokeCollection = self.strokeCollection
+//        undoable = false
+//        redoable = false
     }
     
     @IBAction func undoButtonAction(_ sender: Any) {
-        strokeCollection.undo()
-        leftCGView.strokeCollection = strokeCollection
+//        strokeCollection.undo()
+//        leftCGView.strokeCollection = strokeCollection
     }
     
     @IBAction func redoButtonAction(_ sender: Any) {
-        strokeCollection.redo()
-        leftCGView.strokeCollection = strokeCollection
+//        strokeCollection.redo()
+//        leftCGView.strokeCollection = strokeCollection
     }
     
     @IBAction func handWrittenButtonClicked(_ sender: AnyObject?) {
@@ -155,7 +155,7 @@ extension CanvasMainViewController {
             }
         }
         
-        leftCGView.strokeCollection = strokeCollection
+//        leftCGView.strokeCollection = strokeCollection
     }
 }
 
