@@ -13,25 +13,34 @@ class StrokeCollection {
     var activeStroke: Stroke?
     var redoStack = Stack<Stroke>()
     
-    var delegate: StrokeCollectionDelegate?
+    var redoable: Bool {
+        !redoStack.isEmpty
+    }
+    
+    var undoable: Bool {
+        !strokes.isEmpty
+    }
+    
+    var delegate: StrokeCollectionDelegate? {
+        didSet {
+            delegate?.redoable = self.redoable
+            delegate?.undoable = self.undoable
+        }
+    }
     
     func undo() {
         if let stroke = strokes.popLast() {
             redoStack.push(stroke)
-            if strokes.isEmpty {
-                delegate?.undoable = false
-            }
             delegate?.redoable = true
+            delegate?.undoable = self.undoable
         }
     }
     
     func redo() {
         if let stroke = redoStack.pop() {
             strokes.append(stroke)
-            if redoStack.isEmpty {
-                delegate?.redoable = false
-            }
             delegate?.undoable = true
+            delegate?.redoable = self.redoable
         }
     }
     
