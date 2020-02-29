@@ -21,10 +21,13 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
         // Create the SwiftUI view that provides the window contents.
 //        let contentView = ContentView()
-//        调试对对联界面
+//        调试灯谜
+//        let contentView = LanternRiddle()
         
-        let contentView = LanternRiddle()
+//        调试对对联界面
 //        let contentView = MatchCoupletView()
+        
+        let contentView = HomeView()
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

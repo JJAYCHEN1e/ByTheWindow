@@ -13,7 +13,7 @@ struct MatchCoupletView: View {
     @State var output = ""
     @State var tempInput = ""
     @State var tempOutput = ""
-    
+    @EnvironmentObject var navigation: NavigationStack
     
     var body: some View {
         ZStack {
@@ -28,6 +28,11 @@ struct MatchCoupletView: View {
                 
                 
                 CoupletTextView(title: "上联：", text: $input )
+                    .onTapGesture {
+                        withAnimation() {
+                            self.navigation.unwind()
+                        }
+                }
                 CoupletTextView(title: "下联：", text: $output)
                 
                 Button(action: {
