@@ -146,9 +146,6 @@
 		634AA68F23E9AADE00ED6AA0 /* ByTheWindow */ = {
 			isa = PBXGroup;
 			children = (
-				81BF8BD3240A52B4002281CB /* HomeView.swift */,
-				81BF8BD4240A52B4002281CB /* NavigationHost.swift */,
-				81BF8BD5240A52B4002281CB /* NavigationStack.swift */,
 				647F0B3B24066A2F00459089 /* ARView */,
 				638DBDD023F547A0009A6B11 /* Custom Views */,
 				638DBDCC23F51D41009A6B11 /* Utils */,
@@ -157,6 +154,9 @@
 				634AA69023E9AADE00ED6AA0 /* AppDelegate.swift */,
 				634AA69223E9AADE00ED6AA0 /* SceneDelegate.swift */,
 				4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */,
+				81BF8BD5240A52B4002281CB /* NavigationStack.swift */,
+				81BF8BD4240A52B4002281CB /* NavigationHost.swift */,
+				81BF8BD3240A52B4002281CB /* HomeView.swift */,
 				634AA69423E9AADE00ED6AA0 /* ContentView.swift */,
 				8199A22123F697870098F149 /* MatchCoupletView.swift */,
 				647F0B4524066E0300459089 /* ARCoupletView.swift */,
