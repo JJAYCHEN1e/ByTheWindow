@@ -1,9 +1,9 @@
 //
 //  Grid.swift
-//  NextReality_Tutorial8
+//  ByTheWindow
 //
-//  Created by Ambuj Punn on 5/2/18.
-//  Copyright © 2018 Ambuj Punn. All rights reserved.
+//  Created by 项慕凡 on 2020/2/24.
+//  Copyright © 2020 项慕凡. All rights reserved.
 //
 
 import Foundation

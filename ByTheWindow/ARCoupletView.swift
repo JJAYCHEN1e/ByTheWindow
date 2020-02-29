@@ -17,14 +17,20 @@ struct ARCoupletView: View {
 
 
 struct ARCoupletController: UIViewControllerRepresentable {
+    
     func makeUIViewController(context: UIViewControllerRepresentableContext<ARCoupletController>) -> UIViewController {
         
         let storyboard = UIStoryboard(name: "Main", bundle: Bundle.main)
         let controller = storyboard.instantiateViewController(identifier: "ARCouplet")
+        
+        
         return controller
     }
     
     func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<ARCoupletController>) {
-        
+        coupletImage = UIImage(named: "defaultCouplet")
     }
+    
+    
 }
+

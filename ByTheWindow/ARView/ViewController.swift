@@ -1,6 +1,6 @@
 //
 //  ViewController.swift
-//  abc
+//  ByTheWindow
 //
 //  Created by 项慕凡 on 2020/2/24.
 //  Copyright © 2020 项慕凡. All rights reserved.
@@ -29,6 +29,7 @@ extension UIView {
     }
 }
 
+var coupletImage:UIImage?
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
@@ -38,6 +39,8 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     @IBOutlet weak var cancelBtn: UIButton!
     
     var image:UIImage?
+    
+
     
     var paintingNode:SCNNode?
     var selectedNode: SCNNode?
@@ -251,7 +254,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         let planeGeometry = SCNPlane(width: 0.2, height: 0.35)
         let material = SCNMaterial()
-        material.diffuse.contents = UIImage(named: "mona-lisa")
+        if coupletImage == nil {
+            material.diffuse.contents = UIImage(named: "defaultCouplet")
+        } else {
+            material.diffuse.contents = coupletImage
+        }
         planeGeometry.materials = [material]
 
         
