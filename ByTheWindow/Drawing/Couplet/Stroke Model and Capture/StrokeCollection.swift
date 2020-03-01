@@ -76,7 +76,7 @@ enum StrokePhase {
 struct StrokeSample {
     // Always.
     let timestamp: TimeInterval
-    let location: CGPoint
+    var location: CGPoint
     
     // 3D Touch or Pencil.
     var force: CGFloat?

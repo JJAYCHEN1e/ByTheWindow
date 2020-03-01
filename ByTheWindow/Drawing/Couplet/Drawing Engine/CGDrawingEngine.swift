@@ -24,6 +24,10 @@ enum StrokeViewDisplayOptions: CaseIterable, CustomStringConvertible {
 class StrokeCGView: UIView {
     var characterIndex: Int = 0
     
+    var readyGetThumbnail = 0
+    
+    private var thumbnail: UIImage = UIImage()
+    
     var displayOptions = StrokeViewDisplayOptions.calligraphy {
         didSet {
             if strokeCollections != nil {
@@ -40,9 +44,6 @@ class StrokeCGView: UIView {
          StrokeCollection(), StrokeCollection(), StrokeCollection(),
          StrokeCollection()] {
         didSet {
-//            if oldValue !== strokeCollection {
-//                setNeedsDisplay()
-//            }
             setNeedsDisplay()
             if let lastStroke = strokeCollections[characterIndex].strokes.last {
                 setNeedsDisplay(for: lastStroke)
@@ -171,7 +172,7 @@ extension StrokeCGView {
     override func draw(_ rect: CGRect) {
         /// - TAG: Prevent filling black
         backgroundColor = UIColor.clear
-
+        
         // Optimization opportunity: Draw the existing collection in a different view,
         // and only draw each time we add a stroke.
         for strokeCollection in strokeCollections {
@@ -182,9 +183,21 @@ extension StrokeCGView {
 
         if let stroke = strokeToDraw {
             draw(stroke: stroke, in: rect)
+            
+        }
+        
+        if readyGetThumbnail < 5 {
+            guard let context = UIGraphicsGetCurrentContext()
+                else { return }
+            if let image = context.makeImage() {
+                thumbnail = UIImage(cgImage: image)
+            }
         }
     }
-
+    
+    func getThumbnail() -> UIImage{
+        return thumbnail
+    }
 }
 
 private extension StrokeCGView {
@@ -302,7 +315,6 @@ private extension StrokeCGView {
             } else {
                 lineSettings(in: context)
             }
-
             context.beginPath()
             context.addLines(between: [
                 fromSample.location + fromUnitVector,
@@ -362,7 +374,6 @@ private extension StrokeCGView {
         context.closePath()
 
         context.drawPath(using: .fillStroke)
-
     }
 
     /// Renders altitude and azimuth markings on the stroke.
@@ -413,10 +424,10 @@ private extension StrokeCGView {
     func lineSettings(in context: CGContext) {
 
         if displayOptions == .debug {
-            context.setLineWidth(0.5)
+            context.setLineWidth(1)
             context.setStrokeColor(UIColor.white.cgColor)
         } else {
-            context.setLineWidth(0.25)
+            context.setLineWidth(0.5)
             context.setStrokeColor(strokeColor.cgColor)
         }
 
@@ -434,12 +445,12 @@ private extension StrokeCGView {
     }
 
     func azimuthSettings(in context: CGContext) {
-        context.setLineWidth(1.5)
+        context.setLineWidth(3)
         context.setStrokeColor(#colorLiteral(red: 0, green: 0.7445889711, blue: 1, alpha: 1).cgColor)
     }
 
     func altitudeSettings(in context: CGContext) {
-        context.setLineWidth(0.5)
+        context.setLineWidth(1)
         context.setStrokeColor(strokeColor.cgColor)
     }
 
