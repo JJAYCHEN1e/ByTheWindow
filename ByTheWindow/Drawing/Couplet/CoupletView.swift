@@ -27,6 +27,9 @@ struct CoupletView: View {
     
     @State var cgImages: [UIImage] = [centerCoupletImage, sideCoupletImage, sideCoupletImage]
     
+    @State var centerSize = CGRect.zero
+    @State var leftSize = CGRect.zero
+    @State var rightSize = CGRect.zero
     
     var body: some View {
         HStack(spacing: 0) {
@@ -38,10 +41,12 @@ struct CoupletView: View {
                         Image(uiImage: centerCoupletImage)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
+                            .background(GeometryGetter(rect: $centerSize))
                         
                         Image(uiImage: cgImages[0])
                             .resizable()
                             .aspectRatio(contentMode: .fit)
+                            .frame(height: centerSize.height)
                             .onTapGesture {
                                 self.prevIndex = self.currentIndex
                                 self.currentIndex = 0
@@ -57,10 +62,12 @@ struct CoupletView: View {
                             Image(uiImage: sideCoupletImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
+                                .background(GeometryGetter(rect: $leftSize))
                             
                             Image(uiImage: cgImages[1])
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
+                                .frame(height: leftSize.height)
                                 .onTapGesture {
                                     self.prevIndex = self.currentIndex
                                     self.currentIndex = 1
@@ -76,10 +83,12 @@ struct CoupletView: View {
                             Image(uiImage: sideCoupletImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
+                                .background(GeometryGetter(rect: $rightSize))
                             
                             Image(uiImage: cgImages[2])
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
+                                .frame(height: rightSize.height)
                                 .onTapGesture {
                                     self.prevIndex = self.currentIndex
                                     self.currentIndex = 2
