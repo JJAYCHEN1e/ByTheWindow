@@ -12,6 +12,8 @@ import UIKit
 let screen = UIScreen.main.bounds
 
 struct ContentView: View {
+    // 需要使用跳转的View需要加入该EnvironmentObject
+    @EnvironmentObject var navigation: NavigationStack
     @State var showGreetingCard = false
     
     var body: some View {
@@ -103,6 +105,7 @@ struct FestivalCard: View {
 }
 
 struct MainView: View {
+    @EnvironmentObject var navigation: NavigationStack
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 100) {
@@ -111,6 +114,11 @@ struct MainView: View {
                         FestivalCard()
                             .rotation3DEffect(Angle(degrees: Double((geometry.frame(in: .global).minX) - 50) / -200), axis: (x: 0, y: 10, z: 0))
                             .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
+                            .onTapGesture {
+                                withAnimation() {
+                                    self.navigation.advance(NavigationItem(view: AnyView(MatchCoupletView().transition(.asymmetric(insertion: .scale, removal: .opacity)))))
+                                }
+                        }
                     }
                     .frame(width: 360, height: 560)
                 }

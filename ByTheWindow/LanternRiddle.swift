@@ -46,6 +46,7 @@ struct LanternRiddle: View {
     @State var update = false
     @State var timer: Timer!
     @State var updateOpacity: Bool = true
+    @EnvironmentObject var navigation: NavigationStack
     var body: some View {
         
         
