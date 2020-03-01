@@ -92,30 +92,6 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     
     @IBAction func changeScale(_ sender: UIPinchGestureRecognizer) {
-        print("PinchGesture")
-//        guard let recognizerView = sender.view as? ARSCNView else {
-//            return
-//        }
-//        let touch = sender.location(in: recognizerView)
-//
-//        if sender.state == .began {
-//            let hitTestResult = self.sceneView.hitTest(touch, options: [SCNHitTestOption.categoryBitMask: 2])
-//            guard let hitNode = hitTestResult.first?.node else { return }
-//            self.selectedNode = hitNode
-//        } else if sender.state == .changed {
-//        // make sure a node has been selected from .began
-//            guard let hitNode = self.selectedNode else { return }
-//            let scale = sender.scale
-//            let o = hitNode.scale
-//            hitNode.scale = SCNVector3(o.x * (1 + Float(scale)), o.y * (1 + Float(scale)), o.z * (1 + Float(scale)))
-//
-//        } else if sender.state == .ended || sender.state == .cancelled || sender.state == .failed{
-//
-//            guard self.selectedNode != nil else { return }
-//
-//            // Undo selection
-//            self.selectedNode = nil
-//        }
         let v = sender.velocity * 0.01
         let o = self.paintingNode?.scale
         self.paintingNode?.scale = SCNVector3(o!.x * (1 + Float(v)), o!.y * (1 + Float(v)), o!.z * (1 + Float(v)))
@@ -150,9 +126,9 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         sceneView.delegate = self
         
         // Show statistics such as fps and timing information
-        sceneView.showsStatistics = true
+//        sceneView.showsStatistics = true
         
-        sceneView.debugOptions = ARSCNDebugOptions.showFeaturePoints
+//        sceneView.debugOptions = ARSCNDebugOptions.showFeaturePoints
         
         // Create a new scene
         let scene = SCNScene()
@@ -182,8 +158,16 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let configuration = ARWorldTrackingConfiguration()
         
         configuration.planeDetection = .vertical
+        
 
         // Run the view's session
+        sceneView.session.run(configuration)
+    }
+    
+    func stopDetection() {
+        let configuration = ARWorldTrackingConfiguration()
+        configuration.planeDetection = []
+        
         sceneView.session.run(configuration)
     }
     
@@ -260,7 +244,7 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     func addPainting(_ hitResult: ARHitTestResult, _ grid: Grid) {
         
-        let planeGeometry = SCNPlane(width: 0.2, height: 0.35)
+        let planeGeometry = SCNPlane()
         let material = SCNMaterial()
         if coupletImage == nil {
             material.diffuse.contents = UIImage(named: "defaultCouplet")
@@ -271,12 +255,15 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         
         
         paintingNode = SCNNode(geometry: planeGeometry)
+//        let scale = paintingNode!.scale
+//        paintingNode!.scale = SCNVector3(scale.x * 0.1, scale.y * 0.1, scale.z * 0.1)
         paintingNode!.transform = SCNMatrix4(hitResult.anchor!.transform)
         paintingNode!.eulerAngles = SCNVector3(paintingNode!.eulerAngles.x + (-Float.pi / 2), paintingNode!.eulerAngles.y, paintingNode!.eulerAngles.z)
         paintingNode!.position = SCNVector3(hitResult.worldTransform.columns.3.x, hitResult.worldTransform.columns.3.y, hitResult.worldTransform.columns.3.z)
 
         sceneView.scene.rootNode.addChildNode(paintingNode!)
         grid.removeFromParentNode()
+        stopDetection()
     }
     
     func removePainting() {

@@ -38,7 +38,8 @@ class Grid : SCNNode {
         planeGeometry = SCNPlane(width: CGFloat(self.anchor.extent.x), height: CGFloat(self.anchor.extent.z))
         
         let material = SCNMaterial()
-        material.diffuse.contents = UIImage(named:"overlay_grid.png")
+        material.diffuse.contents = UIImage(named:"overlay_grid.png")?.alpha(0.5)
+        
         
         planeGeometry.materials = [material]
         let planeNode = SCNNode(geometry: self.planeGeometry)
@@ -49,5 +50,16 @@ class Grid : SCNNode {
         planeNode.transform = SCNMatrix4MakeRotation(Float(-Double.pi / 2.0), 1.0, 0.0, 0.0);
 
         addChildNode(planeNode)
+    }
+}
+
+extension UIImage {
+
+    func alpha(_ value:CGFloat) -> UIImage {
+        UIGraphicsBeginImageContextWithOptions(size, false, scale)
+        draw(at: CGPoint.zero, blendMode: .normal, alpha: value)
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
     }
 }
