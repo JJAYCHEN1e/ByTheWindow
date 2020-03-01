@@ -9,60 +9,99 @@
 import SwiftUI
 import Combine
 
+let sideCoupletImage = UIImage(named: "couplet")!
+let centerCoupletImage = UIImage(named: "couplet-center")!
+
+
 struct CoupletView: View {
     @State var allowsFingerDrawing = true
     @State var clearAction: () -> () = {}
     @State var undoAction: () -> () = {}
     @State var redoAction: () -> () = {}
     @State var showNotificationInterface: (_ text: String) -> () = {_ in }
-    @State var coupletImageThumbnail: [UIImage] = [UIImage(named: "couplet-center")!, UIImage(named: "couplet")!, UIImage(named: "couplet")!]
     @State var prevIndex: Int = 1
     @State var currentIndex: Int = 1
     @State var changeSelectedCouplet: (_ : Int, _ : Int) -> () = {_,_ in }
     @State var redoable = false
     @State var undoable = false
     
+    @State var cgImages: [UIImage] = [centerCoupletImage, sideCoupletImage, sideCoupletImage]
+    
+    @State var centerSize = CGRect.zero
+    @State var leftSize = CGRect.zero
+    @State var rightSize = CGRect.zero
+    
     var body: some View {
         HStack(spacing: 0) {
             VStack {
+                Spacer()
+                
                 VStack {
-                    Image(uiImage: coupletImageThumbnail[0])
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .frame(width: 250)
-                        .padding(.bottom)
-                        .onTapGesture {
-                            self.prevIndex = self.currentIndex
-                            self.currentIndex = 0
-                            self.changeSelectedCouplet(self.prevIndex, 0)
-                    }
-                    
-                    HStack{
-                        Image(uiImage: coupletImageThumbnail[1])
+                    ZStack {
+                        Image(uiImage: centerCoupletImage)
                             .resizable()
                             .aspectRatio(contentMode: .fit)
-                            .frame(width: 100)
-                            .padding(.leading)
+                            .background(GeometryGetter(rect: $centerSize))
+                        
+                        Image(uiImage: cgImages[0])
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(height: centerSize.height)
                             .onTapGesture {
                                 self.prevIndex = self.currentIndex
-                                self.currentIndex = 1
-                                self.changeSelectedCouplet(self.prevIndex, 1)
+                                self.currentIndex = 0
+                                self.changeSelectedCouplet(self.prevIndex, 0)
                         }
+                    }
+                    .frame(width: 250)
+                    .padding(.bottom)
+                    
+                    
+                    HStack{
+                        ZStack(alignment: .top) {
+                            Image(uiImage: sideCoupletImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .background(GeometryGetter(rect: $leftSize))
+                            
+                            Image(uiImage: cgImages[1])
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: leftSize.height)
+                                .onTapGesture {
+                                    self.prevIndex = self.currentIndex
+                                    self.currentIndex = 1
+                                    self.changeSelectedCouplet(self.prevIndex, 1)
+                            }
+                        }
+                        .frame(width: 100)
+                        .padding(.leading)
                         
                         Spacer()
                         
-                        Image(uiImage: coupletImageThumbnail[2])
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 100)
-                            .padding(.trailing)
-                            .onTapGesture {
-                                self.prevIndex = self.currentIndex
-                                self.currentIndex = 2
-                                self.changeSelectedCouplet(self.prevIndex, 2)
+                        ZStack(alignment: .top) {
+                            Image(uiImage: sideCoupletImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .background(GeometryGetter(rect: $rightSize))
+                            
+                            Image(uiImage: cgImages[2])
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .frame(height: rightSize.height)
+                                .onTapGesture {
+                                    self.prevIndex = self.currentIndex
+                                    self.currentIndex = 2
+                                    self.changeSelectedCouplet(self.prevIndex, 2)
+                            }
                         }
+                        .frame(width: 100)
+                        .padding(.trailing)
+                        
                     }
                 }
+                
+                Spacer()
             }
             .frame(width: screen.width / 3)
             
@@ -72,7 +111,7 @@ struct CoupletView: View {
                 
                 VStack {
                     ZStack {
-                        CoupletDrawingView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, undoAction: $undoAction, redoAction: $redoAction, showNotification: $showNotificationInterface, coupletImageThumbnail: $coupletImageThumbnail, prevIndex: $prevIndex, currentIndex: $currentIndex, changeSelectedCouplet: $changeSelectedCouplet, undoable: $undoable, redoable: $redoable)
+                        CoupletDrawingView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, undoAction: $undoAction, redoAction: $redoAction, showNotification: $showNotificationInterface, prevIndex: $prevIndex, currentIndex: $currentIndex, changeSelectedCouplet: $changeSelectedCouplet, undoable: $undoable, redoable: $redoable, cgImages: $cgImages)
                             .clipShape(Rectangle())
                         
                         CoupletButtonView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction,
@@ -98,12 +137,13 @@ struct CoupletDrawingView: UIViewRepresentable {
     @Binding var undoAction: () -> ()
     @Binding var redoAction: () -> ()
     @Binding var showNotification: (_ text: String) -> ()
-    @Binding var coupletImageThumbnail: [UIImage]
     @Binding var prevIndex: Int
     @Binding var currentIndex: Int
     @Binding var changeSelectedCouplet: (_ : Int, _ : Int) -> ()
     @Binding var undoable: Bool
     @Binding var redoable: Bool
+    
+    @Binding var cgImages: [UIImage]
     
     func makeCoordinator() -> Coordinator {
         let coordinator = Coordinator(self)
@@ -131,7 +171,7 @@ struct CoupletDrawingView: UIViewRepresentable {
         }
         
         var sideCoupletImageView: UIImageView!
-        var centerCouletImageView: UIImageView!
+        var centerCoupletImageView: UIImageView!
         var sideCoupletCGView: StrokeCGView!
         var centerCoupletCGView: StrokeCGView!
         var containerView: UIView!
@@ -143,7 +183,6 @@ struct CoupletDrawingView: UIViewRepresentable {
         var fingerStrokeRecognizer: StrokeGestureRecognizer!
         var pencilStrokeRecognizer: StrokeGestureRecognizer!
         var panGestureRecognizer: UIPanGestureRecognizer!
-        var readyToGetThumbnail = false
         
         var characterIndex = 0
         
@@ -173,10 +212,21 @@ struct CoupletDrawingView: UIViewRepresentable {
             self.coupletDrawingView.prevIndex
         }
         
+        func getCoupletImage(at index: Int) -> UIImage {
+            switch currentIndex {
+            case 0:
+                return centerCoupletImage
+            case 1,2:
+                return sideCoupletImage
+            default:
+                return sideCoupletImage
+            }
+        }
+        
         func getCoupletImageView(at index: Int) -> UIImageView {
             switch currentIndex {
             case 0:
-                return self.centerCouletImageView
+                return self.centerCoupletImageView
             case 1,2:
                 return self.sideCoupletImageView
             default:
@@ -193,6 +243,10 @@ struct CoupletDrawingView: UIViewRepresentable {
             default:
                 return self.sideCoupletCGView
             }
+        }
+        
+        var currentCoupletImage: UIImage {
+            getCoupletImage(at: currentIndex)
         }
         
         var currentCoupletImageView: UIImageView {
@@ -266,10 +320,6 @@ struct CoupletDrawingView: UIViewRepresentable {
             
         }
         
-        func getCoupletViewThumbnailImage() -> UIImage? {
-            return getThumbnailImage(with: sideCoupletImageView)
-        }
-        
         @objc func handlePan(_ gesture: UIPanGestureRecognizer) {
             let translation = gesture.translation(in: currentCoupletImageView)
             
@@ -304,13 +354,13 @@ struct CoupletDrawingView: UIViewRepresentable {
                     )
                 })
             } else {
-                centerCouletImageView.center = CGPoint(
-                    x: centerCouletImageView.center.x + translation.x,
-                    y: centerCouletImageView.center.y
+                centerCoupletImageView.center = CGPoint(
+                    x: centerCoupletImageView.center.x + translation.x,
+                    y: centerCoupletImageView.center.y
                 )
                 
                 
-                gesture.setTranslation(.zero, in: centerCouletImageView)
+                gesture.setTranslation(.zero, in: centerCoupletImageView)
                 
                 //                print(self.centerCouletImageView.center.x)
                 
@@ -322,7 +372,7 @@ struct CoupletDrawingView: UIViewRepresentable {
                 // 1011-553= 458
                 //                print(coupletScale)
                 let squareUnit = self.squareUnit * 0.9786324
-                var index = max(-1, floor((centerCouletImageView.center.x + squareUnit*0.5 - 77.3931*coupletScale) / squareUnit))
+                var index = max(-1, floor((centerCoupletImageView.center.x + squareUnit*0.5 - 77.3931*coupletScale) / squareUnit))
                 
                 index = min(2, index)
                 //                print(index)
@@ -333,9 +383,9 @@ struct CoupletDrawingView: UIViewRepresentable {
                 self.strokeCollections[self.currentIndex][self.characterIndex].delegate = self
                 
                 UIView.animate(withDuration: 1, delay: 0, usingSpringWithDamping: 0.7, initialSpringVelocity: 0, options: .curveEaseInOut, animations: {
-                    self.centerCouletImageView.center = CGPoint(
+                    self.centerCoupletImageView.center = CGPoint(
                         x: destinationX,
-                        y: self.centerCouletImageView.center.y
+                        y: self.centerCoupletImageView.center.y
                     )
                 })
             }
@@ -362,7 +412,6 @@ struct CoupletDrawingView: UIViewRepresentable {
         /// - Tag: strokeUpdate
         @objc
         func strokeUpdated(_ strokeGesture: StrokeGestureRecognizer) {
-            readyToGetThumbnail = false
             var stroke: Stroke?
             if strokeGesture.state != .cancelled {
                 stroke = strokeGesture.stroke
@@ -383,10 +432,15 @@ struct CoupletDrawingView: UIViewRepresentable {
                         }
                     }
                     strokeCollections[currentIndex][characterIndex].takeActiveStroke()
+                    currentCGView.readyGetThumbnail = 0
+
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now().advanced(by: .milliseconds(300))) {
+                        self.coupletDrawingView.cgImages[self.currentIndex] = self.currentCGView.getThumbnail()
+                    }
                 }
             }
-            
             currentCGView.strokeCollections = strokeCollections[currentIndex]
+            currentCGView.readyGetThumbnail += 1
         }
     }
     
@@ -455,7 +509,7 @@ struct CoupletDrawingView: UIViewRepresentable {
         ])
         
         coordinator.sideCoupletImageView = sideCoupletImageView
-        coordinator.centerCouletImageView = centerCoupletImageView
+        coordinator.centerCoupletImageView = centerCoupletImageView
         coordinator.sideCoupletCGView = sideCoupletCGView
         coordinator.centerCoupletCGView = centerCoupletCGView
         coordinator.containerView = containerView
@@ -464,9 +518,10 @@ struct CoupletDrawingView: UIViewRepresentable {
         
         DispatchQueue.main.async{
             self.clearAction = {
-                print(coordinator.characterIndex)
                 coordinator.strokeCollections[self.currentIndex][coordinator.characterIndex] = StrokeCollection()
                 coordinator.currentCGView.strokeCollections[coordinator.characterIndex] = coordinator.strokeCollections[self.currentIndex][coordinator.characterIndex]
+                
+                coordinator.coupletDrawingView.cgImages[self.currentIndex] = coordinator.currentCoupletImage
             }
             
             self.undoAction = {
@@ -545,7 +600,6 @@ struct CoupletDrawingView: UIViewRepresentable {
                     }
                 }
             }
-            //            self.leftCouletImage = coordinator.getCoupletViewThumbnailImage()
         }
         
         coordinator.fingerStrokeRecognizer = coordinator.setupStrokeGestureRecognizer(isForPencil: false)
@@ -621,12 +675,16 @@ struct CoupletButtonView: View {
                 ButtonWithBlurBackground(
                     actions: [
                         {
-                            self.undoAction()
-                            self.showNotification("该页撤销一笔")
+                            if self.undoable {
+                                self.undoAction()
+                                self.showNotification("该页撤销一笔")
+                            }
                         },
                         {
-                            self.redoAction()
-                            self.showNotification("该页重做一笔")
+                            if self.redoable {
+                                self.redoAction()
+                                self.showNotification("该页重做一笔")
+                            }
                         }
                     ],
                     imageName: [ "arrow.uturn.left", "arrow.uturn.right",],
