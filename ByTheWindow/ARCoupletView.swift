@@ -10,7 +10,27 @@ import SwiftUI
 
 struct ARCoupletView: View {
     var body: some View {
-        ARCoupletController()
+        ZStack {
+            ARCoupletController()
+            VStack {
+                HStack {
+                    Spacer()
+                    
+                    Image(systemName: "arrowshape.turn.up.left.fill")
+                    .frame(width: 36, height: 36)
+                    .foregroundColor(.black)
+                    .background(Color.white)
+                        .clipShape(Circle())
+                }
+                Spacer()
+            }
+            .offset(x: -16, y: 16)
+            .transition(.move(edge: .top))
+            .animation(.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0))
+            .onTapGesture {
+//                back...
+            }
+        }
     }
 }
 

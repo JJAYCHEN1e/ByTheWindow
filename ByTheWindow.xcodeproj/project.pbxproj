@@ -478,7 +478,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ByTheWindow/Preview Content\"";
-				DEVELOPMENT_TEAM = XKUVHTJ3W8;
+				DEVELOPMENT_TEAM = 6Q58LP8XS2;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ByTheWindow/Info.plist;
@@ -488,7 +488,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = me.jjaychen.ByTheWindow;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bai.byTheWindow;
 				PRODUCT_NAME = ByTheWindow;
 				SWIFT_VERSION = 5.0;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
@@ -502,7 +502,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ByTheWindow/Preview Content\"";
-				DEVELOPMENT_TEAM = XKUVHTJ3W8;
+				DEVELOPMENT_TEAM = 6Q58LP8XS2;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ByTheWindow/Info.plist;
@@ -512,7 +512,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = me.jjaychen.ByTheWindow;
+				PRODUCT_BUNDLE_IDENTIFIER = com.bai.byTheWindow;
 				PRODUCT_NAME = ByTheWindow;
 				SWIFT_VERSION = 5.0;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
