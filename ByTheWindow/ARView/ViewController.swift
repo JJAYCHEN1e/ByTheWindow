@@ -65,11 +65,11 @@ class ViewController: UIViewController, ARSCNViewDelegate {
         let touch = sender.location(in: recognizerView)
         
         if sender.state == .began {
-//            let hitTestResult = self.sceneView.hitTest(touch, options: [SCNHitTestOption.categoryBitMask: 2])
-//            guard let hitNode = hitTestResult.first?.node else {
-//                return
-//            }
-            self.selectedNode = paintingNode
+            let hitTestResult = self.sceneView.hitTest(touch, options: [SCNHitTestOption.categoryBitMask: 1])
+            guard let hitNode = hitTestResult.first?.node else {
+                return
+            }
+            self.selectedNode = hitNode
             
         } else if sender.state == .changed {
         // make sure a node has been selected from .began
