@@ -9,6 +9,8 @@
 import SwiftUI
 
 struct ARCoupletView: View {
+    
+    @EnvironmentObject var navigation: NavigationStack
     var body: some View {
         ZStack {
             ARCoupletController()
@@ -28,7 +30,9 @@ struct ARCoupletView: View {
             .transition(.move(edge: .top))
             .animation(.spring(response: 0.6, dampingFraction: 0.8, blendDuration: 0))
             .onTapGesture {
-//                back...
+                withAnimation() {
+                    self.navigation.unwind()
+                }
             }
         }
     }
