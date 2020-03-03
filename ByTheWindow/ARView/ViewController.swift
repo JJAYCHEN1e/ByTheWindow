@@ -244,13 +244,14 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     
     func addPainting(_ hitResult: ARHitTestResult, _ grid: Grid) {
         
-        let planeGeometry = SCNPlane()
         let material = SCNMaterial()
         if coupletImage == nil {
             material.diffuse.contents = UIImage(named: "defaultCouplet")
         } else {
             material.diffuse.contents = coupletImage
         }
+        
+        let planeGeometry = SCNPlane(width: 0.39, height: 0.3)
         planeGeometry.materials = [material]
         
         
