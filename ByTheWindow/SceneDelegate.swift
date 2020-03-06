@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let contentView = MatchCoupletView()
         
 //        let contentView = HomeView()
-        let contentView = ARCoupletView()
+//        let contentView = ARCoupletView()
 
         // Use a UIHostingController as window root view controller.
         if let windowScene = scene as? UIWindowScene {

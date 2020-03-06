@@ -213,28 +213,30 @@ struct CoupletDrawingView: UIViewRepresentable {
             getCoupletPKCanvasView(at: prevIndex)
         }
         
-//        func setAllowsFingerDrawing(_ allowsFingerDrawing: Bool) {
-//
-//            DispatchQueue.main.async {
-//                if allowsFingerDrawing {
-//                    self.panGestureRecognizer.minimumNumberOfTouches = 2
-//                    if self.fingerStrokeRecognizer.view == nil {
-//                        self.currentCoupletImageView.addGestureRecognizer(self.fingerStrokeRecognizer)
-//                    }
-//                } else {
-//                    self.panGestureRecognizer.minimumNumberOfTouches = 1
-//                    if let view = self.fingerStrokeRecognizer.view {
-//                        view.removeGestureRecognizer(self.fingerStrokeRecognizer)
-//                    }
-//                }
-//            }
-//
-//            if self.coupletDrawingView.allowsFingerDrawing != allowsFingerDrawing {
-//                DispatchQueue.main.async {
-//                    self.coupletDrawingView.allowsFingerDrawing = allowsFingerDrawing
-//                }
-//            }
-//        }
+        func setAllowsFingerDrawing(_ allowsFingerDrawing: Bool) {
+            self.leftCoupletPKCanvasView.allowsFingerDrawing = allowsFingerDrawing
+            self.rightCoupletPKCanvasView.allowsFingerDrawing = allowsFingerDrawing
+            self.centerCoupletPKCanvasView.allowsFingerDrawing = allowsFingerDrawing
+            
+            if self.coupletDrawingView.allowsFingerDrawing != allowsFingerDrawing {
+                DispatchQueue.main.async {
+                    self.coupletDrawingView.allowsFingerDrawing = allowsFingerDrawing
+                }
+            }
+        }
+        
+        /// 用于检测是否连接到 Apple Pencil 的辅助类
+        private var pencilDetector: BOApplePencilReachability?
+        
+        /// 开始检测 Apple Pencil. 若检测到 Apple Pencil，则关闭手写
+        func beginPencilDetect() {
+            self.pencilDetector = BOApplePencilReachability.init(didChangeClosure: { isPencilReachable in
+                self.setAllowsFingerDrawing(!isPencilReachable)
+                if isPencilReachable {
+                    self.coupletDrawingView.showNotification("检测到 Apple Pencil")
+                }
+            })
+        }
         
         class CoupletPKCanvasViewDelegate: NSObject, PKCanvasViewDelegate {
             var squareUnit: CGFloat
@@ -251,6 +253,10 @@ struct CoupletDrawingView: UIViewRepresentable {
                 self.isVertical = isVertical
             }
             
+            func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
+//                canvasView.drawing.image(from: canvasView.frame, scale: 0.5)
+            }
+            
             func scrollToDestination(_ scrollView: UIScrollView) {
                 let currentPosition = isVertical ? scrollView.contentOffset.y : scrollView.contentOffset.x
                 let squareUnit = self.squareUnit * (isVertical ? 1 : 0.9786324)
@@ -265,10 +271,6 @@ struct CoupletDrawingView: UIViewRepresentable {
                 } else {
                     scrollView.setContentOffset(CGPoint(x: destination, y: scrollView.contentOffset.y), animated: true)
                 }
-            }
-            
-            func scrollViewDidScroll(_ scrollView: UIScrollView) {
-                print(scrollView.contentOffset)
             }
             
             func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
@@ -294,19 +296,6 @@ struct CoupletDrawingView: UIViewRepresentable {
                 coupletPKCanvasView.delegate = self.rightCouletPKCanvasViewDelegate
             }
         }
-        
-        /// 用于检测是否连接到 Apple Pencil 的辅助类
-        private var pencilDetector: BOApplePencilReachability?
-        
-        /// 开始检测 Apple Pencil. 若检测到 Apple Pencil，则关闭手写
-//        func beginPencilDetect() {
-//            self.pencilDetector = BOApplePencilReachability.init(didChangeClosure: { isPencilReachable in
-//                self.setAllowsFingerDrawing(!isPencilReachable)
-//                if isPencilReachable {
-//                    self.coupletDrawingView.showNotification("检测到 Apple Pencil")
-//                }
-//            })
-//        }
     }
     
     func makeUIView(context: Context) -> UIView {
@@ -405,8 +394,6 @@ struct CoupletDrawingView: UIViewRepresentable {
             }
 
             self.changeSelectedCouplet = { from, to in
-                print(coordinator.getCoupletPKCanvasView(at: to).frame.size)
-                print(coordinator.containerView.frame.size)
                 if from != to {
                     let prevPKCanvasView = coordinator.getCoupletPKCanvasView(at: from)
                     prevPKCanvasView.removeFromSuperview()
@@ -431,7 +418,6 @@ struct CoupletDrawingView: UIViewRepresentable {
                             currentPKCanvasView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor)
                         ])
                     }
-                    
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now().advanced(by: .milliseconds(300))) {
                         currentPKCanvasView.contentSize = currentImageView.frame.size
                         currentPKCanvasView.becomeFirstResponder()
@@ -478,7 +464,7 @@ struct CoupletDrawingView: UIViewRepresentable {
     }
     
     func updateUIView(_ uiView: UIView, context: Context) {
-//        context.coordinator.setAllowsFingerDrawing(allowsFingerDrawing)
+        context.coordinator.setAllowsFingerDrawing(allowsFingerDrawing)
     }
 }
 
