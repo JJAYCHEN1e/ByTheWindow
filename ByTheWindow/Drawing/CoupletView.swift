@@ -26,7 +26,8 @@ struct CoupletView: View {
     @State var redoable = false
     @State var undoable = false
     
-    @State var cgImages: [UIImage] = [centerCoupletImage, sideCoupletImage, sideCoupletImage]
+    @State var couletImages: [UIImage] = [centerCoupletImage, sideCoupletImage, sideCoupletImage]
+    @State var drawingImages: [UIImage] = [centerCoupletImage, sideCoupletImage, sideCoupletImage]
     
     @State var centerSize = CGRect.zero
     @State var leftSize = CGRect.zero
@@ -38,42 +39,63 @@ struct CoupletView: View {
                 Spacer()
                 
                 VStack {
-                    Image(uiImage: centerCoupletImage)
-                        .resizable()
-                        .aspectRatio(contentMode: .fit)
-                        .onTapGesture {
-                            self.prevIndex = self.currentIndex
-                            self.currentIndex = 0
-                            self.changeSelectedCouplet(self.prevIndex, 0)
+                    ZStack {
+                        Image(uiImage: centerCoupletImage)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                        .frame(width: 250)
+                        
+                        Image(uiImage: drawingImages[0])
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .onTapGesture {
+                                self.prevIndex = self.currentIndex
+                                self.currentIndex = 0
+                                self.changeSelectedCouplet(self.prevIndex, 0)
+                        }
+                        .frame(width: 250, height: centerCoupletImage.size.height / (centerCoupletImage.size.width / 250))
                     }
-                    .frame(width: 250)
                     .padding(.bottom)
                     
                     
                     
                     HStack{
-                        Image(uiImage: sideCoupletImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .onTapGesture {
-                                self.prevIndex = self.currentIndex
-                                self.currentIndex = 1
-                                self.changeSelectedCouplet(self.prevIndex, 1)
+                        ZStack {
+                            Image(uiImage: sideCoupletImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                            .frame(width: 100)
+                            
+                            Image(uiImage: drawingImages[1])
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .onTapGesture {
+                                    self.prevIndex = self.currentIndex
+                                    self.currentIndex = 1
+                                    self.changeSelectedCouplet(self.prevIndex, 1)
+                            }
+                            .frame(width: 100, height: sideCoupletImage.size.height / (sideCoupletImage.size.width / 100))
                         }
-                        .frame(width: 100)
                         .padding(.leading)
                         
                         Spacer()
                         
-                        Image(uiImage: sideCoupletImage)
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .onTapGesture {
-                                self.prevIndex = self.currentIndex
-                                self.currentIndex = 2
-                                self.changeSelectedCouplet(self.prevIndex, 2)
+                        ZStack {
+                            Image(uiImage: sideCoupletImage)
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                            .frame(width: 100)
+                            
+                            Image(uiImage: drawingImages[2])
+                                .resizable()
+                                .aspectRatio(contentMode: .fit)
+                                .onTapGesture {
+                                    self.prevIndex = self.currentIndex
+                                    self.currentIndex = 2
+                                    self.changeSelectedCouplet(self.prevIndex, 2)
+                            }
+                            .frame(width: 100, height: sideCoupletImage.size.height / (sideCoupletImage.size.width / 100))
                         }
-                        .frame(width: 100)
                         .padding(.trailing)
                     }
                 }
@@ -88,7 +110,7 @@ struct CoupletView: View {
 //
                 VStack {
                     ZStack {
-                        CoupletDrawingView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, undoAction: $undoAction, redoAction: $redoAction, showNotification: $showNotificationInterface, prevIndex: $prevIndex, currentIndex: $currentIndex, changeSelectedCouplet: $changeSelectedCouplet, undoable: $undoable, redoable: $redoable, cgImages: $cgImages)
+                        CoupletDrawingView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, undoAction: $undoAction, redoAction: $redoAction, showNotification: $showNotificationInterface, prevIndex: $prevIndex, currentIndex: $currentIndex, changeSelectedCouplet: $changeSelectedCouplet, undoable: $undoable, redoable: $redoable, coupletImages: $couletImages, drawingImages: $drawingImages)
                             .clipShape(Rectangle())
                         
                         CoupletButtonView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction,
@@ -120,11 +142,12 @@ struct CoupletDrawingView: UIViewRepresentable {
     @Binding var undoable: Bool
     @Binding var redoable: Bool
     
-    @Binding var cgImages: [UIImage]
+    @Binding var coupletImages: [UIImage]
+    @Binding var drawingImages: [UIImage]
     
     func makeCoordinator() -> Coordinator {
         let coordinator = Coordinator(self)
-//        coordinator.beginPencilDetect()
+        coordinator.beginPencilDetect()
         return coordinator
     }
     
@@ -244,8 +267,12 @@ struct CoupletDrawingView: UIViewRepresentable {
             var offsetPercentage: CGFloat
             var maxIndex: CGFloat
             var isVertical: Bool
+            var coupletIndex: Int
+            var coupletDrawingView: CoupletDrawingView
             
-            init(squareUnit : CGFloat, coupletScale: CGFloat, offsetPercentage: CGFloat, maxIndex: CGFloat, isVertical: Bool) {
+            init(coupletDrawingView: CoupletDrawingView, coupletIndex: Int,squareUnit : CGFloat, coupletScale: CGFloat, offsetPercentage: CGFloat, maxIndex: CGFloat, isVertical: Bool) {
+                self.coupletDrawingView = coupletDrawingView
+                self.coupletIndex = coupletIndex
                 self.squareUnit = squareUnit
                 self.coupletScale = coupletScale
                 self.offsetPercentage = offsetPercentage
@@ -254,7 +281,7 @@ struct CoupletDrawingView: UIViewRepresentable {
             }
             
             func canvasViewDrawingDidChange(_ canvasView: PKCanvasView) {
-//                canvasView.drawing.image(from: canvasView.frame, scale: 0.5)
+                coupletDrawingView.drawingImages[coupletIndex] = canvasView.drawing.image(from: CGRect(origin: .zero, size: canvasView.contentSize), scale: 1)
             }
             
             func scrollToDestination(_ scrollView: UIScrollView) {
@@ -286,13 +313,13 @@ struct CoupletDrawingView: UIViewRepresentable {
         
         func setUpCoupletPKCanvasViewDelegate(coupletPKCanvasView: PKCanvasView, coupletIndex: Int) {
             if coupletIndex == 0 {
-                self.centerCouletPKCanvasViewDelegate = CoupletPKCanvasViewDelegate(squareUnit: squareUnit, coupletScale: coupletScale, offsetPercentage: 0.07793764988, maxIndex: 3, isVertical: false)
+                self.centerCouletPKCanvasViewDelegate = CoupletPKCanvasViewDelegate(coupletDrawingView: coupletDrawingView, coupletIndex: 0, squareUnit: squareUnit, coupletScale: coupletScale, offsetPercentage: 0.07793764988, maxIndex: 3, isVertical: false)
                 coupletPKCanvasView.delegate = self.centerCouletPKCanvasViewDelegate
             } else if coupletIndex == 1 {
-                self.leftCouletPKCanvasViewDelegate = CoupletPKCanvasViewDelegate(squareUnit: squareUnit, coupletScale: coupletScale, offsetPercentage: 0.07793764988, maxIndex: 6, isVertical: true)
+                self.leftCouletPKCanvasViewDelegate = CoupletPKCanvasViewDelegate(coupletDrawingView: coupletDrawingView, coupletIndex: 1, squareUnit: squareUnit, coupletScale: coupletScale, offsetPercentage: 0.07793764988, maxIndex: 6, isVertical: true)
                 coupletPKCanvasView.delegate = self.leftCouletPKCanvasViewDelegate
             } else {
-                self.rightCouletPKCanvasViewDelegate = CoupletPKCanvasViewDelegate(squareUnit: squareUnit, coupletScale: coupletScale, offsetPercentage: 0.07793764988, maxIndex: 6, isVertical: true)
+                self.rightCouletPKCanvasViewDelegate = CoupletPKCanvasViewDelegate(coupletDrawingView: coupletDrawingView, coupletIndex: 2, squareUnit: squareUnit, coupletScale: coupletScale, offsetPercentage: 0.07793764988, maxIndex: 6, isVertical: true)
                 coupletPKCanvasView.delegate = self.rightCouletPKCanvasViewDelegate
             }
         }
