@@ -11,12 +11,6 @@
 		4E81888F23FE2A3F00739BE0 /* LanternRiddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */; };
 		6302788523F92669009C8FF2 /* 叶根友福荣银钩.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */; };
 		630F783D2402441C00FEFAC5 /* HelpetFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630F783C2402441C00FEFAC5 /* HelpetFunctions.swift */; };
-		6333653523EAE03A0072E311 /* CGDrawingEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333652F23EADFA80072E311 /* CGDrawingEngine.swift */; };
-		6333653623EAE03A0072E311 /* StrokeGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333653023EADFA80072E311 /* StrokeGestureRecognizer.swift */; };
-		6333653823EAE03A0072E311 /* CanvasMainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333653323EADFA80072E311 /* CanvasMainViewController.swift */; };
-		6333653A23EAE03A0072E311 /* StrokeCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333653223EADFA80072E311 /* StrokeCollection.swift */; };
-		6333653E23EAE06A0072E311 /* CGMathExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333653D23EAE06A0072E311 /* CGMathExtensions.swift */; };
-		6333653F23EAE0BC0072E311 /* Canvas.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 6333653123EADFA80072E311 /* Canvas.storyboard */; };
 		6333654A23EC14870072E311 /* BOApplePencilReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333654923EC14870072E311 /* BOApplePencilReachability.swift */; };
 		6337045123F8F614004BBE0A /* GreetingCardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6337045023F8F614004BBE0A /* GreetingCardView.swift */; };
 		6345324923FBAFF400875F17 /* Helper Views.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6345324823FBAFF400875F17 /* Helper Views.swift */; };
@@ -26,7 +20,6 @@
 		634AA69723E9AAE200ED6AA0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 634AA69623E9AAE200ED6AA0 /* Assets.xcassets */; };
 		634AA69A23E9AAE200ED6AA0 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 634AA69923E9AAE200ED6AA0 /* Preview Assets.xcassets */; };
 		634AA69D23E9AAE200ED6AA0 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 634AA69B23E9AAE200ED6AA0 /* LaunchScreen.storyboard */; };
-		6361D982240A3F2F003448C6 /* CustomProtocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6361D981240A3F2F003448C6 /* CustomProtocols.swift */; };
 		63674D2223F6673400B4C216 /* Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63674D2123F6673400B4C216 /* Blur.swift */; };
 		638DBDCF23F51D5A009A6B11 /* Stack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 638DBDCE23F51D5A009A6B11 /* Stack.swift */; };
 		63A5FA6323FD36B40011F43C /* CoupletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 63A5FA6223FD36B40011F43C /* CoupletView.swift */; };
@@ -47,12 +40,6 @@
 		4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanternRiddle.swift; sourceTree = "<group>"; };
 		6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "叶根友福荣银钩.ttf"; sourceTree = "<group>"; };
 		630F783C2402441C00FEFAC5 /* HelpetFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpetFunctions.swift; sourceTree = "<group>"; };
-		6333652F23EADFA80072E311 /* CGDrawingEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CGDrawingEngine.swift; sourceTree = "<group>"; };
-		6333653023EADFA80072E311 /* StrokeGestureRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeGestureRecognizer.swift; sourceTree = "<group>"; };
-		6333653123EADFA80072E311 /* Canvas.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = Canvas.storyboard; sourceTree = "<group>"; };
-		6333653223EADFA80072E311 /* StrokeCollection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StrokeCollection.swift; sourceTree = "<group>"; };
-		6333653323EADFA80072E311 /* CanvasMainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CanvasMainViewController.swift; sourceTree = "<group>"; };
-		6333653D23EAE06A0072E311 /* CGMathExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CGMathExtensions.swift; sourceTree = "<group>"; };
 		6333654923EC14870072E311 /* BOApplePencilReachability.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BOApplePencilReachability.swift; sourceTree = "<group>"; };
 		6337045023F8F614004BBE0A /* GreetingCardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GreetingCardView.swift; sourceTree = "<group>"; };
 		6345324823FBAFF400875F17 /* Helper Views.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Helper Views.swift"; sourceTree = "<group>"; };
@@ -64,7 +51,6 @@
 		634AA69923E9AAE200ED6AA0 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		634AA69C23E9AAE200ED6AA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		634AA69E23E9AAE200ED6AA0 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		6361D981240A3F2F003448C6 /* CustomProtocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomProtocols.swift; sourceTree = "<group>"; };
 		63674D2123F6673400B4C216 /* Blur.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Blur.swift; sourceTree = "<group>"; };
 		638DBDCE23F51D5A009A6B11 /* Stack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Stack.swift; sourceTree = "<group>"; };
 		63A5FA6223FD36B40011F43C /* CoupletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoupletView.swift; sourceTree = "<group>"; };
@@ -94,41 +80,11 @@
 		6333654123EAE63B0072E311 /* Drawing */ = {
 			isa = PBXGroup;
 			children = (
-				6333653123EADFA80072E311 /* Canvas.storyboard */,
-				637EA4A623FD2C1A00E28A4E /* Greeting Card */,
-				6333654623EBD4C40072E311 /* Couplet */,
-				6333653D23EAE06A0072E311 /* CGMathExtensions.swift */,
+				6337045023F8F614004BBE0A /* GreetingCardView.swift */,
+				63A5FA6223FD36B40011F43C /* CoupletView.swift */,
 				6333654923EC14870072E311 /* BOApplePencilReachability.swift */,
 			);
 			path = Drawing;
-			sourceTree = "<group>";
-		};
-		6333654223EB025D0072E311 /* Stroke Model and Capture */ = {
-			isa = PBXGroup;
-			children = (
-				6333653023EADFA80072E311 /* StrokeGestureRecognizer.swift */,
-				6333653223EADFA80072E311 /* StrokeCollection.swift */,
-			);
-			path = "Stroke Model and Capture";
-			sourceTree = "<group>";
-		};
-		6333654323EB02760072E311 /* Drawing Engine */ = {
-			isa = PBXGroup;
-			children = (
-				6333652F23EADFA80072E311 /* CGDrawingEngine.swift */,
-			);
-			path = "Drawing Engine";
-			sourceTree = "<group>";
-		};
-		6333654623EBD4C40072E311 /* Couplet */ = {
-			isa = PBXGroup;
-			children = (
-				63A5FA6223FD36B40011F43C /* CoupletView.swift */,
-				6333653323EADFA80072E311 /* CanvasMainViewController.swift */,
-				6333654323EB02760072E311 /* Drawing Engine */,
-				6333654223EB025D0072E311 /* Stroke Model and Capture */,
-			);
-			path = Couplet;
 			sourceTree = "<group>";
 		};
 		634AA68423E9AADE00ED6AA0 = {
@@ -181,20 +137,11 @@
 			path = "Preview Content";
 			sourceTree = "<group>";
 		};
-		637EA4A623FD2C1A00E28A4E /* Greeting Card */ = {
-			isa = PBXGroup;
-			children = (
-				6337045023F8F614004BBE0A /* GreetingCardView.swift */,
-			);
-			path = "Greeting Card";
-			sourceTree = "<group>";
-		};
 		638DBDCC23F51D41009A6B11 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
 				638DBDCD23F51D49009A6B11 /* Data Structures */,
 				630F783C2402441C00FEFAC5 /* HelpetFunctions.swift */,
-				6361D981240A3F2F003448C6 /* CustomProtocols.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -309,7 +256,6 @@
 				6302788523F92669009C8FF2 /* 叶根友福荣银钩.ttf in Resources */,
 				634AA69A23E9AAE200ED6AA0 /* Preview Assets.xcassets in Resources */,
 				634AA69723E9AAE200ED6AA0 /* Assets.xcassets in Resources */,
-				6333653F23EAE0BC0072E311 /* Canvas.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -325,25 +271,19 @@
 				634AA69123E9AADE00ED6AA0 /* AppDelegate.swift in Sources */,
 				6337045123F8F614004BBE0A /* GreetingCardView.swift in Sources */,
 				630F783D2402441C00FEFAC5 /* HelpetFunctions.swift in Sources */,
-				6333653A23EAE03A0072E311 /* StrokeCollection.swift in Sources */,
-				6333653823EAE03A0072E311 /* CanvasMainViewController.swift in Sources */,
 				4E81888F23FE2A3F00739BE0 /* LanternRiddle.swift in Sources */,
 				634AA69323E9AADE00ED6AA0 /* SceneDelegate.swift in Sources */,
 				647F0B4624066E0300459089 /* ARCoupletView.swift in Sources */,
 				6333654A23EC14870072E311 /* BOApplePencilReachability.swift in Sources */,
 				638DBDCF23F51D5A009A6B11 /* Stack.swift in Sources */,
 				63674D2223F6673400B4C216 /* Blur.swift in Sources */,
-				6361D982240A3F2F003448C6 /* CustomProtocols.swift in Sources */,
 				63A5FA6323FD36B40011F43C /* CoupletView.swift in Sources */,
 				634AA69523E9AADE00ED6AA0 /* ContentView.swift in Sources */,
 				647F0B3E24066BD400459089 /* ViewController.swift in Sources */,
 				81BF8BD8240A52B4002281CB /* NavigationStack.swift in Sources */,
 				81BF8BD6240A52B4002281CB /* HomeView.swift in Sources */,
-				6333653E23EAE06A0072E311 /* CGMathExtensions.swift in Sources */,
 				8199A22223F697870098F149 /* MatchCoupletView.swift in Sources */,
-				6333653523EAE03A0072E311 /* CGDrawingEngine.swift in Sources */,
 				6345324923FBAFF400875F17 /* Helper Views.swift in Sources */,
-				6333653623EAE03A0072E311 /* StrokeGestureRecognizer.swift in Sources */,
 				81BF8BD7240A52B4002281CB /* NavigationHost.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -482,7 +422,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ByTheWindow/Preview Content\"";
-				DEVELOPMENT_TEAM = 6Q58LP8XS2;
+				DEVELOPMENT_TEAM = XKUVHTJ3W8;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ByTheWindow/Info.plist;
@@ -492,7 +432,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bai.byTheWindow;
+				PRODUCT_BUNDLE_IDENTIFIER = me.jjaychen.ByTheWindows;
 				PRODUCT_NAME = ByTheWindow;
 				SWIFT_VERSION = 5.0;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
@@ -506,7 +446,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ByTheWindow/Preview Content\"";
-				DEVELOPMENT_TEAM = 6Q58LP8XS2;
+				DEVELOPMENT_TEAM = XKUVHTJ3W8;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ByTheWindow/Info.plist;
@@ -516,7 +456,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bai.byTheWindow;
+				PRODUCT_BUNDLE_IDENTIFIER = me.jjaychen.ByTheWindows;
 				PRODUCT_NAME = ByTheWindow;
 				SWIFT_VERSION = 5.0;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";

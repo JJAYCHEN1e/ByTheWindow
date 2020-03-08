@@ -28,11 +28,7 @@ struct MatchCoupletView: View {
                 
                 
                 CoupletTextView(title: "上联：", text: $input )
-                    .onTapGesture {
-                        withAnimation() {
-                            self.navigation.unwind()
-                        }
-                }
+                
                 CoupletTextView(title: "下联：", text: $output)
                 
                 Button(action: {
@@ -53,6 +49,13 @@ struct MatchCoupletView: View {
                             .rotationEffect(.degrees(45)))
                 }.padding(.top, 40)
                 Spacer()
+                Image(systemName: "xmark.circle")
+                    .padding(.bottom)
+                    .onTapGesture {
+                        withAnimation() {
+                            self.navigation.unwind()
+                        }
+                }
             }
             .frame(minWidth: 0,  maxWidth: .infinity)
             .padding(.top, 120)
