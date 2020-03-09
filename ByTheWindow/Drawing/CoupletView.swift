@@ -36,6 +36,7 @@ struct CoupletView: View {
     @State var generateARImage: () -> UIImage = { UIImage() }
     
     @State var showShareSheet = false
+    @State var sharedImage = UIImage()
     
     var body: some View {
         ZStack {
@@ -107,7 +108,7 @@ struct CoupletView: View {
                     .contextMenu {
                         VStack {
                             Button(action: {
-                                self.generateARImage()
+                                arCoupletImage = self.generateARImage()
                             }) {
                                 HStack {
                                     Text("AR 贴春联")
@@ -116,6 +117,7 @@ struct CoupletView: View {
                             }
                             
                             Button(action: {
+                                self.sharedImage = self.generateARImage()
                                 self.showShareSheet = true
                             }) {
                                 HStack {
@@ -150,7 +152,7 @@ struct CoupletView: View {
                 .aspectRatio(contentMode: .fit)
         )
             .sheet(isPresented: $showShareSheet) {
-                ShareSheet(activityItems: ["Hello World"])
+                ShareSheet(activityItems: [self.sharedImage])
         }
     }
 }
