@@ -15,6 +15,8 @@ let centerCoupletImage = UIImage(named: "couplet-center")!
 let squareImage = UIImage(named: "田字格")!
 
 struct CoupletView: View {
+    @EnvironmentObject var navigation: NavigationStack
+    
     @State var allowsFingerDrawing = true
     @State var clearAction: () -> () = {}
     @State var undoAction: () -> () = {}
@@ -109,6 +111,9 @@ struct CoupletView: View {
                         VStack {
                             Button(action: {
                                 arCoupletImage = self.generateARImage()
+                                withAnimation() {
+                                    self.navigation.advance(NavigationItem(view: AnyView(ARCoupletView().transition(.asymmetric(insertion: .scale, removal: .opacity)))))
+                                }
                             }) {
                                 HStack {
                                     Text("AR 贴春联")
