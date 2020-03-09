@@ -60,10 +60,13 @@ struct SpringFestivalView: View {
                 }
                 .frame(width: screen.width, height: screen.height)
                 .offset(x: screen.width*3)
+                    
+                    .offset(x: self.jesState.width)
                     .offset(x: self.viewState)
-                        .animation(.easeInOut(duration: 2))
-                .offset(x: self.jesState.width)
-                .animation(.linear)
+
+                .animation(.linear(duration: 0))
+                    
+                       
         
 
                 .gesture(
