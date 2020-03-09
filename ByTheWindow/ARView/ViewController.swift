@@ -29,7 +29,7 @@ extension UIView {
     }
 }
 
-var coupletImage:UIImage?
+var coupletImage = UIImage(named: "defaultCouplet")
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
