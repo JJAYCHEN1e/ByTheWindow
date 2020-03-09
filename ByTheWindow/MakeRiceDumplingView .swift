@@ -92,7 +92,6 @@ struct MakeRiceDumplingView: View {
                 .onTapGesture {
                     withAnimation() {
                         self.tapsOnWater += 1
-                        print("\(self.tapsOnWater)")
                     }
             }
             
