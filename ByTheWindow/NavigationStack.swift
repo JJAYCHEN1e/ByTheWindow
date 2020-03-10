@@ -39,9 +39,12 @@ final class NavigationStack: ObservableObject {
      前进
      */
     func advance(_ view : NavigationItem) {
-        viewStack.append(self.currentView)
-        self.direction = 1
-        self.currentView = view
+        
+            viewStack.append(self.currentView)
+            self.direction = 1
+            self.currentView = view
+            
+        
     }
 }
 

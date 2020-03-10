@@ -13,7 +13,23 @@ struct Cards : Identifiable {
     var id = UUID()
     var image : String
     var words : String
-    
+    func getView() -> AnyView? {
+        
+        switch image {
+        case "border03":
+            return AnyView(MatchCoupletView())
+        case "border04":
+            return AnyView(CoupletView())
+        case "border05":
+            return AnyView(ARCoupletView())
+        case "border06":
+            return AnyView(GreetingCardView())
+        case "border07":
+            return  AnyView(LanternRiddle())
+        default:
+            return nil
+        }
+    }
     
 }
 
@@ -26,6 +42,7 @@ let cards = [
     Cards(image: "border06", words: "words06"),
     Cards(image: "border07", words: "words07"),
 ]
+
 
 
 struct SpringFestivalView: View {
