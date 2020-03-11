@@ -14,6 +14,7 @@ let screen = UIScreen.main.bounds
 struct ContentView: View {
     // 需要使用跳转的View需要加入该EnvironmentObject
     @State var showGreetingCard = false
+    @EnvironmentObject var navigation:NavigationStack
     
     var body: some View {
         ZStack {
