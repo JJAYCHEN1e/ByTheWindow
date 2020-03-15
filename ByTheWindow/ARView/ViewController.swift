@@ -29,7 +29,7 @@ extension UIView {
     }
 }
 
-var arCoupletImage = UIImage(named: "defaultCouplet")
+var coupletImage:UIImage?
 class ViewController: UIViewController, ARSCNViewDelegate {
 
     @IBOutlet var sceneView: ARSCNView!
@@ -245,10 +245,10 @@ class ViewController: UIViewController, ARSCNViewDelegate {
     func addPainting(_ hitResult: ARHitTestResult, _ grid: Grid) {
         
         let material = SCNMaterial()
-        if arCoupletImage == nil {
+        if coupletImage == nil {
             material.diffuse.contents = UIImage(named: "defaultCouplet")
         } else {
-            material.diffuse.contents = arCoupletImage
+            material.diffuse.contents = coupletImage
         }
         
         let planeGeometry = SCNPlane(width: 0.39, height: 0.3)

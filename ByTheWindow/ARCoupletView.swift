@@ -51,8 +51,10 @@ struct ARCoupletController: UIViewControllerRepresentable {
         return controller
     }
     
-    func updateUIViewController(_ uiViewController: UIViewController, context: Context) {
-        return
+    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<ARCoupletController>) {
+        coupletImage = UIImage(named: "defaultCouplet")
     }
+    
+    
 }
 
