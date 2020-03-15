@@ -29,6 +29,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         
 //        调试对对联界面
 //        let contentView = MatchCoupletView()
+        //  let contentView = MakeRiceDumplingView()
         
         // let contentView = HomeView()
 //        let contentView = ARCoupletView()

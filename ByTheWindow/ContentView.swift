@@ -13,8 +13,8 @@ let screen = UIScreen.main.bounds
 
 struct ContentView: View {
     // 需要使用跳转的View需要加入该EnvironmentObject
-    @EnvironmentObject var navigation: NavigationStack
     @State var showGreetingCard = false
+    @EnvironmentObject var navigation:NavigationStack
     
     var body: some View {
         ZStack {
@@ -116,7 +116,7 @@ struct MainView: View {
                             .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
                             .onTapGesture {
                                 withAnimation() {
-                                    self.navigation.advance(NavigationItem(view: AnyView(MatchCoupletView().transition(.asymmetric(insertion: .scale, removal: .opacity)))))
+                                    self.navigation.advance(NavigationItem(view: AnyView(PageView(            cards.map{CardView(showCard: $0) }).transition(.asymmetric(insertion: .scale, removal: .opacity)))))
                                 }
                         }
                     }
