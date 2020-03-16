@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
-        let contentView = HomeView()
+//        let contentView = EggDrawingView()
 //        let contentView = ARCoupletView()
 //        调试对对联界面
 //        let contentView = SpringFestivalView()
@@ -31,7 +31,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let contentView = MatchCoupletView()
         // let contentView = MakeRiceDumplingView()
         
-        // let contentView = HomeView()
+         let contentView = HomeView()
 //        let contentView = ARCoupletView()
 
         // Use a UIHostingController as window root view controller.
