@@ -31,14 +31,22 @@ struct ContentView: View {
                     
                     Image(systemName: "xmark.circle")
                         .onTapGesture {
-                            withAnimation() {
-                                self.navigation.advance(NavigationItem(view: AnyView(CoupletView().transition(.asymmetric(insertion: .scale, removal: .opacity)))))
-                            }
+                            self.showGreetingCard.toggle()
                     }
                     .padding()
                 }
                 .transition(.asymmetric(insertion: AnyTransition.scale(scale: 1).combined(with: .opacity).animation(.easeInOut), removal: AnyTransition.scale(scale: 1.3).combined(with: .opacity).animation(.easeInOut)))
                 
+            }
+            
+            if showGreetingCard {
+                //                GreetingCardViewControllerRepresentation()
+                //                    .transition(AnyTransition.scale.combined(with: .opacity).animation(Animation.easeInOut))
+                
+                //                CanvasMainViewControllerRepresentation()
+                //                    .transition(AnyTransition.scale.combined(with: .opacity).animation(Animation.easeInOut))
+//                GreetingCardView()
+                CoupletView()
             }
         }
     }

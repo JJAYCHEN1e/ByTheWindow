@@ -8,10 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		40099FFE240D3A4300E4C78F /* SpringFestivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40099FFD240D3A4300E4C78F /* SpringFestivalView.swift */; };
-		4091F40D2415F793003A7B71 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4091F40C2415F793003A7B71 /* PageViewController.swift */; };
-		4091F40F2415F970003A7B71 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4091F40E2415F970003A7B71 /* PageView.swift */; };
-		4091F41224160FBA003A7B71 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4091F41124160FBA003A7B71 /* CardView.swift */; };
-		4091F41424163253003A7B71 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4091F41324163253003A7B71 /* PageControl.swift */; };
 		4E81888F23FE2A3F00739BE0 /* LanternRiddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */; };
 		6302788523F92669009C8FF2 /* 叶根友福荣银钩.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */; };
 		630F783D2402441C00FEFAC5 /* HelpetFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630F783C2402441C00FEFAC5 /* HelpetFunctions.swift */; };
@@ -31,7 +27,6 @@
 		647F0B3F24066BD400459089 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F0B3D24066BD400459089 /* Grid.swift */; };
 		647F0B4424066C4F00459089 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 647F0B4324066C4F00459089 /* Main.storyboard */; };
 		647F0B4624066E0300459089 /* ARCoupletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F0B4524066E0300459089 /* ARCoupletView.swift */; };
-		815D5E1524123D94006F8176 /* MakeRiceDumplingView .swift in Sources */ = {isa = PBXBuildFile; fileRef = 815D5E1424123D94006F8176 /* MakeRiceDumplingView .swift */; };
 		8199A22223F697870098F149 /* MatchCoupletView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8199A22123F697870098F149 /* MatchCoupletView.swift */; };
 		81BF8BD6240A52B4002281CB /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BF8BD3240A52B4002281CB /* HomeView.swift */; };
 		81BF8BD7240A52B4002281CB /* NavigationHost.swift in Sources */ = {isa = PBXBuildFile; fileRef = 81BF8BD4240A52B4002281CB /* NavigationHost.swift */; };
@@ -42,10 +37,6 @@
 
 /* Begin PBXFileReference section */
 		40099FFD240D3A4300E4C78F /* SpringFestivalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpringFestivalView.swift; sourceTree = "<group>"; };
-		4091F40C2415F793003A7B71 /* PageViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
-		4091F40E2415F970003A7B71 /* PageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
-		4091F41124160FBA003A7B71 /* CardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
-		4091F41324163253003A7B71 /* PageControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanternRiddle.swift; sourceTree = "<group>"; };
 		6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "叶根友福荣银钩.ttf"; sourceTree = "<group>"; };
 		630F783C2402441C00FEFAC5 /* HelpetFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpetFunctions.swift; sourceTree = "<group>"; };
@@ -67,7 +58,6 @@
 		647F0B3D24066BD400459089 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		647F0B4324066C4F00459089 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
 		647F0B4524066E0300459089 /* ARCoupletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARCoupletView.swift; sourceTree = "<group>"; };
-		815D5E1424123D94006F8176 /* MakeRiceDumplingView .swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MakeRiceDumplingView .swift"; sourceTree = "<group>"; };
 		8199A22123F697870098F149 /* MatchCoupletView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MatchCoupletView.swift; sourceTree = "<group>"; };
 		81BF8BD3240A52B4002281CB /* HomeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
 		81BF8BD4240A52B4002281CB /* NavigationHost.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NavigationHost.swift; sourceTree = "<group>"; };
@@ -87,18 +77,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		4091F4102415FC54003A7B71 /* ScrollView */ = {
-			isa = PBXGroup;
-			children = (
-				40099FFD240D3A4300E4C78F /* SpringFestivalView.swift */,
-				4091F40C2415F793003A7B71 /* PageViewController.swift */,
-				4091F41324163253003A7B71 /* PageControl.swift */,
-				4091F40E2415F970003A7B71 /* PageView.swift */,
-				4091F41124160FBA003A7B71 /* CardView.swift */,
-			);
-			path = ScrollView;
-			sourceTree = "<group>";
-		};
 		6333654123EAE63B0072E311 /* Drawing */ = {
 			isa = PBXGroup;
 			children = (
@@ -128,18 +106,18 @@
 		634AA68F23E9AADE00ED6AA0 /* ByTheWindow */ = {
 			isa = PBXGroup;
 			children = (
-				81680A242412375F00C450FE /* Navigation */,
-				4091F4102415FC54003A7B71 /* ScrollView */,
 				647F0B3B24066A2F00459089 /* ARView */,
 				638DBDD023F547A0009A6B11 /* Custom Views */,
 				638DBDCC23F51D41009A6B11 /* Utils */,
 				81F4E9C623F28EC100A8CE46 /* Fonts */,
 				6333654123EAE63B0072E311 /* Drawing */,
 				634AA69023E9AADE00ED6AA0 /* AppDelegate.swift */,
-				81BF8BD3240A52B4002281CB /* HomeView.swift */,
-				815D5E1424123D94006F8176 /* MakeRiceDumplingView .swift */,
 				634AA69223E9AADE00ED6AA0 /* SceneDelegate.swift */,
+				40099FFD240D3A4300E4C78F /* SpringFestivalView.swift */,
 				4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */,
+				81BF8BD5240A52B4002281CB /* NavigationStack.swift */,
+				81BF8BD4240A52B4002281CB /* NavigationHost.swift */,
+				81BF8BD3240A52B4002281CB /* HomeView.swift */,
 				634AA69423E9AADE00ED6AA0 /* ContentView.swift */,
 				8199A22123F697870098F149 /* MatchCoupletView.swift */,
 				647F0B4524066E0300459089 /* ARCoupletView.swift */,
@@ -193,15 +171,6 @@
 				647F0B3C24066BD400459089 /* ViewController.swift */,
 			);
 			path = ARView;
-			sourceTree = "<group>";
-		};
-		81680A242412375F00C450FE /* Navigation */ = {
-			isa = PBXGroup;
-			children = (
-				81BF8BD5240A52B4002281CB /* NavigationStack.swift */,
-				81BF8BD4240A52B4002281CB /* NavigationHost.swift */,
-			);
-			path = Navigation;
 			sourceTree = "<group>";
 		};
 		81F4E9C123F28DAE00A8CE46 /* Ma_Shan_Zheng */ = {
@@ -303,23 +272,19 @@
 				6337045123F8F614004BBE0A /* GreetingCardView.swift in Sources */,
 				630F783D2402441C00FEFAC5 /* HelpetFunctions.swift in Sources */,
 				4E81888F23FE2A3F00739BE0 /* LanternRiddle.swift in Sources */,
-				4091F41424163253003A7B71 /* PageControl.swift in Sources */,
 				634AA69323E9AADE00ED6AA0 /* SceneDelegate.swift in Sources */,
 				647F0B4624066E0300459089 /* ARCoupletView.swift in Sources */,
 				6333654A23EC14870072E311 /* BOApplePencilReachability.swift in Sources */,
-				4091F40D2415F793003A7B71 /* PageViewController.swift in Sources */,
 				638DBDCF23F51D5A009A6B11 /* Stack.swift in Sources */,
 				63674D2223F6673400B4C216 /* Blur.swift in Sources */,
 				815D5E1524123D94006F8176 /* MakeRiceDumplingView .swift in Sources */,
 				63A5FA6323FD36B40011F43C /* CoupletView.swift in Sources */,
-				4091F40F2415F970003A7B71 /* PageView.swift in Sources */,
 				634AA69523E9AADE00ED6AA0 /* ContentView.swift in Sources */,
 				647F0B3E24066BD400459089 /* ViewController.swift in Sources */,
 				81BF8BD8240A52B4002281CB /* NavigationStack.swift in Sources */,
 				81BF8BD6240A52B4002281CB /* HomeView.swift in Sources */,
 				8199A22223F697870098F149 /* MatchCoupletView.swift in Sources */,
 				6345324923FBAFF400875F17 /* Helper Views.swift in Sources */,
-				4091F41224160FBA003A7B71 /* CardView.swift in Sources */,
 				81BF8BD7240A52B4002281CB /* NavigationHost.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
