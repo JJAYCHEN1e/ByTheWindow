@@ -35,8 +35,7 @@ func generateIndex(toGenerate index: Int)-> Int{
 }
 
 struct LanternRiddle: View {
-    
-    
+
     @State var index :Int = 0
     @State var index2 :Int = 1
     @State var index3 :Int = 2
@@ -96,10 +95,11 @@ struct LanternRiddle: View {
                     //                    self.timer.invalidate()
                     
                 }) {
-                    ZStack {
+                    HStack {
                         
+
                         
-                        Text("刷新")
+                        Text(update ? "true" : "false")
                             .font(.custom("?| ", size: 40))
                             .foregroundColor(Color.white)
                             .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 12)
@@ -107,8 +107,19 @@ struct LanternRiddle: View {
                     }
                 }
             }
-            .offset(x:470 , y: -320)
+            .offset(x:470 , y: -282)
             
+            Text("返回")
+            .font(.custom("?| ", size: 40))
+            .foregroundColor(Color.white)
+            .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 12)
+            .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 2)
+            .offset(x:470 , y: -345)
+                .onTapGesture {
+                    withAnimation(){
+                        self.navigation.unwind()
+                    }
+            }
         }
         
     }
