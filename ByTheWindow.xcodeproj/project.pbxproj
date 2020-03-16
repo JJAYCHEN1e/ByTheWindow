@@ -311,7 +311,6 @@
 				638DBDCF23F51D5A009A6B11 /* Stack.swift in Sources */,
 				63674D2223F6673400B4C216 /* Blur.swift in Sources */,
 				815D5E1524123D94006F8176 /* MakeRiceDumplingView .swift in Sources */,
-				6361D982240A3F2F003448C6 /* CustomProtocols.swift in Sources */,
 				63A5FA6323FD36B40011F43C /* CoupletView.swift in Sources */,
 				4091F40F2415F970003A7B71 /* PageView.swift in Sources */,
 				634AA69523E9AADE00ED6AA0 /* ContentView.swift in Sources */,
