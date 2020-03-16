@@ -17,6 +17,10 @@ struct PerfumebagView: View {
 }
 
 struct PerfumebagController: UIViewControllerRepresentable {
+    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<PerfumebagController>) {
+    
+    }
+    
     
     func makeUIViewController(context: UIViewControllerRepresentableContext<PerfumebagController>) -> UIViewController {
         
@@ -25,9 +29,6 @@ struct PerfumebagController: UIViewControllerRepresentable {
         
         
         return controller
-    }
-    
-    func updateUIViewController(_ uiViewController: UIViewController, context: UIViewControllerRepresentableContext<ARCoupletController>) {
     }
     
     
