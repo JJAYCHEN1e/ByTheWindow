@@ -12,13 +12,20 @@ enum RiceDumplingViewType {
     case BoilLeaves
     case SoakRice
     case MixStuffing
+    case AddIngredients
 }
 
 class TransitionInfo: ObservableObject {
-    @Published var currentViewType:RiceDumplingViewType = .SoakRice
+    @Published var currentViewType:RiceDumplingViewType = .AddIngredients
     @Published var onTransition = false
-    @Published var titleText = "泡糯米"
-    
+    @Published var titleText = "包粽子"
+}
+
+class BeanInfo: ObservableObject {
+    @Published var bowlImage:String = "small-red-bean"
+    @Published var stuffingImage:String = "big-red-bean"
+    @Published var mixedStuffingImage:String = "mixed-red-bean"
+    @Published var ingredientImage:String = "ingredient-red-bean"
 }
 
 struct MakeRiceDumplingView: View {
@@ -47,8 +54,14 @@ struct MakeRiceDumplingView: View {
     /**
      拌馅料相关
      */
-    @State var stuffingImage = "big-red-bean"
     @State var showStuffing = false
+    @State var mixedStuffDegree:Angle = .zero
+    @State var mixTimer:Timer!
+    @State var mixCount = 0
+    @State var showMixedStuffing = false
+    @ObservedObject var beanInfo:BeanInfo = BeanInfo()
+    
+    
     
     func currentView() -> AnyView {
         switch self.transition.currentViewType {
@@ -56,6 +69,9 @@ struct MakeRiceDumplingView: View {
             return AnyView(BoilLeavesView(transition: transition, onFire: $onFire, fireScale: $fireScale, fireCount: $fireCount, showWater: $showWater, tapsOnWater: $tapsOnWater, fireTimer: $fireTimer))
         case .SoakRice:
             return AnyView(SoakRiceView(transition: transition, showWaterInBracket: $showWaterInBracket, showRice: $showRice, soakTimer: $soakTimer))
+        case .MixStuffing:
+            return AnyView(MixStuffingView(transition:transition, showStuffing: $showStuffing, mixedStuffDegree: $mixedStuffDegree, mixTimer: $mixTimer, mixCount: $mixCount, showMixedStuffing: $showMixedStuffing,
+            beanInfo: beanInfo))
         default:
             return AnyView(Text("hello").font(.largeTitle))
         }
@@ -66,35 +82,18 @@ struct MakeRiceDumplingView: View {
             TableBackgroundView()
             
 //            if self.transition.onTransition {
-//                currentView().transition(AnyTransition.opacity.animation(.easeInOut(duration: 2)))
+//                currentView().transition(AnyTransition.opacity.animation(.easeInOut(duration: 1.5))).id(self.transition.currentViewType)
 //            } else {
-//                currentView().transition(AnyTransition.opacity.animation(.easeInOut(duration: 2)))
+//                currentView().transition(AnyTransition.opacity.animation(.easeInOut(duration: 1.5))).id(self.transition.currentViewType)
 //            }
-            HStack(alignment: .center, spacing: 80) {
-                ZStack {
-                    Image("bracket")
-                        .resizable()
-                        .frame(width: 570, height: 570)
-                    
-                    Image("rice")
-                    .resizable()
-                    .frame(width: 420, height: 420)
-                    
-                    Image(self.stuffingImage)
-                    .resizable()
-                        .frame(width: 180, height: 180)
-                        .opacity(self.showStuffing ? 1.0 : 0.0)
-                        .id(self.stuffingImage)
-                }
-                .padding(.leading, 200)
-                
-                //TODO:完成搅拌
-                VStack(spacing: 150) {
-                    BowlView(bowlImage: "small-red-bean", bracketImage: "big-red-bean", currentPos: .zero, newPos: .zero, showStuffing: $showStuffing, stuffingImage: $stuffingImage)
-                    BowlView(bowlImage: "small-green-bean", bracketImage: "big-green-bean", currentPos: .zero, newPos: .zero, showStuffing: $showStuffing, stuffingImage: $stuffingImage)
-                }
-            }
             
+            Image("bracket")
+                .resizable()
+                .frame(width: 570, height: 570)
+            
+            Image("leaf")
+            .resizable()
+            .frame(width: 650, height: 180)
             
             
             
@@ -193,32 +192,34 @@ struct BoilLeavesView: View {
                         .rotationEffect(self.onFire ? Angle.degrees(90) : Angle.degrees(0))
                         .onTapGesture {
                             withAnimation(.spring()) {
-                                self.onFire = true
-                                self.fireCount = 0
-                                if self.onFire {
-                                    self.fireTimer = Timer.scheduledTimer(withTimeInterval: 0.2,
-                                                                          repeats: true,
-                                                                          block: { timer in
-                                                                            self.fireCount += 1
-                                                                            self.fireScale = CGFloat(Float(arc4random()) / Float(UInt32.max)) * 0.3 + 0.8
-                                                                            if self.fireCount >= 10 {
-                                                                                withAnimation() {
-                                                self.fireTimer.invalidate()
-                                                                                    self.onFire = false
-                                                                                    self.fireCount = 0
-                                                                                    self.transition.currentViewType = .SoakRice
+                                if self.tapsOnWater >= 3 {
+                                    self.onFire = true
+                                        self.fireCount = 0
+                                        if self.onFire {
+                                            self.fireTimer = Timer.scheduledTimer(withTimeInterval: 0.2,
+                                                                                  repeats: true,
+                                                                                  block: { timer in
+                                                                                    self.fireCount += 1
+                                                                                    self.fireScale = CGFloat(Float(arc4random()) / Float(UInt32.max)) * 0.3 + 0.8
+                                                                                    if self.fireCount >= 10 {
+                                                                                        withAnimation() {
+                                                        self.fireTimer.invalidate()
+                                                                                            self.onFire = false
+                                                                                            self.fireCount = 0
+                                                                                            self.transition.currentViewType = .SoakRice
+                                                            
+                                                                                            self.transition.titleText = "泡糯米"
                                                     
-                                                                                    self.transition.titleText = "泡糯米"
-                                            
-                                                                                    self.transition.onTransition.toggle()
-                                                                                }
+                                                                                            self.transition.onTransition.toggle()
+                                                                                        }
 
-                            }
-                                    })
-                                } else {
-                                    self.fireTimer.invalidate()
+                                    }
+                                            })
+                                        } else {
+                                            self.fireTimer.invalidate()
+                                        }
+                                    }
                                 }
-                            }
                     }
                     
                     Text(self.onFire ? "关火" : "开火")
@@ -301,10 +302,13 @@ struct SoakRiceView: View {
 struct BowlView: View {
     var bowlImage:String = "small-red-bean"
     var bracketImage:String = "big-red-bean"
+    var mixedBracketImage:String = "mixed-red-bean"
+    var ingredientImage:String = "ingredient-red-bean"
     @State var currentPos:CGSize = .zero
     @State var newPos:CGSize = .zero
     @Binding var showStuffing:Bool
-    @Binding var stuffingImage:String
+    @ObservedObject var currentBeanInfo:BeanInfo
+    
     var body: some View {
         ZStack {
             Image("bowl")
@@ -326,11 +330,109 @@ struct BowlView: View {
                 .onEnded { value in
                     withAnimation(.easeInOut) {
                         self.currentPos = self.newPos
-                        self.stuffingImage = self.bracketImage
+                        self.currentBeanInfo.bowlImage = self.bowlImage
+                        self.currentBeanInfo.stuffingImage = self.bracketImage
+                       
+                        self.currentBeanInfo.mixedStuffingImage = self.mixedBracketImage
+                        self.currentBeanInfo.ingredientImage = self.ingredientImage
                         self.showStuffing = true
                     }
                 }
             )
+        }
+    }
+}
+
+struct MixStuffingView: View {
+    @ObservedObject var transition:TransitionInfo
+    @Binding var showStuffing:Bool
+    @Binding var mixedStuffDegree:Angle
+    @Binding var mixTimer:Timer!
+    @Binding var mixCount:Int
+    @Binding var showMixedStuffing:Bool
+    @ObservedObject var beanInfo:BeanInfo
+    
+    var body: some View {
+        HStack(alignment: .center, spacing: 80) {
+            ZStack {
+                Image("bracket")
+                    .resizable()
+                    .frame(width: 570, height: 570)
+                
+                Image("rice")
+                    .resizable()
+                    .frame(width: 420, height: 420)
+                    .rotationEffect(self.mixedStuffDegree)
+                
+                Image(self.beanInfo.stuffingImage)
+                    .resizable()
+                    .frame(width: 180, height: 180)
+                    .opacity(self.showStuffing ? 1.0 : 0.0)
+                    .id(self.beanInfo.stuffingImage)
+                    .onTapGesture {
+                        withAnimation(.easeInOut) {
+                            self.showStuffing = false
+                            self.showMixedStuffing = true
+                        }
+                        
+                }
+                
+                Image(self.beanInfo.mixedStuffingImage)
+                    .resizable()
+                    .frame(width: 380, height: 380)
+                    .rotationEffect(self.mixedStuffDegree)
+                    .opacity(self.showMixedStuffing ? 1.0 : 0.0)
+                    .gesture(LongPressGesture(minimumDuration: 4) .onChanged { value in
+                        print("value")
+                        self.mixTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { timer in
+                            if self.mixCount >= 19 {
+                                withAnimation() {
+                                    timer.invalidate()
+                                    self.transition.currentViewType = .AddIngredients
+                                    self.transition.titleText = "加配料"
+                                    self.transition.onTransition.toggle()
+                                    
+                                    self.mixCount = 0
+                                    self.showStuffing = false
+                                    self.showMixedStuffing = false
+                                }
+                            }
+                            self.mixCount += 1
+                            withAnimation(.spring()) {
+                                self.mixedStuffDegree = Angle.degrees(self.mixedStuffDegree.degrees + 10)
+                            }
+                        })
+                    }.onEnded{ value in
+                        withAnimation() {
+                            self.mixTimer.invalidate()
+                            self.transition.currentViewType = .AddIngredients
+                            self.transition.titleText = "加配料"
+                            self.transition.onTransition.toggle()
+                            
+                            self.mixCount = 0
+                            self.showStuffing = false
+                            self.showMixedStuffing = false
+                        }
+                    })
+                
+                //                    Image("spoon")
+                //                    .resizable()
+                //                    .frame(width: 300, height: 300)
+                //                    .offset(x: -100, y: -100)
+            }
+            .padding(.leading, 200)
+            
+            //TODO:完成搅拌
+            VStack(spacing: 150) {
+                BowlView(bowlImage: "small-red-bean", bracketImage: "big-red-bean",mixedBracketImage: "mixed-red-bean",
+                         ingredientImage: "ingredient-red-bean",
+                         currentPos: .zero, newPos: .zero, showStuffing: $showStuffing,
+                         currentBeanInfo: beanInfo)
+                BowlView(bowlImage: "small-green-bean", bracketImage: "big-green-bean", mixedBracketImage: "mixed-green-bean",
+                         ingredientImage: "ingredient-green-bean",
+                         currentPos: .zero, newPos: .zero, showStuffing: $showStuffing,
+                         currentBeanInfo: beanInfo)
+            }
         }
     }
 }
