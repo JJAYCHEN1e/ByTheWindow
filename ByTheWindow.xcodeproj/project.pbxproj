@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		40099FFE240D3A4300E4C78F /* SpringFestivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40099FFD240D3A4300E4C78F /* SpringFestivalView.swift */; };
 		4E81888F23FE2A3F00739BE0 /* LanternRiddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */; };
 		6302788523F92669009C8FF2 /* 叶根友福荣银钩.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */; };
 		630F783D2402441C00FEFAC5 /* HelpetFunctions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 630F783C2402441C00FEFAC5 /* HelpetFunctions.swift */; };
@@ -29,6 +28,11 @@
 		64463735241F95A500240981 /* ThirdViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64463730241F95A500240981 /* ThirdViewController.swift */; };
 		64463737241F964200240981 /* PerfumeBag.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 64463736241F964200240981 /* PerfumeBag.storyboard */; };
 		6446373B241F9CE400240981 /* PerfumebagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6446373A241F9CE400240981 /* PerfumebagView.swift */; };
+		6446374E241FA2DD00240981 /* PageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 64463749241FA2DD00240981 /* PageView.swift */; };
+		6446374F241FA2DD00240981 /* CardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6446374A241FA2DD00240981 /* CardView.swift */; };
+		64463750241FA2DD00240981 /* PageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6446374B241FA2DD00240981 /* PageViewController.swift */; };
+		64463751241FA2DD00240981 /* SpringFestivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6446374C241FA2DD00240981 /* SpringFestivalView.swift */; };
+		64463752241FA2DD00240981 /* PageControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6446374D241FA2DD00240981 /* PageControl.swift */; };
 		647F0B3E24066BD400459089 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F0B3C24066BD400459089 /* ViewController.swift */; };
 		647F0B3F24066BD400459089 /* Grid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 647F0B3D24066BD400459089 /* Grid.swift */; };
 		647F0B4424066C4F00459089 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 647F0B4324066C4F00459089 /* Main.storyboard */; };
@@ -42,7 +46,6 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		40099FFD240D3A4300E4C78F /* SpringFestivalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpringFestivalView.swift; sourceTree = "<group>"; };
 		4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanternRiddle.swift; sourceTree = "<group>"; };
 		6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "叶根友福荣银钩.ttf"; sourceTree = "<group>"; };
 		630F783C2402441C00FEFAC5 /* HelpetFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpetFunctions.swift; sourceTree = "<group>"; };
@@ -66,6 +69,11 @@
 		64463730241F95A500240981 /* ThirdViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ThirdViewController.swift; sourceTree = "<group>"; };
 		64463736241F964200240981 /* PerfumeBag.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = PerfumeBag.storyboard; sourceTree = "<group>"; };
 		6446373A241F9CE400240981 /* PerfumebagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerfumebagView.swift; sourceTree = "<group>"; };
+		64463749241FA2DD00240981 /* PageView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageView.swift; sourceTree = "<group>"; };
+		6446374A241FA2DD00240981 /* CardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardView.swift; sourceTree = "<group>"; };
+		6446374B241FA2DD00240981 /* PageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageViewController.swift; sourceTree = "<group>"; };
+		6446374C241FA2DD00240981 /* SpringFestivalView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SpringFestivalView.swift; sourceTree = "<group>"; };
+		6446374D241FA2DD00240981 /* PageControl.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageControl.swift; sourceTree = "<group>"; };
 		647F0B3C24066BD400459089 /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		647F0B3D24066BD400459089 /* Grid.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Grid.swift; sourceTree = "<group>"; };
 		647F0B4324066C4F00459089 /* Main.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Main.storyboard; sourceTree = "<group>"; };
@@ -118,6 +126,7 @@
 		634AA68F23E9AADE00ED6AA0 /* ByTheWindow */ = {
 			isa = PBXGroup;
 			children = (
+				6446373E241FA1FD00240981 /* ScrollView */,
 				64463721241F8E8700240981 /* Perfumebag */,
 				647F0B3B24066A2F00459089 /* ARView */,
 				638DBDD023F547A0009A6B11 /* Custom Views */,
@@ -127,18 +136,17 @@
 				634AA69023E9AADE00ED6AA0 /* AppDelegate.swift */,
 				634AA69223E9AADE00ED6AA0 /* SceneDelegate.swift */,
 				8199A22123F697870098F149 /* MatchCoupletView.swift */,
-				40099FFD240D3A4300E4C78F /* SpringFestivalView.swift */,
 				4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */,
 				81BF8BD5240A52B4002281CB /* NavigationStack.swift */,
 				81BF8BD4240A52B4002281CB /* NavigationHost.swift */,
 				81BF8BD3240A52B4002281CB /* HomeView.swift */,
 				634AA69423E9AADE00ED6AA0 /* ContentView.swift */,
 				647F0B4524066E0300459089 /* ARCoupletView.swift */,
+				6446373A241F9CE400240981 /* PerfumebagView.swift */,
 				634AA69623E9AAE200ED6AA0 /* Assets.xcassets */,
 				634AA69B23E9AAE200ED6AA0 /* LaunchScreen.storyboard */,
 				634AA69E23E9AAE200ED6AA0 /* Info.plist */,
 				634AA69823E9AAE200ED6AA0 /* Preview Content */,
-				6446373A241F9CE400240981 /* PerfumebagView.swift */,
 			);
 			path = ByTheWindow;
 			sourceTree = "<group>";
@@ -187,6 +195,18 @@
 				6446372F241F95A500240981 /* FirstViewController.swift */,
 			);
 			path = Perfumebag;
+			sourceTree = "<group>";
+		};
+		6446373E241FA1FD00240981 /* ScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				6446374A241FA2DD00240981 /* CardView.swift */,
+				6446374D241FA2DD00240981 /* PageControl.swift */,
+				64463749241FA2DD00240981 /* PageView.swift */,
+				6446374B241FA2DD00240981 /* PageViewController.swift */,
+				6446374C241FA2DD00240981 /* SpringFestivalView.swift */,
+			);
+			path = ScrollView;
 			sourceTree = "<group>";
 		};
 		647F0B3B24066A2F00459089 /* ARView */ = {
@@ -294,11 +314,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				6446373B241F9CE400240981 /* PerfumebagView.swift in Sources */,
-				40099FFE240D3A4300E4C78F /* SpringFestivalView.swift in Sources */,
 				647F0B3F24066BD400459089 /* Grid.swift in Sources */,
 				634AA69123E9AADE00ED6AA0 /* AppDelegate.swift in Sources */,
 				6337045123F8F614004BBE0A /* GreetingCardView.swift in Sources */,
 				64463734241F95A500240981 /* FirstViewController.swift in Sources */,
+				64463750241FA2DD00240981 /* PageViewController.swift in Sources */,
+				64463751241FA2DD00240981 /* SpringFestivalView.swift in Sources */,
 				64463731241F95A500240981 /* FourthViewController.swift in Sources */,
 				630F783D2402441C00FEFAC5 /* HelpetFunctions.swift in Sources */,
 				4E81888F23FE2A3F00739BE0 /* LanternRiddle.swift in Sources */,
@@ -310,9 +331,12 @@
 				63A5FA6323FD36B40011F43C /* CoupletView.swift in Sources */,
 				634AA69523E9AADE00ED6AA0 /* ContentView.swift in Sources */,
 				647F0B3E24066BD400459089 /* ViewController.swift in Sources */,
+				64463752241FA2DD00240981 /* PageControl.swift in Sources */,
 				81BF8BD8240A52B4002281CB /* NavigationStack.swift in Sources */,
 				81BF8BD6240A52B4002281CB /* HomeView.swift in Sources */,
 				8199A22223F697870098F149 /* MatchCoupletView.swift in Sources */,
+				6446374F241FA2DD00240981 /* CardView.swift in Sources */,
+				6446374E241FA2DD00240981 /* PageView.swift in Sources */,
 				64463732241F95A500240981 /* SecondViewController.swift in Sources */,
 				6345324923FBAFF400875F17 /* Helper Views.swift in Sources */,
 				81BF8BD7240A52B4002281CB /* NavigationHost.swift in Sources */,
