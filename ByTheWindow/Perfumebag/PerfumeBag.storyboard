@@ -6,11 +6,16 @@
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
+    <customFonts key="customFonts">
+        <array key="MaShanZheng-Regular.ttf">
+            <string>MaShanZheng-Regular</string>
+        </array>
+    </customFonts>
     <scenes>
         <!--First View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="FirstViewController" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="PerfumeBag" id="BYZ-38-t0r" customClass="FirstViewController" customModule="ByTheWindow" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="1024" height="768"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -64,10 +69,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="点击即可查看香料的介绍，拖动到盘子中选中香料。" translatesAutoresizingMaskIntoConstraints="NO" id="zW3-2e-n7l">
-                                <rect key="frame" x="699" y="141" width="255" height="420"/>
+                                <rect key="frame" x="699" y="141" width="255" height="451"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" name="ArialMT" family="Arial" pointSize="32"/>
+                                <fontDescription key="fontDescription" name="MaShanZheng-Regular" family="Ma Shan Zheng" pointSize="38"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="plate" id="wd9-H1-uUn">
@@ -154,7 +159,7 @@
                     </connections>
                 </panGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="163" y="138"/>
+            <point key="canvasLocation" x="162.890625" y="137.5"/>
         </scene>
         <!--Second View Controller-->
         <scene sceneID="LPi-LO-TwA">
@@ -168,13 +173,6 @@
                                 <rect key="frame" x="17" y="20" width="990" height="371"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="请选择喜欢的花色" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SuM-J4-Y86">
-                                <rect key="frame" x="341" y="172" width="343" height="67"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
-                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
-                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                            </textView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="wenli" translatesAutoresizingMaskIntoConstraints="NO" id="SzT-oX-wNo">
                                 <rect key="frame" x="-105" y="399" width="1222" height="349"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
@@ -195,11 +193,21 @@
                                     <segue destination="jjI-hG-FWy" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="partialCurl" id="WgS-BI-t0u"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="请选择喜欢的花色" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SuM-J4-Y86">
+                                <rect key="frame" x="309" y="172" width="394" height="67"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" name="MaShanZheng-Regular" family="Ma Shan Zheng" pointSize="48"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.84612721199999996" green="0.72151046990000001" blue="0.52950805430000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="hFD-zb-jNi"/>
                     </view>
                     <navigationItem key="navigationItem" id="W9I-vU-Rf5"/>
+                    <connections>
+                        <outlet property="_title" destination="SuM-J4-Y86" id="GCK-LD-Egq"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="s3J-cA-37M" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
@@ -218,10 +226,10 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="选择形状" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="ai4-pj-G3H">
-                                <rect key="frame" x="419" y="172" width="187" height="67"/>
+                                <rect key="frame" x="419" y="172" width="205" height="67"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="40"/>
+                                <fontDescription key="fontDescription" name="MaShanZheng-Regular" family="Ma Shan Zheng" pointSize="48"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" image="blue" translatesAutoresizingMaskIntoConstraints="NO" id="DPH-YD-4DR">
@@ -250,12 +258,13 @@
                     </view>
                     <navigationItem key="navigationItem" id="1Ul-ox-2bM"/>
                     <connections>
+                        <outlet property="_title" destination="ai4-pj-G3H" id="RnT-fL-99T"/>
                         <outlet property="nangChooseImage" destination="DPH-YD-4DR" id="RnG-NZ-2ly"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="bWo-lU-YIi" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1603" y="138"/>
+            <point key="canvasLocation" x="1602.5390625" y="137.5"/>
         </scene>
         <!--Fourth View Controller-->
         <scene sceneID="360-xf-ZO5">
@@ -277,7 +286,7 @@
                                 <rect key="frame" x="893" y="241" width="51" height="245"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="32"/>
+                                <fontDescription key="fontDescription" name="MaShanZheng-Regular" family="Ma Shan Zheng" pointSize="40"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
                         </subviews>
@@ -287,6 +296,7 @@
                     <navigationItem key="navigationItem" id="M4r-xi-noX"/>
                     <connections>
                         <outlet property="nangImage" destination="5HI-iu-CSZ" id="puv-uA-p47"/>
+                        <outlet property="poemTitle" destination="Wcc-X8-qTS" id="HFa-zA-fRE"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xbR-ry-jW3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

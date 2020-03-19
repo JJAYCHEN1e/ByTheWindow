@@ -22,7 +22,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // Create the SwiftUI view that provides the window contents.
 //        let contentView = ContentView()
         //调试香囊
-        let contentView = MakeRiceDumplingView()
+        let contentView = PerfumebagView()
 //        let contentView = ARCoupletView()
 //        调试对对联界面
 //        let contentView = SpringFestivalView()

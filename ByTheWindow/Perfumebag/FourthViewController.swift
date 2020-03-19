@@ -13,9 +13,12 @@ class FourthViewController: UIViewController {
     var nangName: String?
 
     @IBOutlet weak var nangImage: UIImageView!
+    @IBOutlet weak var poemTitle: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        poemTitle.font = UIFont(name: "MaShanZheng-Regular", size: 40)
+        poemTitle.isEditable = false
         
         if let name = nangName {
             nangImage.image = UIImage(named: name)
