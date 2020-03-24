@@ -26,6 +26,27 @@ struct EggDrawingView: View {
     @State var notificationOffset: CGFloat = -100
     @State var timer: Cancellable?
     
+    @State var showShareSheet = false
+    @State var sharedImage = UIImage()
+    
+    @State var getThumbnailImageFirst: () -> UIImage = { UIImage() }
+    @State var getThumbnailImageSecond: () -> UIImage = { UIImage() }
+    @State var getThumbnailImageThird: () -> UIImage = { UIImage() }
+    @State var getThumbnailImageFourth: () -> UIImage = { UIImage() }
+    
+    func showNotification(_ message: String) {
+        self.text = message
+        self.timer?.cancel()
+        self.notificationOffset = 0
+        self.timer = DispatchQueue.main.schedule(
+            after: DispatchQueue.main.now.advanced(by: .seconds(3)),
+            interval: .seconds(2)
+        ) {
+            self.notificationOffset = -100
+            self.timer?.cancel()
+        }
+    }
+    
     var body: some View {
         ZStack {
             Image("egg-background")
@@ -33,38 +54,62 @@ struct EggDrawingView: View {
                 .onAppear {
                     EggDrawingView.pencilDetector = BOApplePencilReachability.init(didChangeClosure: { isPencilReachable in
                         self.allowsFingerDrawing = !isPencilReachable
-                        
-                        self.text = "Apple Pencil 已连接"
-                        self.timer?.cancel()
-                        self.notificationOffset = 0
-                        self.timer = DispatchQueue.main.schedule(
-                            after: DispatchQueue.main.now.advanced(by: .seconds(3)),
-                            interval: .seconds(2)
-                        ) {
-                            self.notificationOffset = -100
-                            self.timer?.cancel()
-                        }
+                        self.showNotification("Apple Pencil 已连接")
                     })
             }
             
-            EggDrawingPKView(allowsFingerDrawing: $allowsFingerDrawing, image: dragonBoatImage)
+            EggDrawingPKView(allowsFingerDrawing: $allowsFingerDrawing, thumbnailImage: $getThumbnailImageFirst, image: dragonBoatImage)
                 .opacity(currentEggInedx == 0 ? 100 : 0)
             
-            EggDrawingPKView(allowsFingerDrawing: $allowsFingerDrawing, image: beatDrumImage)
+            EggDrawingPKView(allowsFingerDrawing: $allowsFingerDrawing, thumbnailImage: $getThumbnailImageSecond, image: beatDrumImage)
                 .opacity(currentEggInedx == 1 ? 100 : 0)
             
-            EggDrawingPKView(allowsFingerDrawing: $allowsFingerDrawing, image: zongziImage)
+            EggDrawingPKView(allowsFingerDrawing: $allowsFingerDrawing, thumbnailImage: $getThumbnailImageThird, image: zongziImage)
                 .opacity(currentEggInedx == 2 ? 100 : 0)
             
-            EggDrawingPKView(allowsFingerDrawing: $allowsFingerDrawing, image: emptyEggImage)
+            EggDrawingPKView(allowsFingerDrawing: $allowsFingerDrawing, thumbnailImage: $getThumbnailImageFourth, image: emptyEggImage)
                 .opacity(currentEggInedx == 3 ? 100 : 0)
             
             VStack {
                 
-                TextWithBlurBackground(text: $text)
-                    .offset(y: notificationOffset)
-                    .animation(.spring())
-                    .padding()
+                HStack {
+                    ButtonWithBlurBackground(
+                        actions: [{
+                            self.allowsFingerDrawing.toggle()
+                            self.showNotification(self.allowsFingerDrawing ? "允许触控书写" : "关闭触控书写")
+                            }],
+                        imageName: ["hand.draw"],
+                        colors: [allowsFingerDrawing ? Color.blue : Color.white.opacity(0.9)]
+                    )
+                        .padding()
+                    
+                    Spacer()
+                    
+                    TextWithBlurBackground(text: $text)
+                        .offset(y: notificationOffset)
+                        .animation(.spring())
+                        .padding()
+                    
+                    Spacer()
+                    
+                    ButtonWithBlurBackground(
+                        actions: [{
+                            if self.currentEggInedx == 0 {
+                                self.sharedImage = self.getThumbnailImageFirst()
+                            } else if self.currentEggInedx == 1 {
+                                self.sharedImage = self.getThumbnailImageSecond()
+                            } else if self.currentEggInedx == 2 {
+                                self.sharedImage = self.getThumbnailImageThird()
+                            } else if self.currentEggInedx == 3 {
+                                self.sharedImage = self.getThumbnailImageFourth()
+                            }
+                            self.showShareSheet = true
+                            }],
+                        imageName: ["square.and.arrow.up"],
+                        colors: [Color.blue]
+                    )
+                        .padding()
+                }
                 
                 Spacer()
                 
@@ -88,11 +133,15 @@ struct EggDrawingView: View {
                 .padding()
             }
         }
+        .sheet(isPresented: $showShareSheet) {
+                ShareSheet(activityItems: [self.sharedImage])
+        }
     }
 }
 
 struct EggDrawingPKView: UIViewRepresentable {
     @Binding var allowsFingerDrawing: Bool
+    @Binding var thumbnailImage: () -> UIImage
     
     var image: UIImage
     var drawing = PKDrawing()
@@ -135,6 +184,24 @@ struct EggDrawingPKView: UIViewRepresentable {
             
             toolPicker.selectedTool = PKInkingTool(.pen, color: .blue, width: 15)
             eggDrawingPKCanvasView.becomeFirstResponder()
+        }
+        
+        DispatchQueue.main.async {
+            self.thumbnailImage = {
+                eggDrawingPKCanvasView.setZoomScale(1, animated: false)
+                let background = UIImage(named: "egg-background")
+                let imageView = UIImageView(image: background)
+                imageView.translatesAutoresizingMaskIntoConstraints = false
+                
+                eggDrawingPKCanvasView.insertSubview(imageView, at: 0)
+                NSLayoutConstraint.activate([
+                    imageView.widthAnchor.constraint(equalTo: eggDrawingPKCanvasView.widthAnchor),
+                    imageView.heightAnchor.constraint(equalTo: eggDrawingPKCanvasView.heightAnchor)
+                ])
+                
+                defer{eggDrawingPKCanvasView.subviews.first?.removeFromSuperview()}
+                return getThumbnailImage(with: eggDrawingPKCanvasView)!
+            }
         }
         
         return eggDrawingPKCanvasView

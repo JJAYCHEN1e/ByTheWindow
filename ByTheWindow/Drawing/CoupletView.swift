@@ -5,7 +5,6 @@
 //  Created by JJAYCHEN on 2020/2/19.
 //  Copyright © 2020 JJAYCHEN. All rights reserved.
 //
-
 import SwiftUI
 import Combine
 import PencilKit
@@ -15,6 +14,8 @@ let centerCoupletImage = UIImage(named: "couplet-center")!
 let squareImage = UIImage(named: "田字格")!
 
 struct CoupletView: View {
+    @EnvironmentObject var navigation: NavigationStack
+    
     @State var allowsFingerDrawing = true
     @State var clearAction: () -> () = {}
     @State var undoAction: () -> () = {}
@@ -35,7 +36,8 @@ struct CoupletView: View {
     
     @State var generateARImage: () -> UIImage = { UIImage() }
     
-    @State var image = UIImage()
+    @State var showShareSheet = false
+    @State var sharedImage = UIImage()
     
     var body: some View {
         ZStack {
@@ -48,7 +50,7 @@ struct CoupletView: View {
                             Image(uiImage: centerCoupletImage)
                                 .resizable()
                                 .aspectRatio(contentMode: .fit)
-                            .frame(width: 250)
+                                .frame(width: 250)
                             
                             Image(uiImage: drawingImages[0])
                                 .resizable()
@@ -62,14 +64,12 @@ struct CoupletView: View {
                         }
                         .padding(.bottom)
                         
-                        
-                        
                         HStack{
                             ZStack {
                                 Image(uiImage: sideCoupletImage)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                .frame(width: 100)
+                                    .frame(width: 100)
                                 
                                 Image(uiImage: drawingImages[1])
                                     .resizable()
@@ -89,7 +89,7 @@ struct CoupletView: View {
                                 Image(uiImage: sideCoupletImage)
                                     .resizable()
                                     .aspectRatio(contentMode: .fit)
-                                .frame(width: 100)
+                                    .frame(width: 100)
                                 
                                 Image(uiImage: drawingImages[2])
                                     .resizable()
@@ -104,33 +104,59 @@ struct CoupletView: View {
                             .padding(.trailing)
                         }
                     }
+                    .padding()
+                    .background(Color.clear)
+                    .contextMenu {
+                        VStack {
+                            Button(action: {
+                                arCoupletImage = self.generateARImage()
+                                withAnimation() {
+                                    self.navigation.advance(NavigationItem(view: AnyView(ARCoupletView().transition(.asymmetric(insertion: .scale, removal: .opacity)))))
+                                }
+                            }) {
+                                HStack {
+                                    Text("AR 贴春联")
+                                    Image(systemName: "arkit")
+                                }
+                            }
+                            
+                            Button(action: {
+                                self.sharedImage = self.generateARImage()
+                                self.showShareSheet = true
+                            }) {
+                                HStack {
+                                    Text("分享对联")
+                                    Image(systemName: "square.and.arrow.up")
+                                }
+                            }
+                        }
+                    }
+                    .shadow(radius: 20)
                     
                     Spacer()
                 }
                 .frame(width: screen.width / 3)
                 
-                ZStack {
-                    Color(#colorLiteral(red: 0.7019159198, green: 0.2200317383, blue: 0.185915947, alpha: 1))
-                        .frame(maxWidth: .infinity)
-    //
-                    VStack {
-                        ZStack {
-                            CoupletDrawingView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, undoAction: $undoAction, redoAction: $redoAction, showNotification: $showNotificationInterface, prevIndex: $prevIndex, currentIndex: $currentIndex, changeSelectedCouplet: $changeSelectedCouplet, undoable: $undoable, redoable: $redoable, coupletImages: $couletImages, drawingImages: $drawingImages, generateARImage: $generateARImage)
-                                .clipShape(Rectangle())
-                            
-                            CoupletButtonView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction,
-                                              undoAction: $undoAction, redoAction: $redoAction, showNoticationInterface: $showNotificationInterface, undoable: $undoable, redoable: $redoable, generateARImage: $generateARImage, image: $image)
-                        }
-                    }
+                
+                VStack {
+                        CoupletDrawingView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction, undoAction: $undoAction, redoAction: $redoAction, showNotification: $showNotificationInterface, prevIndex: $prevIndex, currentIndex: $currentIndex, changeSelectedCouplet: $changeSelectedCouplet, undoable: $undoable, redoable: $redoable, coupletImages: $couletImages, drawingImages: $drawingImages, generateARImage: $generateARImage)
+                            .clipShape(Rectangle())
                 }
+                .shadow(radius: 40)
                 .frame(width: screen.width * 2 / 3)
             }
             .edgesIgnoringSafeArea(.all)
             
-            Image(uiImage: image)
-            .resizable()
-            .aspectRatio(contentMode: .fit)
-            .frame(width: 100)
+            CoupletButtonView(allowsFingerDrawing: $allowsFingerDrawing, clearAction: $clearAction,
+                              undoAction: $undoAction, redoAction: $redoAction, showNoticationInterface: $showNotificationInterface, undoable: $undoable, redoable: $redoable, generateARImage: $generateARImage)
+        }
+        .background(
+            Image("couplet-background")
+                .resizable()
+                .aspectRatio(contentMode: .fit)
+        )
+            .sheet(isPresented: $showShareSheet) {
+                ShareSheet(activityItems: [self.sharedImage])
         }
     }
 }
@@ -191,6 +217,10 @@ struct CoupletDrawingView: UIViewRepresentable {
         var leftCoupletPKCanvasView: PKCanvasView!
         var rightCoupletPKCanvasView: PKCanvasView!
         var centerCoupletPKCanvasView: PKCanvasView!
+        
+        var leftCoupletPKCanvasViewConstrains: [NSLayoutConstraint]!
+        var rightCoupletPKCanvasViewConstrains: [NSLayoutConstraint]!
+        var centerCoupletPKCanvasViewConstrains: [NSLayoutConstraint]!
         
         var leftCouletPKCanvasViewDelegate: CoupletPKCanvasViewDelegate!
         var rightCouletPKCanvasViewDelegate: CoupletPKCanvasViewDelegate!
@@ -276,26 +306,24 @@ struct CoupletDrawingView: UIViewRepresentable {
         func generateARImage() -> UIImage {
             UIGraphicsBeginImageContext(CGSize(width: 2732, height: 2048))
             
-            leftCoupletPKCanvasView.draw(CGRect(origin: CGPoint.zero, size: leftCoupletPKCanvasView.frame.size))
-//            rightCoupletPKCanvasView.draw(CGRect(origin: CGPoint.zero, size: rightCoupletPKCanvasView.frame.size))
-//            leftCoupletPKCanvasView.draw(CGRect(origin: CGPoint.zero, size: leftCoupletPKCanvasView.frame.size))
+            let leftImage = getImageOfScrollView(scrollView: leftCoupletPKCanvasView, constrains: leftCoupletPKCanvasViewConstrains)
+            let centerImage = getImageOfScrollView(scrollView: centerCoupletPKCanvasView, constrains: centerCoupletPKCanvasViewConstrains)
+            let rightImage = getImageOfScrollView(scrollView: rightCoupletPKCanvasView, constrains: rightCoupletPKCanvasViewConstrains)
+            
+            let leftImagePoint = CGPoint(x: 645, y: 440)
+            let rightImagePoint = CGPoint(x: 1737, y: 440)
+            let centerImagePoint = CGPoint(x: 941, y: 80)
+            
+            let sideImageSize = CGSize(width: 350, height: sideCoupletImage.size.height * 350 / sideCoupletImage.size.width)
+            let centerImageSize = CGSize(width: 850, height: centerCoupletImage.size.height * 850 / centerCoupletImage.size.width)
+            
+            leftImage.draw(in: CGRect(origin: leftImagePoint, size: sideImageSize))
+            rightImage.draw(in: CGRect(origin: rightImagePoint, size: sideImageSize))
+            centerImage.draw(in: CGRect(origin: centerImagePoint, size: centerImageSize))
             
             let resultImage = UIGraphicsGetImageFromCurrentImageContext()
             
             UIGraphicsEndImageContext()
-            
-            //打印工程所在文件路径
-            print(NSHomeDirectory())
-            //获取本地缓存文件路径
-            let cachPath = NSSearchPathForDirectoriesInDomains(.cachesDirectory, .userDomainMask, true)
-            //设置保存路径
-            let path = cachPath[0] + "/img.png"
-            
-            do {
-                try resultImage?.pngData()?.write(to: URL(fileURLWithPath: path))
-            } catch {
-                print(error)
-            }
             
             return resultImage!
         }
@@ -341,7 +369,7 @@ struct CoupletDrawingView: UIViewRepresentable {
             
             func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
                 if decelerate == false {
-                   scrollToDestination(scrollView)
+                    scrollToDestination(scrollView)
                 }
             }
             
@@ -410,7 +438,7 @@ struct CoupletDrawingView: UIViewRepresentable {
             leftCoupletImageView.centerXAnchor.constraint(equalTo: leftCoupletPKCanvasView.centerXAnchor),
             leftCoupletImageView.topAnchor.constraint(equalTo: leftCoupletPKCanvasView.topAnchor)
         ])
-
+        
         /// 配置 rightCoupletImageView 和 sideCoupletPKCanvasView 的 Autolayout
         NSLayoutConstraint.activate([
             rightCoupletImageView.widthAnchor.constraint(equalTo: rightCoupletPKCanvasView.widthAnchor),
@@ -442,17 +470,43 @@ struct CoupletDrawingView: UIViewRepresentable {
         centerCoupletPKCanvasView.contentInset.left = screen.width * 0.06
         centerCoupletPKCanvasView.contentInset.right = screen.width * 0.06
         
-//        centerCoupletPKCanvasView.
-
-        /// 默认插入左侧对联
-        /// 配置 leftCoupletPKCanvasView 和 containerView 的 Autolayout
-        containerView.insertSubview(leftCoupletPKCanvasView, at: 0)
-        NSLayoutConstraint.activate([
+        //        centerCoupletPKCanvasView.
+        
+        coordinator.leftCoupletPKCanvasViewConstrains = [
             leftCoupletPKCanvasView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
             leftCoupletPKCanvasView.heightAnchor.constraint(equalTo: containerView.heightAnchor),
             leftCoupletPKCanvasView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
             leftCoupletPKCanvasView.topAnchor.constraint(equalTo: containerView.topAnchor)
-        ])
+        ]
+        
+        coordinator.rightCoupletPKCanvasViewConstrains = [
+            rightCoupletPKCanvasView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
+            rightCoupletPKCanvasView.heightAnchor.constraint(equalTo: containerView.heightAnchor),
+            rightCoupletPKCanvasView.topAnchor.constraint(equalTo: containerView.topAnchor),
+            rightCoupletPKCanvasView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor)
+        ]
+        
+        coordinator.centerCoupletPKCanvasViewConstrains = [
+            centerCoupletPKCanvasView.heightAnchor.constraint(equalTo: containerView.widthAnchor),
+            centerCoupletPKCanvasView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
+            centerCoupletPKCanvasView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
+            centerCoupletPKCanvasView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
+        ]
+        
+        /// 初始化所有对联视图，防止生成图片时崩溃。
+        /// 默认插入左侧对联
+        /// 配置 leftCoupletPKCanvasView 和 containerView 的 Autolayout
+        containerView.insertSubview(leftCoupletPKCanvasView, at: 0)
+        NSLayoutConstraint.activate(coordinator.leftCoupletPKCanvasViewConstrains)
+        
+        containerView.insertSubview(rightCoupletPKCanvasView, at: 0)
+        NSLayoutConstraint.activate(coordinator.rightCoupletPKCanvasViewConstrains)
+        
+        containerView.insertSubview(centerCoupletPKCanvasView, at: 0)
+        NSLayoutConstraint.activate(coordinator.centerCoupletPKCanvasViewConstrains)
+        // remove later
+        //        rightCoupletPKCanvasView.removeFromSuperview()
+        //        centerCoupletPKCanvasView.removeFromSuperview()
         
         DispatchQueue.main.async{
             self.clearAction = {
@@ -462,7 +516,7 @@ struct CoupletDrawingView: UIViewRepresentable {
             self.generateARImage = {
                 coordinator.generateARImage()
             }
-
+            
             self.changeSelectedCouplet = { from, to in
                 if from != to {
                     let prevPKCanvasView = coordinator.getCoupletPKCanvasView(at: from)
@@ -474,19 +528,11 @@ struct CoupletDrawingView: UIViewRepresentable {
                     let currentImageView = coordinator.getCoupletImageView(at: to)
                     
                     if to == 0 {
-                        NSLayoutConstraint.activate([
-                            currentPKCanvasView.heightAnchor.constraint(equalTo: containerView.widthAnchor),
-                            currentPKCanvasView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
-                            currentPKCanvasView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
-                            currentPKCanvasView.centerYAnchor.constraint(equalTo: containerView.centerYAnchor),
-                        ])
+                        NSLayoutConstraint.activate(coordinator.centerCoupletPKCanvasViewConstrains)
+                    } else if to == 1 {
+                        NSLayoutConstraint.activate(coordinator.leftCoupletPKCanvasViewConstrains)
                     } else {
-                        NSLayoutConstraint.activate([
-                            currentPKCanvasView.widthAnchor.constraint(equalTo: containerView.widthAnchor),
-                            currentPKCanvasView.heightAnchor.constraint(equalTo: containerView.heightAnchor),
-                            currentPKCanvasView.topAnchor.constraint(equalTo: containerView.topAnchor),
-                            currentPKCanvasView.centerXAnchor.constraint(equalTo: containerView.centerXAnchor)
-                        ])
+                        NSLayoutConstraint.activate(coordinator.rightCoupletPKCanvasViewConstrains)
                     }
                     DispatchQueue.main.asyncAfter(deadline: DispatchTime.now().advanced(by: .milliseconds(300))) {
                         currentPKCanvasView.contentSize = currentImageView.frame.size
@@ -496,7 +542,7 @@ struct CoupletDrawingView: UIViewRepresentable {
             }
         }
         
-
+        
         // MARK: PKCanvasView Configurations
         
         coordinator.containerView = containerView
@@ -510,6 +556,10 @@ struct CoupletDrawingView: UIViewRepresentable {
         /// 需要在 SwiftUI 接受该 View 之后更新 contentSize 并且设置代理
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now().advanced(by: .milliseconds(500))) {
             leftCoupletPKCanvasView.contentSize = leftCoupletImageView.frame.size
+            rightCoupletPKCanvasView.contentSize = rightCoupletImageView.frame.size
+            centerCoupletPKCanvasView.contentSize = centerCoupletImageView.frame.size
+            centerCoupletPKCanvasView.removeFromSuperview()
+            rightCoupletPKCanvasView.removeFromSuperview()
             
             coordinator.setUpCoupletPKCanvasViewDelegate(coupletPKCanvasView: centerCoupletPKCanvasView, coupletIndex: 0)
             coordinator.setUpCoupletPKCanvasViewDelegate(coupletPKCanvasView: leftCoupletPKCanvasView, coupletIndex: 1)
@@ -527,7 +577,7 @@ struct CoupletDrawingView: UIViewRepresentable {
             toolPicker.addObserver(centerCoupletPKCanvasView)
             
             toolPicker.selectedTool = PKInkingTool(.pen, color: .black, width: 100)
-            leftCoupletPKCanvasView.becomeFirstResponder()
+//            leftCoupletPKCanvasView.becomeFirstResponder()
         }
         
         return containerView
@@ -547,7 +597,6 @@ struct CoupletButtonView: View {
     @Binding var undoable: Bool
     @Binding var redoable: Bool
     @Binding var generateARImage: () -> UIImage
-    @Binding var image: UIImage
     @State var text = ""
     @State var notificationOffset: CGFloat = 0
     @State var timer: Cancellable?
@@ -591,37 +640,14 @@ struct CoupletButtonView: View {
                 Spacer()
                 
                 ButtonWithBlurBackground(actions: [{
-                    self.showNotification("该页已清空")
+                    self.showNotification("清空当前对联")
                     self.clearAction()
                     }], imageName: ["trash"])
                 
             }
             .padding()
             
-//            Spacer()
-            
-            Text("分享")
-            .contextMenu {
-                VStack {
-                    Button(action: {
-                        self.image = self.generateARImage()
-                    }) {
-                        HStack {
-                            Text("分享对联")
-                            Image(systemName: "square.and.arrow.up")
-                        }
-                    }
-
-                    Button(action: {
-                        // enable geolocation
-                    }) {
-                        HStack {
-                            Text("AR 贴春联")
-                            Image(systemName: "arkit")
-                        }
-                    }
-                }
-            }
+            Spacer()
         }
     }
 }
@@ -636,4 +662,3 @@ struct CoupletView_Previews: PreviewProvider {
         //            .previewLayout(.fixed(width: 1024, height: 768)) // iPad mini5, iPad Pro 9.7"
     }
 }
-
