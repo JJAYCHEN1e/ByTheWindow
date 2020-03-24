@@ -26,5 +26,15 @@ class FourthViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func share(_ sender: Any) {
+        let image = nangImage.takeScreenshot()
+        let activityVC = UIActivityViewController(activityItems: [image], applicationActivities: nil)
+        let popOver = activityVC.popoverPresentationController
+        popOver?.sourceView = nangImage
+        
+        present(activityVC, animated: true, completion: nil)
+    }
+    
+    
 
 }
