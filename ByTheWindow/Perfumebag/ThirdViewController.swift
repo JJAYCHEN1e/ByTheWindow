@@ -14,11 +14,14 @@ class ThirdViewController: UIViewController {
     
     var chooseShape: String?
 
+    @IBOutlet weak var _title: UITextView!
     @IBOutlet weak var nangChooseImage: UIImageView!
     
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        _title.font = UIFont(name: "MaShanZheng-Regular", size: 48)
+        _title.isEditable = false
         if let name = colorName {
             nangChooseImage.image = UIImage(named: name)
         }

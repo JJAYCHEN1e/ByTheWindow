@@ -40,6 +40,8 @@ class FirstViewController: UIViewController {
         xiong.isHidden = true
         ai.isHidden = true
         backBtn.isEnabled = false
+        introduction.isEditable = false
+        introduction.font = UIFont(name: "MaShanZheng-Regular", size: 38)
         
         
         let handDrag = UIPanGestureRecognizer(target: self, action: #selector(handleDrag(_:)))

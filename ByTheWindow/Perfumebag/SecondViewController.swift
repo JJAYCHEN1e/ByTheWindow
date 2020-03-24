@@ -11,9 +11,12 @@ import UIKit
 class SecondViewController: UIViewController {
     
     var chooseColor: String?
+    @IBOutlet weak var _title: UITextView!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        _title.font = UIFont(name: "MaShanZheng-Regular", size: 48)
+        _title.isEditable = false
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
