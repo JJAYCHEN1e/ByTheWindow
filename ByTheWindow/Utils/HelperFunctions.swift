@@ -10,7 +10,7 @@ import Foundation
 import UIKit
 
 func getThumbnailImage(with view: UIView) -> UIImage? {
-    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0.5)
+    UIGraphicsBeginImageContextWithOptions(view.bounds.size, view.isOpaque, 0)
     defer { UIGraphicsEndImageContext() }
     view.drawHierarchy(in: view.bounds, afterScreenUpdates: true)
     return UIGraphicsGetImageFromCurrentImageContext()

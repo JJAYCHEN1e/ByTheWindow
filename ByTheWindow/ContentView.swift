@@ -46,7 +46,7 @@ struct ContentView: View {
                 //                CanvasMainViewControllerRepresentation()
                 //                    .transition(AnyTransition.scale.combined(with: .opacity).animation(Animation.easeInOut))
 //                GreetingCardView()
-                CoupletView()
+//                CoupletView()
             }
         }
     }
