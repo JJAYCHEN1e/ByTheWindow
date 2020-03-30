@@ -21,6 +21,7 @@ class TransitionInfo: ObservableObject {
     @Published var currentViewType:RiceDumplingViewType = .BoilLeaves
     @Published var onTransition = false
     @Published var titleText = "煮粽叶"
+    @Published var hintText = "点击铁锅，将水倒入其中"
 }
 
 class StuffingInfo: ObservableObject {
@@ -105,7 +106,7 @@ struct MakeRiceDumplingView: View {
         case .BoilRiceDumplings:
             return AnyView(BoilRiceDumplingView(transition: transition, onFire: $onFire, fireScale: $fireScale, fireCount: $fireCount, showWater: $showWater, tapsOnWater: $tapsOnWater, fireTimer: $fireTimer))
         case .Finished:
-            return AnyView(FinishedView(showRiceDumplings: $showRiceDumplings))
+            return AnyView(FinishedView(showRiceDumplings: $showRiceDumplings, transition: transition))
 //        default:
 //            return AnyView(Text("端午节快乐").font(.custom("MaShanZheng-Regular", size: 80)))
         }
@@ -121,9 +122,9 @@ struct MakeRiceDumplingView: View {
                 currentView().transition(AnyTransition.opacity.animation(.easeInOut(duration: 1.5))).id(self.transition.currentViewType)
             }
                 
-            
-                        
             TitleView(text: $transition.titleText)
+        
+            HintView(hintText: $transition.hintText)
         }
     }
 }
@@ -207,6 +208,7 @@ struct BoilLeavesView: View {
                     .onTapGesture {
                         withAnimation(.easeInOut(duration: 1.2)) {
                             self.showWater = true
+                            self.transition.hintText = "再次点击，放入粽叶"
                         }
                 }
                 
@@ -218,7 +220,7 @@ struct BoilLeavesView: View {
                         .onTapGesture {
                             withAnimation(.spring()) {
                                 if self.tapsOnWater >= 3 {
-                                    self.onFire = true
+                                        self.onFire.toggle()
                                         self.fireCount = 0
                                         if self.onFire {
                                             self.fireTimer = Timer.scheduledTimer(withTimeInterval: 0.2,
@@ -233,10 +235,11 @@ struct BoilLeavesView: View {
                                                                                             self.fireCount = 0
                                                                                             self.fireScale = 1
                                                                                             self.tapsOnWater = 0
+                                                                                            self.showWater = false
                                                                                             self.transition.currentViewType = .SoakRice
                                                             
                                                                                             self.transition.titleText = "泡糯米"
-                                                    
+                                                                                            self.transition.hintText = "点击竹篮，放入糯米"
                                                                                             self.transition.onTransition.toggle()
                                                                                         }
 
@@ -274,6 +277,9 @@ struct BoilLeavesView: View {
                 .onTapGesture {
                     withAnimation() {
                         self.tapsOnWater += 1
+                        if self.tapsOnWater >= 3 {
+                            self.transition.hintText = "开火煮粽叶"
+                        }
                     }
             }
             
@@ -294,6 +300,7 @@ struct SoakRiceView: View {
                 .onTapGesture {
                     withAnimation(.easeInOut(duration: 1.2)) {
                         self.showRice = true
+                        self.transition.hintText = "点击糯米，加水"
                     }
             }
             
@@ -304,11 +311,13 @@ struct SoakRiceView: View {
                 .onTapGesture {
                     withAnimation(.easeInOut(duration: 1.2)) {
                         self.showWaterInBracket = true
+                        self.transition.hintText = "完成"
                         self.soakTimer = Timer.scheduledTimer(withTimeInterval: 2.4, repeats: false, block: { timer in
                             withAnimation(.easeInOut) {
                                 self.transition.currentViewType = .MixStuffing
                                 
                                 self.transition.titleText = "拌粽馅"
+                                self.transition.hintText = "选择粽馅，拖动到糯米上"
                                 self.transition.onTransition.toggle()
                                 
                                 self.showRice = false
@@ -336,6 +345,7 @@ struct BowlView: View {
     @Binding var showStuffing:Bool
     @Binding var covered:Bool
     @ObservedObject var currentStuffingInfo:StuffingInfo
+    @ObservedObject var transition:TransitionInfo
     
     var body: some View {
         ZStack {
@@ -366,6 +376,7 @@ struct BowlView: View {
                         if !self.covered {
                             self.showStuffing = true
                         }
+                        self.transition.hintText = "点击糯米上的粽馅，将其拌入糯米中"
                     }
                 }
             )
@@ -381,6 +392,7 @@ struct MixStuffingView: View {
     @Binding var mixCount:Int
     @Binding var showMixedStuffing:Bool
     @State var coverd = false
+    @State var timerOn = false
     @ObservedObject var beanInfo:StuffingInfo
     
     var body: some View {
@@ -404,6 +416,7 @@ struct MixStuffingView: View {
                         withAnimation(.easeInOut) {
                             self.showStuffing = false
                             self.showMixedStuffing = true
+                            self.transition.hintText = "长按粽馅进行搅拌"
                         }
                         
                 }
@@ -414,32 +427,35 @@ struct MixStuffingView: View {
                     .rotationEffect(self.mixedStuffDegree)
                     .opacity(self.showMixedStuffing ? 1.0 : 0.0)
                     .gesture(LongPressGesture(minimumDuration: 4) .onChanged { value in
-                        print("value")
-                        self.mixTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { timer in
-                            if self.mixCount >= 19 {
-                                withAnimation() {
-                                    timer.invalidate()
-                                    self.transition.currentViewType = .AddIngredients
-                                    self.transition.titleText = "加配料"
-                                    self.transition.onTransition.toggle()
-                                    
-                                    self.mixCount = 0
-                                    self.showStuffing = false
-                                    self.showMixedStuffing = false
+                        if !self.timerOn {
+                            self.mixTimer = Timer.scheduledTimer(withTimeInterval: 0.2, repeats: true, block: { timer in
+                                if self.mixCount >= 19 {
+                                    withAnimation() {
+                                        timer.invalidate()
+                                        self.transition.currentViewType = .AddIngredients
+                                        self.transition.titleText = "包粽子"
+                                        self.transition.hintText = "选择其他粽馅，拖动到糯米上"
+                                        self.transition.onTransition.toggle()
+                                        
+                                        self.mixCount = 0
+                                        self.showStuffing = false
+                                        self.showMixedStuffing = false
+                                    }
                                 }
-                            }
-                            self.mixCount += 1
-                            withAnimation(.spring()) {
-                                self.mixedStuffDegree = Angle.degrees(self.mixedStuffDegree.degrees + 10)
-                            }
-                        })
+                                self.mixCount += 1
+                                withAnimation(.spring()) {
+                                    self.mixedStuffDegree = Angle.degrees(self.mixedStuffDegree.degrees + 10)
+                                }
+                            })
+                            self.timerOn = true
+                        }
                     }.onEnded{ value in
                         withAnimation() {
                             self.mixTimer.invalidate()
                             self.transition.currentViewType = .AddIngredients
                             self.transition.titleText = "包粽子"
+                            self.transition.hintText = "选择其他粽馅，拖动到糯米上"
                             self.transition.onTransition.toggle()
-                            
                             self.mixCount = 0
                             self.showStuffing = false
                             self.showMixedStuffing = false
@@ -457,11 +473,11 @@ struct MixStuffingView: View {
                 BowlView(bowlImage: "small-red-bean", bracketImage: "big-red-bean",mixedBracketImage: "mixed-red-bean",
                          ingredientImage: "ingredient-red-bean",
                          currentPos: .zero, newPos: .zero, showStuffing: $showStuffing, covered: $coverd,
-                         currentStuffingInfo: beanInfo)
+                         currentStuffingInfo: beanInfo, transition: transition)
                 BowlView(bowlImage: "small-green-bean", bracketImage: "big-green-bean", mixedBracketImage: "mixed-green-bean",
                          ingredientImage: "ingredient-green-bean",
                          currentPos: .zero, newPos: .zero, showStuffing: $showStuffing, covered: $coverd,
-                         currentStuffingInfo: beanInfo)
+                         currentStuffingInfo: beanInfo, transition: transition)
             }.padding(.trailing, 30)
         }
     }
@@ -512,12 +528,14 @@ struct AddIngredientView: View {
                     .onTapGesture {
                         withAnimation(.spring()) {
                             if self.showIngredient {
+                                self.transition.hintText = "完成"
                                 self.covered = true
                                 self.showIngredient = false
                                 self.ingredientTimer = Timer.scheduledTimer(withTimeInterval: 2, repeats: false, block: { timer in
                                     withAnimation() {
                                         self.transition.currentViewType = .BoilRiceDumplings
                                         self.transition.titleText = "煮粽子"
+                                        self.transition.hintText = "点击铁锅，将水倒入其中"
                                         self.transition.onTransition.toggle()
                                         self.showIngredient = false
                                         self.covered = false
@@ -529,9 +547,9 @@ struct AddIngredientView: View {
             }
             
             VStack(spacing: 150) {
-                BowlView(bowlImage: "meat", bracketImage: "meat", mixedBracketImage: "meat", ingredientImage: "meat", currentPos: .zero, newPos: .zero, showStuffing: $showIngredient, covered: $covered, currentStuffingInfo: ingredientInfo)
+                BowlView(bowlImage: "meat", bracketImage: "meat", mixedBracketImage: "meat", ingredientImage: "meat", currentPos: .zero, newPos: .zero, showStuffing: $showIngredient, covered: $covered, currentStuffingInfo: ingredientInfo, transition: transition)
                 
-                BowlView(bowlImage: "duck-egg", bracketImage: "duck-egg", mixedBracketImage: "duck-egg", ingredientImage: "duck-egg", currentPos: .zero, newPos: .zero, showStuffing: $showIngredient, covered: $covered, currentStuffingInfo: ingredientInfo)
+                BowlView(bowlImage: "duck-egg", bracketImage: "duck-egg", mixedBracketImage: "duck-egg", ingredientImage: "duck-egg", currentPos: .zero, newPos: .zero, showStuffing: $showIngredient, covered: $covered, currentStuffingInfo: ingredientInfo, transition: transition)
             }.padding(.trailing, 30)
         }
         .padding(.leading, 200)
@@ -568,6 +586,7 @@ struct BoilRiceDumplingView: View {
                     .onTapGesture {
                         withAnimation(.easeInOut(duration: 1.2)) {
                             self.showWater = true
+                            self.transition.hintText = "再次点击，将粽子放入锅中"
                         }
                 }
                 
@@ -593,7 +612,7 @@ struct BoilRiceDumplingView: View {
                                                                                         self.onFire = false
                                                                                         self.fireCount = 0
                                                                                         self.transition.currentViewType = .Finished
-                                                                                        
+                                                                                        self.transition.hintText = "点击木盆，将粽子从锅中捞出"
                                                                                         self.transition.titleText = "出锅"
                                                                                         
                                                                                         self.transition.onTransition.toggle()
@@ -634,6 +653,9 @@ struct BoilRiceDumplingView: View {
                 .onTapGesture {
                     withAnimation() {
                         self.tapsOnWater += 1
+                        if (self.tapsOnWater >= 2) {
+                            self.transition.hintText = "开火煮粽子"
+                        }
                     }
             }
             
@@ -643,6 +665,7 @@ struct BoilRiceDumplingView: View {
 
 struct FinishedView: View {
     @Binding var showRiceDumplings:Bool
+    @ObservedObject var transition:TransitionInfo
     
     var body: some View {
         ZStack {
@@ -652,6 +675,7 @@ struct FinishedView: View {
                 .onTapGesture {
                     withAnimation(.easeInOut(duration: 1.2)) {
                         self.showRiceDumplings = true
+                        self.transition.hintText = ""
                     }
             }
             
@@ -682,6 +706,21 @@ struct FinishedView: View {
                 }
             }
             
+        }
+    }
+}
+
+struct HintView: View {
+    @Binding var hintText:String
+    var body: some View {
+        VStack {
+            Spacer()
+            Text(self.hintText)
+                .font(.custom("MaShanZheng-Regular", size: 50))
+                .padding(.bottom, 40)
+                .foregroundColor(.white)
+                .transition(.opacity)
+                .id(self.hintText)
         }
     }
 }
