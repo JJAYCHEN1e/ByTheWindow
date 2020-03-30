@@ -124,7 +124,7 @@ struct MainView: View {
                 }
                 .frame(width: 360, height: 560)
                 GeometryReader { geometry in
-                    FestivalCard(cardImage: "mid-autumn-festival", cardText: "端午", verse: "正是浴兰时节动。菖蒲酒美清尊共。", author: "————《渔家傲》 欧阳修")
+                    FestivalCard(cardImage: "dragon-boat-festival", cardText: "端午", verse: "正是浴兰时节动。菖蒲酒美清尊共。", author: "——《渔家傲》 欧阳修")
                         .rotation3DEffect(Angle(degrees: Double((geometry.frame(in: .global).minX) - 50) / -200), axis: (x: 0, y: 10, z: 0))
                         .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
                         .onTapGesture {
@@ -136,7 +136,7 @@ struct MainView: View {
                 }
                 .frame(width: 360, height: 560)
                 GeometryReader { geometry in
-                    FestivalCard(cardImage: "mid-autumn-festival", cardText: "中秋")
+                    FestivalCard(cardImage: "mid-autumn-festival", cardText: "中秋", verse: "但愿人长久，千里共婵娟。", author: "——《水调歌头》 苏轼")
                         .rotation3DEffect(Angle(degrees: Double((geometry.frame(in: .global).minX) - 50) / -200), axis: (x: 0, y: 10, z: 0))
                         .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
                         .onTapGesture {
