@@ -129,7 +129,7 @@
                                     <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
                                 </state>
                                 <connections>
-                                    <segue destination="cg9-Lx-kJg" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="partialCurl" id="cuO-gq-Omq"/>
+                                    <segue destination="cg9-Lx-kJg" kind="presentation" modalPresentationStyle="fullScreen" id="cuO-gq-Omq"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -182,7 +182,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="chooseBlue:" destination="cg9-Lx-kJg" eventType="touchUpInside" id="6Uq-Ti-axS"/>
-                                    <segue destination="jjI-hG-FWy" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="partialCurl" id="opP-OE-3aI"/>
+                                    <segue destination="jjI-hG-FWy" kind="presentation" modalPresentationStyle="fullScreen" id="opP-OE-3aI"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pmM-1b-FeC">
@@ -190,7 +190,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="chooseRed:" destination="cg9-Lx-kJg" eventType="touchDown" id="kBq-yv-48b"/>
-                                    <segue destination="jjI-hG-FWy" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="partialCurl" id="WgS-BI-t0u"/>
+                                    <segue destination="jjI-hG-FWy" kind="presentation" modalPresentationStyle="fullScreen" id="WgS-BI-t0u"/>
                                 </connections>
                             </button>
                             <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="请选择喜欢的花色" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="SuM-J4-Y86">
@@ -241,7 +241,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="chooseTriangle:" destination="jjI-hG-FWy" eventType="touchDown" id="hfN-3J-h2I"/>
-                                    <segue destination="iG0-rk-wVk" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="partialCurl" id="YYh-Sz-NJm"/>
+                                    <segue destination="iG0-rk-wVk" kind="presentation" modalPresentationStyle="fullScreen" id="YYh-Sz-NJm"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="rGr-wp-NPw">
@@ -249,7 +249,7 @@
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <connections>
                                     <action selector="chooseBao:" destination="jjI-hG-FWy" eventType="touchDown" id="3zE-KI-kQj"/>
-                                    <segue destination="iG0-rk-wVk" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="partialCurl" id="qly-zF-zXk"/>
+                                    <segue destination="iG0-rk-wVk" kind="presentation" modalPresentationStyle="fullScreen" id="qly-zF-zXk"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -334,7 +334,7 @@
         <image name="香茅" width="351" height="338"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="YYh-Sz-NJm"/>
+        <segue reference="qly-zF-zXk"/>
         <segue reference="WgS-BI-t0u"/>
     </inferredMetricsTieBreakers>
 </document>
