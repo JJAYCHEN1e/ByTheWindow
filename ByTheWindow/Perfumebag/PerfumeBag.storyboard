@@ -289,6 +289,17 @@
                                 <fontDescription key="fontDescription" name="MaShanZheng-Regular" family="Ma Shan Zheng" pointSize="40"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                             </textView>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Xbb-5i-HEu">
+                                <rect key="frame" x="784" y="609" width="45" height="34"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <state key="normal" image="camera.fill" catalog="system">
+                                    <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="32"/>
+                                </state>
+                                <connections>
+                                    <action selector="share:" destination="iG0-rk-wVk" eventType="touchUpInside" id="0by-Hb-RK5"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.84612721199999996" green="0.72151046990000001" blue="0.52950805430000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="m1B-Nc-IS1"/>
@@ -307,6 +318,7 @@
     <resources>
         <image name="arrowshape.turn.up.left.fill" catalog="system" width="64" height="52"/>
         <image name="blue" width="2732" height="918"/>
+        <image name="camera.fill" catalog="system" width="64" height="48"/>
         <image name="checkmark.circle" catalog="system" width="64" height="60"/>
         <image name="hhuajuan" width="1197" height="383"/>
         <image name="plate" width="1166" height="1170"/>

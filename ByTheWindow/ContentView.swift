@@ -80,6 +80,8 @@ struct FestivalCard: View {
     var barColor: Color = Color(#colorLiteral(red: 0.7607843137, green: 0.003921568627, blue: 0, alpha: 1))
     var barImage: String = "latern"
     var cardText: String = "春节"
+    var verse: String = "爆竹声中一岁除，春风送暖入屠苏。"
+    var author: String = "——《元旦》 王安石"
     
     var body: some View {
         VStack {
@@ -94,9 +96,9 @@ struct FestivalCard: View {
                     .padding(.top, 15)
                     .shadow(color: Color.black.opacity(0.3), radius: 10, x: 0, y: 0)
                 VStack(alignment: .trailing, spacing: 15) {
-                    Text("爆竹声中一岁除，春风送暖入屠苏。") .font(.custom("MaShanZheng-Regular", size: 18))
+                    Text(verse) .font(.custom("MaShanZheng-Regular", size: 18))
                         .padding(.top, 20)
-                    Text("——《元旦》 王安石")
+                    Text(author)
                         .font(.custom("MaShanZheng-Regular", size: 18))
                 }
             }
@@ -109,19 +111,42 @@ struct MainView: View {
     var body: some View {
         ScrollView(.horizontal, showsIndicators: false) {
             HStack(spacing: 100) {
-                ForEach(0 ..< 5) { item in
-                    GeometryReader { geometry in
-                        FestivalCard()
-                            .rotation3DEffect(Angle(degrees: Double((geometry.frame(in: .global).minX) - 50) / -200), axis: (x: 0, y: 10, z: 0))
-                            .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
-                            .onTapGesture {
-                                withAnimation() {
-                                    self.navigation.advance(NavigationItem(view: AnyView(PageView(            cards.map{CardView(showCard: $0) }).transition(.asymmetric(insertion: .scale, removal: .opacity)))))
-                                }
-                        }
+                GeometryReader { geometry in
+                    FestivalCard()
+                        .rotation3DEffect(Angle(degrees: Double((geometry.frame(in: .global).minX) - 50) / -200), axis: (x: 0, y: 10, z: 0))
+                        .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
+                        .onTapGesture {
+                            withAnimation() {
+                                self.navigation.advance(NavigationItem(view: AnyView(PageView(            cards.map{CardView(showCard: $0) }).transition(.asymmetric(insertion: .scale, removal: .opacity)))))
+                                
+                            }
                     }
-                    .frame(width: 360, height: 560)
                 }
+                .frame(width: 360, height: 560)
+                GeometryReader { geometry in
+                    FestivalCard(cardImage: "dragon-boat-festival", cardText: "端午", verse: "正是浴兰时节动。菖蒲酒美清尊共。", author: "——《渔家傲》 欧阳修")
+                        .rotation3DEffect(Angle(degrees: Double((geometry.frame(in: .global).minX) - 50) / -200), axis: (x: 0, y: 10, z: 0))
+                        .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
+                        .onTapGesture {
+                            withAnimation() {
+                                self.navigation.advance(NavigationItem(view: AnyView(PageView(            cards.map{CardView(showCard: $0) }).transition(.asymmetric(insertion: .scale, removal: .opacity)))))
+                                
+                            }
+                    }
+                }
+                .frame(width: 360, height: 560)
+                GeometryReader { geometry in
+                    FestivalCard(cardImage: "mid-autumn-festival", cardText: "中秋", verse: "但愿人长久，千里共婵娟。", author: "——《水调歌头》 苏轼")
+                        .rotation3DEffect(Angle(degrees: Double((geometry.frame(in: .global).minX) - 50) / -200), axis: (x: 0, y: 10, z: 0))
+                        .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
+                        .onTapGesture {
+                            withAnimation() {
+                                self.navigation.advance(NavigationItem(view: AnyView(PageView(            cards.map{CardView(showCard: $0) }).transition(.asymmetric(insertion: .scale, removal: .opacity)))))
+                                
+                            }
+                    }
+                }
+                .frame(width: 360, height: 560)
             }
             .padding(.leading, 50)
             .padding(.trailing, 376)
