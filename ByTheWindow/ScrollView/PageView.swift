@@ -21,12 +21,7 @@ struct PageView<Page: View>: View {
         VStack {
             ZStack {
                 PageViewController(controllers: viewControllers, currentPage: $currentPage)
-                    
-//                PageControl(numberOfPages: viewControllers.count, currentPage: $currentPage)
-//                    .padding(.trailing)
-
             }
-            Text("CurrentPage: \(currentPage)")
         }
     }
 }
