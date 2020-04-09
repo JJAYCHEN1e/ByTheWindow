@@ -111,7 +111,7 @@ struct MainView: View {
                         .scaleEffect(CGFloat(1 - abs(geometry.frame(in: .global).minX - 50) / 3000), anchor: .leading)
                         .onTapGesture {
                             withAnimation() {
-                                self.navigation.advance(NavigationItem(view: AnyView(PageView(            cards.map{CardView(showCard: $0) }).transition(.asymmetric(insertion: .scale, removal: .opacity)))))
+                                self.navigation.advance(NavigationItem(view: AnyView(PageView(            lanternFestivalCards.map{CardView(showCard: $0) }).transition(.asymmetric(insertion: .scale, removal: .opacity)))))
                                 
                             }
                     }

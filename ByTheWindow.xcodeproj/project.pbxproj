@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		4061BC3D243EF90100D847F6 /* LanterFestivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4061BC3C243EF90100D847F6 /* LanterFestivalView.swift */; };
 		4E81888F23FE2A3F00739BE0 /* LanternRiddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */; };
 		6302788523F92669009C8FF2 /* 叶根友福荣银钩.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */; };
 		6333654A23EC14870072E311 /* BOApplePencilReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333654923EC14870072E311 /* BOApplePencilReachability.swift */; };
@@ -48,6 +49,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		4061BC3C243EF90100D847F6 /* LanterFestivalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanterFestivalView.swift; sourceTree = "<group>"; };
 		4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanternRiddle.swift; sourceTree = "<group>"; };
 		6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "叶根友福荣银钩.ttf"; sourceTree = "<group>"; };
 		630F783C2402441C00FEFAC5 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
@@ -210,6 +212,7 @@
 				64463749241FA2DD00240981 /* PageView.swift */,
 				6446374B241FA2DD00240981 /* PageViewController.swift */,
 				6446374C241FA2DD00240981 /* SpringFestivalView.swift */,
+				4061BC3C243EF90100D847F6 /* LanterFestivalView.swift */,
 			);
 			path = ScrollView;
 			sourceTree = "<group>";
@@ -352,6 +355,7 @@
 				81BF8BD6240A52B4002281CB /* HomeView.swift in Sources */,
 				8199A22223F697870098F149 /* MatchCoupletView.swift in Sources */,
 				6446374F241FA2DD00240981 /* CardView.swift in Sources */,
+				4061BC3D243EF90100D847F6 /* LanterFestivalView.swift in Sources */,
 				6446374E241FA2DD00240981 /* PageView.swift in Sources */,
 				64463732241F95A500240981 /* SecondViewController.swift in Sources */,
 				6345324923FBAFF400875F17 /* Helper Views.swift in Sources */,

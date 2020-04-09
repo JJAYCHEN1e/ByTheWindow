@@ -9,6 +9,7 @@
 import SwiftUI
 
 struct PageView<Page: View>: View {
+    @EnvironmentObject var navigation: NavigationStack
     var viewControllers: [UIHostingController<Page>]
     @State var currentPage = 0
 //    @EnvironmentObject var rightPage = 0
@@ -21,6 +22,18 @@ struct PageView<Page: View>: View {
         VStack {
             ZStack {
                 PageViewController(controllers: viewControllers, currentPage: $currentPage)
+                Button(action: {
+                               withAnimation(){
+                                   self.navigation.unwind()
+                               }
+                           }) {
+                           Text("返回")
+                               .font(.custom("?| ", size: 40))
+                               .foregroundColor(Color.white)
+                               .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 12)
+                               .shadow(color: Color.black.opacity(0.1), radius: 1, x: 0, y: 2)
+                           }
+                           .offset(x:470 , y: -320)
             }
         }
     }
