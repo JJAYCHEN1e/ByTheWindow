@@ -26,6 +26,14 @@ struct Cards : Identifiable {
             return AnyView(GreetingCardView())
         case "border07":
             return  AnyView(LanternRiddle())
+        case "LanFesBorder_03":
+            return AnyView(MakeRiceDumplingView())
+        case "LanFesBorder_04":
+            return AnyView(PerfumebagView())
+        case "LanFesBorder_05":
+            return nil;
+        case "LanFesBorder_07":
+            return AnyView(EggDrawingView())
         default:
             return nil
         }
@@ -46,76 +54,8 @@ let cards = [
 
 
 struct SpringFestivalView: View {
-    @State var viewState : CGFloat = 0
-    @State var jesState = CGSize.zero
     var body: some View {
-        
-        HStack(spacing: 0){
-            HStack(spacing: 0) {
-                ForEach(cards) { item in
-                    GeometryReader { geometry in
-                        //CardView
-                        ZStack{
-                            Image(item.image)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(height : screen.height)
-                            
-                            
-                            Image(item.words)
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                                .frame(height : screen.height)
-                                .shadow(color: Color.white.opacity(0.2), radius: 120, x: 0, y: 13)
-                                .position(x: (geometry.frame(in: .global).minX + screen.width)/2, y: screen.height/2)
-                            
-                            
-                        }
-                        
-                    }
-                    //CardView
-                }
-                .frame(width: screen.width, height: screen.height)
-                .offset(x: screen.width*3)
-                    
-                    .offset(x: self.jesState.width)
-                    .offset(x: self.viewState)
-
-                .animation(.linear(duration: 0))
-                    
-                       
-        
-
-                .gesture(
-                    DragGesture()
-                     .onChanged{value in
-                         self.jesState = value.translation
-                         
-                    }
-                        .onEnded{ value in
-                            if value.translation.width > 100
-                            {
-                                self.viewState += screen.width
-                            }
-                            if value.translation.width < -100
-                            {
-                                self.viewState -= screen.width
-                            }
-                            self.jesState = .zero
-                    }
-                    
-                )
-                
-            }
-            
-        }
-            
-       
-        
-        
-        
-        
-        
+        Text("Hello World")
     }
 }
 

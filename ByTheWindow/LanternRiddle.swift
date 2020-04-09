@@ -99,7 +99,7 @@ struct LanternRiddle: View {
                         
 
                         
-                        Text(update ? "true" : "false")
+                        Text(update ? "true" : "刷新")
                             .font(.custom("?| ", size: 40))
                             .foregroundColor(Color.white)
                             .shadow(color: Color.black.opacity(0.1), radius: 10, x: 0, y: 12)
