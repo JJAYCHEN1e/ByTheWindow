@@ -314,7 +314,8 @@
                     <navigationItem key="navigationItem" id="M4r-xi-noX"/>
                     <connections>
                         <outlet property="nangImage" destination="5HI-iu-CSZ" id="puv-uA-p47"/>
-                        <outlet property="poemTitle" destination="Wcc-X8-qTS" id="HFa-zA-fRE"/>
+                        <outlet property="poem1" destination="Wcc-X8-qTS" id="Btd-UN-UjY"/>
+                        <outlet property="poem2" destination="nU6-Si-hGu" id="lpf-pY-E5K"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xbR-ry-jW3" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>

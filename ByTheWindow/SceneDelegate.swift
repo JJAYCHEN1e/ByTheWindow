@@ -33,7 +33,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let contentView = MatchCoupletView()
         //  let contentView = MakeRiceDumplingView()
         
-          let contentView = HomeView()
+//          let contentView = HomeView()
 //        let contentView = ARCoupletView()
 
         // Use a UIHostingController as window root view controller.
