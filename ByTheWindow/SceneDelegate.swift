@@ -20,7 +20,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
 
         // Create the SwiftUI view that provides the window contents.
-        let contentView = EggDrawingView()
+//        let contentView = EggDrawingView()
         //调试香囊
 //        let contentView = MakeRiceDumplingView()
 //        let contentView = ARCoupletView()
@@ -28,7 +28,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let contentView = SpringFestivalView()
 
 //        let contentView = LanternRiddle()
-        
+        let contentView = PerfumebagView()
 //        调试对对联界面
 //        let contentView = MatchCoupletView()
         //  let contentView = MakeRiceDumplingView()

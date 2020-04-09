@@ -282,8 +282,8 @@
                                 <rect key="frame" x="609" y="0.0" width="395" height="767"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                             </imageView>
-                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="你是个大垃圾" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Wcc-X8-qTS">
-                                <rect key="frame" x="893" y="241" width="51" height="245"/>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="彩线轻缠红玉臂" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="Wcc-X8-qTS">
+                                <rect key="frame" x="848" y="167" width="51" height="301"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
                                 <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                 <fontDescription key="fontDescription" name="MaShanZheng-Regular" family="Ma Shan Zheng" pointSize="40"/>
@@ -300,6 +300,13 @@
                                     <action selector="share:" destination="iG0-rk-wVk" eventType="touchUpInside" id="0by-Hb-RK5"/>
                                 </connections>
                             </button>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" fixedFrame="YES" text="小符斜挂绿云鬟" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="nU6-Si-hGu">
+                                <rect key="frame" x="712" y="167" width="51" height="301"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMinX="YES" widthSizable="YES" flexibleMaxX="YES" flexibleMinY="YES" heightSizable="YES" flexibleMaxY="YES"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" name="MaShanZheng-Regular" family="Ma Shan Zheng" pointSize="40"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                            </textView>
                         </subviews>
                         <color key="backgroundColor" red="0.84612721199999996" green="0.72151046990000001" blue="0.52950805430000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <viewLayoutGuide key="safeArea" id="m1B-Nc-IS1"/>
