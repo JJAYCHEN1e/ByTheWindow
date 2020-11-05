@@ -47,4 +47,3 @@ final class NavigationStack: ObservableObject {
         
     }
 }
-
