@@ -70,7 +70,7 @@ struct MooncakeView: View {
                         .frame(width: 500, height: 500)
                     
                     Image(mooncakeImages[self.optionIndex[self.ans]])
-//                    .resizable()
+                        .scaleEffect(0.8)
 //                        .frame(width: 390, height: 390)
                 }.padding(.leading, 150)
                 
