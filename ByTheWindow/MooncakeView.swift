@@ -49,8 +49,10 @@ struct MooncakeView: View {
     @State var optionIndex = initOptions()
     @State var ans:Int = Int(arc4random() % 4)
     @State var showAns:Bool = false
+    @State var showResult: Bool = false
     @State var hintSize:Int = 50
     @State var mooncakeImageId = arc4random()
+    @State var ansTimer:Timer!
     
     private func shuffle() {
         var p = 0
@@ -109,13 +111,28 @@ struct MooncakeView: View {
                                     .transition(.opacity)
                                 .id(arc4random())
                                     .foregroundColor(.black)
+                                
+                                Image(i == self.ans ? "tick" : "fork")
+                                .resizable()
+                                .frame(width: 40, height: 40)
+                                .foregroundColor(Color(#colorLiteral(red: 0.7803921569, green: 0.2039215686, blue: 0.1254901961, alpha: 1)))
+                                    .padding(.leading, 10)
+                                    .transition(.opacity)
+                                    .opacity(self.showResult ? 1.0 : 0.0)
                             }.padding(.bottom, 40)
                                 .onTapGesture {
                                     withAnimation(.easeInOut(duration: 1.1)) {
-                                        self.showAns = true
-                                        self.title = mooncakeNames[self.optionIndex[self.ans]]
-                                        self.hintText = mooncakeDescription[self.optionIndex[self.ans]]
-                                        self.hintSize = 34
+                                        self.showResult = true
+                                        self.ansTimer = Timer.scheduledTimer(withTimeInterval: 0.9, repeats: false, block: { timer in
+                                            withAnimation(.easeInOut(duration: 1.1)) {
+                                                self.showResult = false
+                                                self.showAns = true
+                                                self.title = mooncakeNames[self.optionIndex[self.ans]]
+                                                self.hintText = mooncakeDescription[self.optionIndex[self.ans]]
+                                                self.hintSize = 34
+                                            }
+                                        })
+
                                     }
                             }
                         }
@@ -144,7 +161,7 @@ struct MooncakeView: View {
                             .font(.custom("MaShanZheng-Regular", size: 45))
                             .foregroundColor(.black)
                     }.padding(.top, 70)
-                }.offset(x: -55, y: 0)
+                }.offset(x: -120, y: 0)
                     .opacity(self.showAns ? 1 : 0)
                 
                 Spacer()
