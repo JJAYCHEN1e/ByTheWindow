@@ -11,6 +11,17 @@ import SwiftUI
 let mooncakeNames = ["广式月饼", "晋式月饼", "潮式月饼", "苏式月饼", "滇式月饼", "京式月饼",
 "徽式月饼", "衢式月饼", "秦式月饼", "丰镇月饼" ]
 let mooncakeImages = ["guang", "jin", "chao", "su", "dian", "jing", "hui", "qu", "qin", "fengzhen"]
+let mooncakeDescription = ["皮薄松软、造型美观、图案精致、花纹清晰",
+    "性质古朴，口味淳厚，酥绵爽口，甜而不腻",
+    "皮酥馅细，油不肥舌，甜不腻口，可分绿豆、乌豆、水晶、紫芋等种类",
+    "皮层酥松，色泽美观，馅料肥而不腻，口感酥脆",
+    "采用了滇式火腿，饼皮疏松，馅料咸甜适口，有独特的滇式火腿香味",
+    "甜度及皮馅比适中，重用麻油，口味清甜，口感脆松",
+    "其表皮是油酥皮，小巧玲珑，洁白如玉，皮酥馅饱",
+    "以芝麻为重要原料. 也被称为——衢州麻饼",
+    "以鲍鱼月饼、茶月饼、玉米月饼、无糖月饼等为主要特点，荤素兼备",
+    "焦黄松软、香脆可口、绵甜悠长、油而不腻"
+]
 
 func initOptions() -> [Int] {
     var p = 0
@@ -34,9 +45,12 @@ func initOptions() -> [Int] {
 
 struct MooncakeView: View {
     @State var title:String = "猜月饼"
-    @State var hint:String = "猜猜这是哪一种月饼"
+    @State var hintText:String = "猜猜这是哪一种月饼"
     @State var optionIndex = initOptions()
     @State var ans:Int = Int(arc4random() % 4)
+    @State var showAns:Bool = false
+    @State var hintSize:Int = 50
+    @State var mooncakeImageId = arc4random()
     
     private func shuffle() {
         var p = 0
@@ -55,6 +69,7 @@ struct MooncakeView: View {
             }
         }
         self.ans = Int(arc4random() % UInt32(optionIndex.count))
+        self.mooncakeImageId = arc4random()
     }
     
     var body: some View {
@@ -71,30 +86,71 @@ struct MooncakeView: View {
                     
                     Image(mooncakeImages[self.optionIndex[self.ans]])
                         .scaleEffect(0.8)
+                        .transition(.opacity)
+                        .animation(.easeInOut(duration:     1.2))
 //                        .frame(width: 390, height: 390)
                 }.padding(.leading, 150)
+                    .offset(x: self.showAns ? 200 : 0, y: 0)
+                    .id(mooncakeImageId)
                 
                 VStack {
                     ForEach(0 ..< self.optionIndex.count) {i in
-                        HStack {
-                            Image("latern")
-                                .resizable()
-                                .frame(width: 40, height: 40)
-                                .padding(.trailing, 10)
-                            Text(mooncakeNames[self.optionIndex[i]])
-                                .font(.custom("MaShanZheng-Regular", size: 45))
-                        }.padding(.bottom, 40)
-                            .onTapGesture {
-                                if i == self.ans {
-                                    self.shuffle()
-                                }
+                        Button(action: {
+                            
+                        }) {
+                            HStack {
+                                Image("latern")
+                                    .resizable()
+                                    .frame(width: 40, height: 40)
+                                    .padding(.trailing, 10)
+                                    .foregroundColor(Color(#colorLiteral(red: 0.7803921569, green: 0.2039215686, blue: 0.1254901961, alpha: 1)))
+                                Text(mooncakeNames[self.optionIndex[i]])
+                                    .font(.custom("MaShanZheng-Regular", size: 45))
+                                    .transition(.opacity)
+                                .id(arc4random())
+                                    .foregroundColor(.black)
+                            }.padding(.bottom, 40)
+                                .onTapGesture {
+                                    withAnimation(.easeInOut(duration: 1.1)) {
+                                        self.showAns = true
+                                        self.title = mooncakeNames[self.optionIndex[self.ans]]
+                                        self.hintText = mooncakeDescription[self.optionIndex[self.ans]]
+                                        self.hintSize = 34
+                                    }
+                            }
                         }
                     }
                 }.padding(.leading, 110)
                     .padding(.top, 60)
+                    .opacity(self.showAns ? 0.0 : 1.0)
+                
+                VStack {
+                    Button(action: {}) {
+                        Text("继续")
+                            .font(.custom("MaShanZheng-Regular", size: 50))
+                            .foregroundColor(.black)
+                            .onTapGesture {
+                                withAnimation(.easeInOut(duration: 1.1)) {
+                                    self.shuffle()
+                                    self.title = "猜月饼"
+                                    self.hintText = "猜猜这是哪一种月饼"
+                                    self.showAns = false
+                                    self.hintSize = 50
+                                }
+                        }
+                    }
+                    Button(action: {}) {
+                        Text("返回")
+                            .font(.custom("MaShanZheng-Regular", size: 45))
+                            .foregroundColor(.black)
+                    }.padding(.top, 70)
+                }.offset(x: -55, y: 0)
+                    .opacity(self.showAns ? 1 : 0)
+                
                 Spacer()
             }
-            HintView(hintText: $hint)
+            
+            MooncakeHintView(hintText: $hintText, hintSize: $hintSize)
         }
     }
 }
@@ -106,6 +162,22 @@ struct MooncakeBackgroundView: View {
                 .resizable()
                 .frame(width: 1200, height: 850)
                 .edgesIgnoringSafeArea(.all)
+        }
+    }
+}
+
+struct MooncakeHintView: View {
+    @Binding var hintText:String
+    @Binding var hintSize:Int
+    var body: some View {
+        VStack {
+            Spacer()
+            Text(self.hintText)
+                .font(.custom("MaShanZheng-Regular", size: CGFloat(self.hintSize)))
+                .padding(.bottom, 60)
+                .foregroundColor(.white)
+                .transition(.opacity)
+                .id(self.hintText)
         }
     }
 }

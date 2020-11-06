@@ -696,7 +696,7 @@ struct FinishedView: View {
                 Spacer()
                 // TODO: 返回
                 Button(action: {
-                    
+                
                 }) {
                     Text("返回")
                         .font(.custom("MaShanZheng-Regular", size: 50))
