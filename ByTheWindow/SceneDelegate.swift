@@ -30,6 +30,8 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        let contentView = LanternRiddle()
 //        let contentView = PerfumebagView()
 //        调试月饼界面
+//        let contentView = MooncakeView()
+//        调试桂花酒界面
         let contentView = OsmanthusWineView()
 //        调试对对联界面
 //        let contentView = MatchCoupletView()

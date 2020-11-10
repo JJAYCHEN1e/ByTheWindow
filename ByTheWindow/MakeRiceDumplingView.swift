@@ -171,7 +171,7 @@ struct TitleView: View {
             Text(self.text)
                 .font(.custom("MaShanZheng-Regular", size: 70))
                 .padding(.top, 35)
-                .foregroundColor(Color(#colorLiteral(red: 0.9686274529, green: 0.78039217, blue: 0.3450980484, alpha: 1)))
+                .foregroundColor(Color(#colorLiteral(red: 0.846127212, green: 0.7215104699, blue: 0.5295080543, alpha: 1)))
                 .transition(.opacity)
                 .id(self.text)
             Spacer()

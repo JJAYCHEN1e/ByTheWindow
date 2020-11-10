@@ -12,6 +12,7 @@ class OsmanthusWineMakerViewController: UIViewController {
     @IBOutlet weak var osmanthusOnWine: UIImageView!
     @IBOutlet weak var osmanthus: UIImageView!
     @IBOutlet weak var dragImage: UIImageView!
+    @IBOutlet weak var hint: UILabel!
     var osmanthusIsOnWine: Bool!
     
     override func viewDidLoad() {
@@ -44,6 +45,7 @@ class OsmanthusWineMakerViewController: UIViewController {
             dragImage.isHidden = true
             osmanthusOnWine.isHidden = false
             osmanthusIsOnWine = true
+            hint.text = "桂花酒制作完成！"
         }
         
     }

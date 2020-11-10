@@ -11,6 +11,7 @@ import UIKit
 class OsmanthusWineViewController: UIViewController {
     
     @IBOutlet weak var image: UIImageView!
+    @IBOutlet weak var hint: UILabel!
     @IBOutlet weak var nextBtn: UIButton!
     
     var period: Int!
@@ -29,6 +30,7 @@ class OsmanthusWineViewController: UIViewController {
         } else {
             image.image = UIImage(named: "shake-tree-3")
             nextBtn.isEnabled = true
+            hint.text = "点击桌面"
         }
     }
     
