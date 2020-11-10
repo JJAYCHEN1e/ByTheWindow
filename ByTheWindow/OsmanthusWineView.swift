@@ -12,6 +12,7 @@ struct OsmanthusWineView: View {
     var body: some View {
         ZStack {
             OsmanthusWineController()
+                .edgesIgnoringSafeArea(.all)
         }
     }
 }

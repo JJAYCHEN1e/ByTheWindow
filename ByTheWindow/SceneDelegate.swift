@@ -32,7 +32,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        调试月饼界面
 //        let contentView = MooncakeView()
 //        调试桂花酒界面
-        let contentView = OsmanthusWineView()
+        let contentView = KongmingLanternView().edgesIgnoringSafeArea(.all)
 //        调试对对联界面
 //        let contentView = MatchCoupletView()
         //  let contentView = MakeRiceDumplingView()
