@@ -34,6 +34,13 @@ struct Cards : Identifiable {
             return nil;
         case "LanFesBorder_07":
             return AnyView(EggDrawingView())
+     
+        case "长卷边框2_04":
+            return AnyView(MooncakeView())
+        case "长卷边框2_05":
+            return AnyView(OsmanthusWineView())
+        case "长卷边框2_06":
+            return AnyView(KongmingLanternView())
         default:
             return nil
         }

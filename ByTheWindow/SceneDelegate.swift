@@ -32,12 +32,12 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 //        调试月饼界面
 //        let contentView = MooncakeView()
 //        调试桂花酒界面
-        let contentView = KongmingLanternView().edgesIgnoringSafeArea(.all)
+//        let contentView = KongmingLanternView().edgesIgnoringSafeArea(.all)
 //        调试对对联界面
 //        let contentView = MatchCoupletView()
         //  let contentView = MakeRiceDumplingView()
         
-//          let contentView = HomeView()
+          let contentView = HomeView()
 //        let contentView = ARCoupletView()
 
         // Use a UIHostingController as window root view controller.

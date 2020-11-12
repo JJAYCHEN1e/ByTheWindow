@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		4061BC3D243EF90100D847F6 /* LanterFestivalView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4061BC3C243EF90100D847F6 /* LanterFestivalView.swift */; };
+		40AB27C1255D6939002D617F /* MidAutumnFestival.swift in Sources */ = {isa = PBXBuildFile; fileRef = 40AB27C0255D6939002D617F /* MidAutumnFestival.swift */; };
 		4E81888F23FE2A3F00739BE0 /* LanternRiddle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */; };
 		6302788523F92669009C8FF2 /* 叶根友福荣银钩.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */; };
 		6333654A23EC14870072E311 /* BOApplePencilReachability.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6333654923EC14870072E311 /* BOApplePencilReachability.swift */; };
@@ -57,6 +58,7 @@
 
 /* Begin PBXFileReference section */
 		4061BC3C243EF90100D847F6 /* LanterFestivalView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LanterFestivalView.swift; sourceTree = "<group>"; };
+		40AB27C0255D6939002D617F /* MidAutumnFestival.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MidAutumnFestival.swift; sourceTree = "<group>"; };
 		4E81888E23FE2A3F00739BE0 /* LanternRiddle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LanternRiddle.swift; sourceTree = "<group>"; };
 		6302788423F92669009C8FF2 /* 叶根友福荣银钩.ttf */ = {isa = PBXFileReference; lastKnownFileType = file; path = "叶根友福荣银钩.ttf"; sourceTree = "<group>"; };
 		630F783C2402441C00FEFAC5 /* HelperFunctions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelperFunctions.swift; sourceTree = "<group>"; };
@@ -239,6 +241,7 @@
 				64463749241FA2DD00240981 /* PageView.swift */,
 				6446374B241FA2DD00240981 /* PageViewController.swift */,
 				6446374C241FA2DD00240981 /* SpringFestivalView.swift */,
+				40AB27C0255D6939002D617F /* MidAutumnFestival.swift */,
 				4061BC3C243EF90100D847F6 /* LanterFestivalView.swift */,
 			);
 			path = ScrollView;
@@ -372,6 +375,7 @@
 				647F0B3F24066BD400459089 /* Grid.swift in Sources */,
 				634AA69123E9AADE00ED6AA0 /* AppDelegate.swift in Sources */,
 				6337045123F8F614004BBE0A /* GreetingCardView.swift in Sources */,
+				40AB27C1255D6939002D617F /* MidAutumnFestival.swift in Sources */,
 				64463734241F95A500240981 /* FirstViewController.swift in Sources */,
 				63761C43242A0CC600FC8A8A /* HelperFunctions.swift in Sources */,
 				81C66062241FA83400A1EA03 /* NavigationHost.swift in Sources */,
@@ -542,7 +546,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ByTheWindow/Preview Content\"";
-				DEVELOPMENT_TEAM = JJQWTC8B37;
+				DEVELOPMENT_TEAM = Q66549VN3W;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ByTheWindow/Info.plist;
@@ -552,7 +556,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = me.wangguofan.bythewindow;
+				PRODUCT_BUNDLE_IDENTIFIER = Bai.byTheWindow;
 				PRODUCT_NAME = ByTheWindow;
 				SWIFT_VERSION = 5.0;
 				SYSTEM_FRAMEWORK_SEARCH_PATHS = "";
@@ -566,7 +570,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Manual;
 				DEVELOPMENT_ASSET_PATHS = "\"ByTheWindow/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = Q66549VN3W;
 				ENABLE_PREVIEWS = YES;
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = ByTheWindow/Info.plist;
@@ -576,7 +580,7 @@
 					"@executable_path/Frameworks",
 				);
 				OTHER_LDFLAGS = "";
-				PRODUCT_BUNDLE_IDENTIFIER = com.bai.byTheWindow;
+				PRODUCT_BUNDLE_IDENTIFIER = Bai.byTheWindow;
 				PRODUCT_NAME = ByTheWindow;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_VERSION = 5.0;
